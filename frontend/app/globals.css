@@ -20,7 +20,7 @@ body {
 
 body {
   color: #1d1d1f;
-  /* Latar bergradasi lembut ala Apple, plus blob warna */
+  /* Latar bergradasi lembut khas, plus blob warna */
   background:
     radial-gradient(60rem 60rem at 12% -10%, rgba(10, 132, 255, 0.16), transparent 60%),
     radial-gradient(55rem 55rem at 100% 0%, rgba(52, 199, 89, 0.14), transparent 55%),

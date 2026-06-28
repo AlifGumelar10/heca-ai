@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 /**
- * "Semua tentang HeCa AI" — pop-up TENGAH layar ala Apple UI
+ * "Semua tentang HeCa AI" — pop-up TENGAH layar bergaya UI Khas
  * (sudut membulat, kaca buram, animasi pop). Berisi kisah perjalanan
  * penelitian hingga lahirnya HeCa AI, metode, dataset, dan hasil evaluasi.
  * Kartu "Arsitektur Sistem" dihapus; "Cara Membaca Hasil" pindah ke sisi
@@ -317,7 +317,7 @@ export default function Documentation() {
         </span>
       </button>
 
-      {/* Pop-up tengah ala Apple */}
+      {/* Pop-up tengah bergaya UI Khas */}
       {open && (
         <div className="fixed inset-0 z-[90] flex items-center justify-center p-4 sm:p-6">
           {/* Overlay */}

@@ -50,7 +50,7 @@ Menggabungkan **LMPNN (k=9)** dan **Split Conformal Prediction** untuk memetakan
 - **Split Conformal Prediction** yang memberi prediction set dengan jaminan cakupan.
 - **Meter kredibilitas dan keyakinan** yang mudah dipahami orang awam.
 - **Visualisasi tetangga KNN** untuk menjelaskan dasar setiap prediksi.
-- **UI ber-estetika Apple / Glass** : sudut membulat, efek kaca buram, mode gelap, dan animasi halus.
+- **UI ber-estetika Khas / Glass** : sudut membulat, efek kaca buram, mode gelap, dan animasi halus.
 - **Dokumentasi interaktif** : laci pop-up berisi perjalanan penelitian, keilmuan algoritma, dan daftar 107 kategori.
 
 ---
@@ -81,7 +81,7 @@ HeCa AI memakai arsitektur tiga lapis (3-tier):
 heca-ai/
 |- ml-service/     # FastAPI : inferensi LMPNN + Conformal Prediction
 |- backend/        # Laravel : API gateway + PostgreSQL (riwayat)
-|- frontend/       # Next.js : UI Apple/Glass + chat + visualisasi KNN/CP
+|- frontend/       # Next.js : UI Khas/Glass + chat + visualisasi KNN/CP
 |- docker-compose.yml
 ```
 

@@ -7,7 +7,7 @@ import { fetchClasses } from "@/lib/api";
  * "107 Kategori Medis" — laci ketiga bergaya POSTER + TABEL.
  * Mengambil daftar 107 kelas secara live dari API (/classes) lalu
  * menampilkannya dalam tabel ber-nomor dengan kotak pencarian.
- * Pop-up TENGAH layar ala Apple UI (sudut membulat, kaca buram, animasi pop).
+ * Pop-up TENGAH layar bergaya UI Khas (sudut membulat, kaca buram, animasi pop).
  */
 
 // Ubah label mentah (mis. "gangguan-tidur") menjadi rapi ("Gangguan Tidur").
@@ -217,7 +217,7 @@ export default function Categories() {
         </span>
       </button>
 
-      {/* Pop-up tengah ala Apple */}
+      {/* Pop-up tengah bergaya UI Khas */}
       {open && (
         <div className="fixed inset-0 z-[90] flex items-center justify-center p-4 sm:p-6">
           <div

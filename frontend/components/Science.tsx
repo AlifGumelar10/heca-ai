@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
  * dipahami orang awam:
  *   1. LMPNN (Local Mean Pseudo Nearest Neighbor) — mesin klasifikasi.
  *   2. Split Conformal Prediction — jaminan statistik kepercayaan.
- * Pop-up TENGAH layar ala Apple UI (sudut membulat, kaca buram, animasi pop).
+ * Pop-up TENGAH layar bergaya UI Khas (sudut membulat, kaca buram, animasi pop).
  * Typography besar bergaya poster: eyebrow, display title, gradien, badge.
  */
 
@@ -333,7 +333,7 @@ export default function Science() {
         </span>
       </button>
 
-      {/* Pop-up tengah ala Apple */}
+      {/* Pop-up tengah bergaya UI Khas */}
       {open && (
         <div className="fixed inset-0 z-[90] flex items-center justify-center p-4 sm:p-6">
           <div
