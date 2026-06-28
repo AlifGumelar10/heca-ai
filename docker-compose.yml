@@ -1,0 +1,65 @@
+# ============================================================
+# HeA AI — Orkestrasi 3-tier
+#   db (PostgreSQL) ← backend (Laravel) ← frontend (Next.js)
+#                       ↓
+#                  ml-service (FastAPI + model LMPNN/CP)
+# ============================================================
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: heca
+      POSTGRES_USER: heca
+      POSTGRES_PASSWORD: secret
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U heca"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  ml-service:
+    build: ./ml-service
+    environment:
+      MODELS_DIR: /app/models
+    volumes:
+      - ./ml-service/models:/app/models
+    ports:
+      - "8001:8001"
+
+  backend:
+    build: ./backend
+    depends_on:
+      db:
+        condition: service_healthy
+      ml-service:
+        condition: service_started
+    environment:
+      APP_ENV: local
+      APP_DEBUG: "true"
+      APP_KEY: ${APP_KEY:-}
+      DB_CONNECTION: pgsql
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_DATABASE: heca
+      DB_USERNAME: heca
+      DB_PASSWORD: secret
+      ML_SERVICE_URL: http://ml-service:8001
+      FRONTEND_URL: http://localhost:3000
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build: ./frontend
+    depends_on:
+      - backend
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:8000/api
+    ports:
+      - "3000:3000"
+
+volumes:
+  pgdata:

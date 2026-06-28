@@ -1,0 +1,72 @@
+# ===========================================
+#  HeCa AI - .gitignore (root proyek)
+# ===========================================
+
+# --- OS / Editor ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# ===========================================
+#  FRONTEND (Next.js / Node)
+# ===========================================
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/build/
+frontend/.env
+frontend/.env*.local
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/.vercel
+frontend/*.tsbuildinfo
+frontend/next-env.d.ts
+
+# ===========================================
+#  BACKEND (Laravel / PHP)
+# ===========================================
+backend/vendor/
+backend/node_modules/
+backend/.env
+backend/.env.backup
+backend/.env.production
+backend/public/storage
+backend/storage/*.key
+backend/storage/framework/cache/*
+backend/storage/framework/sessions/*
+backend/storage/framework/views/*
+backend/storage/logs/*
+backend/bootstrap/cache/*
+backend/.phpunit.result.cache
+backend/Homestead.json
+backend/Homestead.yaml
+backend/auth.json
+backend/sessions/
+
+# ===========================================
+#  ML SERVICE (Python / FastAPI)
+# ===========================================
+ml-service/.venv/
+ml-service/venv/
+ml-service/__pycache__/
+ml-service/**/__pycache__/
+ml-service/*.pyc
+ml-service/.env
+ml-service/.pytest_cache/
+ml-service/.ipynb_checkpoints/
+
+# Catatan: file model (.pkl/.joblib) JANGAN di-ignore kalau perlu untuk deploy.
+# Kalau ukurannya besar (>100MB), gunakan Git LFS.
+# Uncomment baris di bawah HANYA jika kamu TIDAK mau upload model:
+# ml-service/*.pkl
+# ml-service/*.joblib
+
+# ===========================================
+#  Lain-lain
+# ===========================================
+*.log
+*.zip
+*.tmp
