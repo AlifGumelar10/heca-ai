@@ -14,6 +14,8 @@ Menggabungkan **LMPNN (k=9)** dan **Split Conformal Prediction** untuk memetakan
 [![PostgreSQL](https://img.shields.io/badge/Database-PostgreSQL-4169E1?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
 [![Python](https://img.shields.io/badge/Python-3.11+-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 
+### 🔗 [Live Demo : heca-ai.vercel.app](https://heca-ai.vercel.app)
+
 </div>
 
 ---
@@ -209,9 +211,37 @@ Contoh respons `POST /api/consultations` (bagian `data`):
 
 ## Deployment
 
-- **Frontend ke Vercel.** Import folder `frontend/`, set env `NEXT_PUBLIC_API_URL` ke URL backend publik.
-- **Backend + ML Service + PostgreSQL ke VPS atau Cloud via Docker.** Jalankan `docker compose up -d` di server, lalu arahkan domain/HTTPS (mis. Nginx atau Caddy) ke port 8000.
-- Pastikan `FRONTEND_URL` di backend menunjuk domain Vercel agar CORS lolos.
+Versi produksi HeCa AI berjalan sepenuhnya di layanan gratis (tanpa kartu kredit), dengan arsitektur serverless:
+
+| Layer | Platform | Keterangan |
+|-------|----------|-----------|
+| Frontend + API | **Vercel** | Next.js App Router. API gateway dipindah dari Laravel ke Next.js Route Handlers (`frontend/app/api/*`). |
+| ML Service | **Hugging Face Spaces** | FastAPI (LMPNN + Conformal Prediction) di-container via Docker. |
+| Database | **Supabase** | PostgreSQL terkelola untuk menyimpan riwayat konsultasi. |
+
+```
+Browser  -->  Vercel (Next.js + API Routes)  -->  Hugging Face Space (FastAPI)
+                      |
+                      v
+                 Supabase (PostgreSQL)
+```
+
+### Environment variables (Vercel)
+
+| Variabel | Contoh nilai |
+|----------|--------------|
+| `NEXT_PUBLIC_API_URL` | `/api` |
+| `ML_SERVICE_URL` | `https://<user>-heca-ai-ml.hf.space` |
+| `SUPABASE_URL` | `https://<project>.supabase.co` |
+| `SUPABASE_SERVICE_ROLE_KEY` | *(secret key Supabase)* |
+
+### Langkah ringkas
+
+1. **Database** : buat tabel `consultations` di Supabase (jalankan `supabase_setup.sql` di SQL Editor).
+2. **ML Service** : deploy folder `ml-service/` beserta `models/` sebagai Hugging Face Space bertipe Docker.
+3. **Frontend + API** : import repo ke Vercel, set Root Directory `frontend`, Framework Preset **Next.js**, isi environment variables di atas, lalu Deploy.
+
+> Catatan: setup lokal/Docker (Laravel + PostgreSQL) di atas tetap berlaku untuk pengembangan. Pada produksi, peran Laravel digantikan oleh Next.js Route Handlers agar seluruh stack gratis dan serverless.
 
 ---
 
