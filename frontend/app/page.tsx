@@ -9,6 +9,7 @@ import HowItWorks from "@/components/HowItWorks";
 import Documentation from "@/components/Documentation";
 import Science from "@/components/Science";
 import Categories from "@/components/Categories";
+import Glossary from "@/components/Glossary";
 import CursorTrail from "@/components/CursorTrail";
 import HealthBackground from "@/components/HealthBackground";
 
@@ -53,14 +54,17 @@ export default function Home() {
           </h2>
         </div>
         <img
-          src="https://qktrbkbvszqyxexuzump.supabase.co/storage/v1/object/public/posters/poster_3000.webp"
+          src="https://qktrbkbvszqyxexuzump.supabase.co/storage/v1/object/public/posters/poster_lossless.png"
           alt="Poster Skripsi HeCa AI - Alif Gumelar Syah Moeslim"
           className="mx-auto w-full max-w-[900px] rounded-3xl shadow-lg"
           loading="lazy"
         />
       </section>
 
-      <footer id="tentang" className="mx-auto max-w-5xl px-4 pt-4">
+      {/* Glosarium - laci terakhir */}
+      <Glossary />
+
+      <footer id="tentang" className="mx-auto max-w-5xl px-4 pt-16">
         <div className="glass rounded-4xl px-6 py-8 text-center">
           {/* Logo di footer */}
           <div className="mb-3 flex justify-center">
