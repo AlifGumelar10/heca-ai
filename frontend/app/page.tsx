@@ -54,7 +54,7 @@ export default function Home() {
           </h2>
         </div>
         <img
-          src="https://qktrbkbvszqyxexuzump.supabase.co/storage/v1/object/public/posters/poster_lossless.png"
+          src="https://qktrbkbvszqyxexuzump.supabase.co/storage/v1/object/public/posters/poster_3000.webp"
           alt="Poster Skripsi HeCa AI - Alif Gumelar Syah Moeslim"
           className="mx-auto w-full max-w-[900px] rounded-3xl shadow-lg"
           loading="lazy"
