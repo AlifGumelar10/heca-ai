@@ -44,25 +44,18 @@ export default function Home() {
       <Science />
       <Categories />
 
-      {/* Poster penelitian - full resolution */}
-      <section
-        style={{ width: "100%", padding: "2rem 0", background: "#0a0a0a" }}
-      >
-        <h2
-          style={{ textAlign: "center", color: "#fff", marginBottom: "1rem" }}
-        >
-          Poster Penelitian
-        </h2>
+      {/* Poster penelitian */}
+      <section className="mx-auto max-w-5xl px-4 pt-16 text-center">
+        <div className="mb-6">
+          <div className="text-sm font-medium text-ink-soft">Publikasi</div>
+          <h2 className="mt-2 text-4xl font-semibold tracking-tight">
+            Poster Penelitian
+          </h2>
+        </div>
         <img
-          src="https://qktrbkbvszqyxexuzump.supabase.co/storage/v1/object/public/posters/poster_3000.webp"
+          src="https://qktrbkbvszqyxexuzump.supabase.co/storage/v1/object/public/posters/poster_lossless.png"
           alt="Poster Skripsi HeCa AI - Alif Gumelar Syah Moeslim"
-          style={{
-            width: "100%",
-            maxWidth: "900px",
-            height: "auto",
-            display: "block",
-            margin: "0 auto",
-          }}
+          className="mx-auto w-full max-w-[900px] rounded-3xl shadow-lg"
           loading="lazy"
         />
       </section>
