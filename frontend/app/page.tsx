@@ -54,7 +54,7 @@ export default function Home() {
           Poster Penelitian
         </h2>
         <img
-          src="https://qktrbkbvszqyxexuzump.supabase.co/storage/v1/object/public/posters/poster_lossless.png"
+          src="https://qktrbkbvszqyxexuzump.supabase.co/storage/v1/object/public/posters/poster_3000.webp"
           alt="Poster Skripsi HeCa AI - Alif Gumelar Syah Moeslim"
           style={{
             width: "100%",
