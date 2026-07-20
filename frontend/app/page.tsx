@@ -14,7 +14,6 @@ import HealthBackground from "@/components/HealthBackground";
 
 export default function Home() {
   const appRef = useRef<HTMLDivElement>(null);
-
   const scrollToApp = () =>
     appRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
 
@@ -22,7 +21,6 @@ export default function Home() {
     <main className="relative pb-20">
       <HealthBackground />
       <CursorTrail />
-
       <Navbar onCta={scrollToApp} />
       <Hero onStart={scrollToApp} />
 
@@ -42,12 +40,28 @@ export default function Home() {
       </section>
 
       <HowItWorks />
-
       <Documentation />
-
       <Science />
-
       <Categories />
+
+      {/* Poster penelitian - full resolution */}
+      <section style= width: "100%", padding: "2rem 0", background: "#0a0a0a" >
+        <h2 style= textAlign: "center", color: "#fff", marginBottom: "1rem" >
+          Poster Penelitian
+        </h2>
+        <img
+          src="https://qktrbkbvszqyxexuzump.supabase.co/storage/v1/object/public/posters/poster_lossless.png"
+          alt="Poster Skripsi HeCa AI - Alif Gumelar Syah Moeslim"
+          style=
+            width: "100%",
+            maxWidth: "900px",
+            height: "auto",
+            display: "block",
+            margin: "0 auto",
+          
+          loading="lazy"
+        />
+      </section>
 
       <footer id="tentang" className="mx-auto max-w-5xl px-4 pt-4">
         <div className="glass rounded-4xl px-6 py-8 text-center">
