@@ -4,19 +4,19 @@ import { useCallback, useEffect, useState, type ReactNode } from "react";
 
 /**
  * Deck presentasi Sidang Skripsi — muncul sebagai pop-up saat logo HeCa AI
- * diklik. Slide berukuran 16:9 (layaknya PPT), desain selaras web HeCa AI.
+ * diklik. Slide 16:9 (layaknya PPT), desain selaras web HeCa AI.
  *
- * Cara memicu dari mana pun (mis. logo Navbar / footer):
+ * Memicu dari mana pun:
  *   onClick={() => window.dispatchEvent(new CustomEvent("open-heca-deck"))}
  *
- * BAGIAN 1 — PEMBUKAAN (4 slide). Bagian lain dari poster menyusul.
+ * Isi: BAGIAN PEMBUKAAN (4) + BAGIAN 1 LATAR BELAKANG (5) = 9 slide.
  */
 
-const TOTAL = 4;
+const TOTAL = 9;
 
 function SlideShell({ children, n }: { children: ReactNode; n: number }) {
   return (
-    <div className="relative flex h-full w-full flex-col overflow-hidden bg-[#0a1020] px-8 py-7 sm:px-14 sm:py-12">
+    <div className="relative flex h-full w-full flex-col overflow-hidden bg-[#0a1020] px-8 py-6 sm:px-12 sm:py-9">
       {/* dekorasi gradasi */}
       <div className="pointer-events-none absolute -left-16 -top-16 h-56 w-56 rounded-full bg-glass-green/20 blur-3xl" />
       <div className="pointer-events-none absolute -bottom-20 -right-16 h-64 w-64 rounded-full bg-glass-blue/20 blur-3xl" />
@@ -27,9 +27,9 @@ function SlideShell({ children, n }: { children: ReactNode; n: number }) {
           <img
             src="/logo.png"
             alt="HeCa AI"
-            className="h-7 w-7 rounded-lg object-contain"
+            className="h-6 w-6 rounded-lg object-contain"
           />
-          <span className="text-sm font-semibold tracking-tight text-white">
+          <span className="text-xs font-semibold tracking-tight text-white sm:text-sm">
             HeCa AI
           </span>
         </div>
@@ -39,15 +39,25 @@ function SlideShell({ children, n }: { children: ReactNode; n: number }) {
       </div>
 
       {/* isi slide */}
-      <div className="relative z-10 flex flex-1 flex-col justify-center">
+      <div className="relative z-10 flex flex-1 flex-col justify-center py-3">
         {children}
       </div>
 
       {/* footer slide */}
       <div className="relative z-10 flex items-center justify-between text-[10px] text-white/40 sm:text-[11px]">
         <span>Universitas Sebelas April</span>
-        <span className="tabular-nums">{String(n).padStart(2, "0")} / 04</span>
+        <span className="tabular-nums">
+          {String(n).padStart(2, "0")} / {String(TOTAL).padStart(2, "0")}
+        </span>
       </div>
+    </div>
+  );
+}
+
+function Kicker({ children }: { children: ReactNode }) {
+  return (
+    <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/50 sm:text-xs">
+      {children}
     </div>
   );
 }
@@ -82,14 +92,12 @@ const SLIDES: ReactNode[] = [
   // 2 — Fokus penelitian
   <SlideShell n={2} key="fokus">
     <div>
-      <div className="text-xs font-semibold uppercase tracking-[0.2em] text-white/50">
-        Fokus Penelitian
-      </div>
+      <Kicker>Fokus Penelitian</Kicker>
       <h2 className="mt-3 text-xl font-bold leading-snug tracking-tight text-white sm:text-3xl">
         Membuka “kotak hitam” AI kesehatan dengan pendekatan yang transparan dan
         dapat dijelaskan
       </h2>
-      <div className="mt-7 flex flex-wrap gap-2.5">
+      <div className="mt-6 flex flex-wrap gap-2.5">
         {[
           "Explainable AI (XAI)",
           "LMPNN k=9",
@@ -111,16 +119,14 @@ const SLIDES: ReactNode[] = [
   // 3 — Peneliti
   <SlideShell n={3} key="peneliti">
     <div>
-      <div className="text-xs font-semibold uppercase tracking-[0.2em] text-white/50">
-        Peneliti
-      </div>
+      <Kicker>Peneliti</Kicker>
       <h2 className="mt-3 text-2xl font-black tracking-tight text-white sm:text-4xl">
         Alif Gumelar Syah Moeslim
       </h2>
       <p className="mt-1 text-base text-white/60 sm:text-lg">
         NIM 220660121161
       </p>
-      <div className="mt-7 grid gap-2 text-sm text-white/70 sm:text-base">
+      <div className="mt-6 grid gap-2 text-sm text-white/70 sm:text-base">
         <div>Program Studi Informatika</div>
         <div>Fakultas Teknologi Informasi</div>
         <div>Universitas Sebelas April</div>
@@ -131,9 +137,7 @@ const SLIDES: ReactNode[] = [
   // 4 — Dosen Pembimbing
   <SlideShell n={4} key="pembimbing">
     <div>
-      <div className="text-xs font-semibold uppercase tracking-[0.2em] text-white/50">
-        Dosen Pembimbing
-      </div>
+      <Kicker>Dosen Pembimbing</Kicker>
       <div className="mt-5 grid gap-4 sm:grid-cols-2">
         <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
           <div className="text-xs text-white/50">Pembimbing 1</div>
@@ -156,6 +160,170 @@ const SLIDES: ReactNode[] = [
       </div>
     </div>
   </SlideShell>,
+
+  // 5 — Divider Bagian 1
+  <SlideShell n={5} key="bab1-divider">
+    <div className="max-w-3xl">
+      <div className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-6xl font-black leading-none tracking-tighter text-transparent sm:text-8xl">
+        01
+      </div>
+      <h2 className="mt-3 text-2xl font-black tracking-tight text-white sm:text-4xl">
+        Latar Belakang Penelitian
+      </h2>
+      <p className="mt-4 max-w-xl text-sm leading-relaxed text-white/60 sm:text-base">
+        Mengapa Explainable AI dengan LMPNN dan Conformal Prediction penting
+        untuk klasifikasi teks kesehatan?
+      </p>
+    </div>
+  </SlideShell>,
+
+  // 6 — Ledakan data & Black Box
+  <SlideShell n={6} key="bab1-masalah">
+    <div>
+      <Kicker>Latar Belakang · Konteks &amp; Masalah</Kicker>
+      <div className="mt-4 grid gap-4 sm:grid-cols-2">
+        <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
+          <div className="text-sm font-semibold text-white">
+            Ledakan Data Kesehatan Digital
+          </div>
+          <div className="mt-3 flex items-baseline gap-2">
+            <span className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-3xl font-black text-transparent sm:text-4xl">
+              288.105
+            </span>
+            <span className="text-xs text-white/60">data mentah</span>
+          </div>
+          <p className="mt-2 text-xs leading-relaxed text-white/60">
+            Indonesia QnA Health Dataset (Alodokter). Pertanyaan kesehatan di
+            platform digital terus meningkat setiap hari.
+          </p>
+        </div>
+        <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
+          <div className="text-sm font-semibold text-white">
+            Permasalahan Utama: “Black Box”
+          </div>
+          <p className="mt-2 text-xs leading-relaxed text-white/60">
+            Model AI berperforma tinggi, namun sering bertindak sebagai kotak
+            hitam:
+          </p>
+          <ul className="mt-3 space-y-1.5 text-xs text-white/70">
+            <li>✗ Keputusan tidak transparan</li>
+            <li>✗ Sulit dipahami pengguna</li>
+            <li>✗ Risiko salah rekomendasi di domain kesehatan</li>
+          </ul>
+        </div>
+      </div>
+      <p className="mt-4 text-center text-xs italic text-white/50">
+        “Dalam dunia medis, penjelasan sangatlah penting — kepercayaan harus
+        dibangun.”
+      </p>
+    </div>
+  </SlideShell>,
+
+  // 7 — Tantangan spesifik
+  <SlideShell n={7} key="bab1-tantangan">
+    <div>
+      <Kicker>Tantangan Spesifik Klasifikasi Teks Kesehatan</Kicker>
+      <div className="mt-4 grid grid-cols-2 gap-3">
+        {[
+          {
+            t: "Bahasa Alami yang Beragam",
+            d: "Ekspresi pertanyaan kesehatan sangat bervariasi dan tidak terstruktur.",
+          },
+          {
+            t: "Jumlah Kelas Banyak",
+            d: "Setelah filtering: 81.064 data dari 107 kelas medis (min. 300 data/kelas).",
+          },
+          {
+            t: "Data Tidak Seimbang",
+            d: "Sebaran data antar kelas tidak seimbang, memengaruhi performa model.",
+          },
+          {
+            t: "Transparansi & Keamanan",
+            d: "Keputusan harus dapat dijelaskan dan dipercaya tenaga medis/pengguna.",
+          },
+        ].map((c) => (
+          <div
+            key={c.t}
+            className="rounded-2xl border border-white/10 bg-white/5 p-4"
+          >
+            <div className="text-sm font-semibold text-white">{c.t}</div>
+            <p className="mt-1.5 text-xs leading-relaxed text-white/60">
+              {c.d}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </SlideShell>,
+
+  // 8 — Pendekatan
+  <SlideShell n={8} key="bab1-pendekatan">
+    <div>
+      <Kicker>Pendekatan</Kicker>
+      <p className="mt-3 text-sm text-white/70 sm:text-base">
+        Menggabungkan performa prediksi yang kuat dengan penjelasan yang dapat
+        dipahami.
+      </p>
+      <div className="mt-5 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
+        <div className="flex-1 rounded-2xl border border-white/10 bg-white/5 p-4">
+          <div className="text-base font-bold text-white">LMPNN</div>
+          <p className="mt-1 text-xs text-white/60">
+            Prediksi berbasis tetangga yang lebih representatif.
+          </p>
+        </div>
+        <div className="text-center text-xl font-black text-white/40">+</div>
+        <div className="flex-1 rounded-2xl border border-white/10 bg-white/5 p-4">
+          <div className="text-base font-bold text-white">
+            Conformal Prediction
+          </div>
+          <p className="mt-1 text-xs text-white/60">
+            Prediksi dengan ukuran ketidakpastian yang terukur.
+          </p>
+        </div>
+        <div className="text-center text-xl font-black text-white/40">=</div>
+        <div className="flex-1 rounded-2xl border border-glass-green/30 bg-gradient-to-br from-glass-green/15 to-glass-blue/15 p-4">
+          <div className="text-sm font-bold text-white">
+            Akurat, Transparan &amp; Dapat Dipercaya
+          </div>
+          <p className="mt-1 text-xs text-white/70">
+            Prediksi disertai penjelasan yang jelas.
+          </p>
+        </div>
+      </div>
+    </div>
+  </SlideShell>,
+
+  // 9 — Dampak + tagline
+  <SlideShell n={9} key="bab1-dampak">
+    <div>
+      <Kicker>Dampak yang Diharapkan</Kicker>
+      <div className="mt-4 grid gap-3 sm:grid-cols-3">
+        {[
+          "Meningkatkan kepercayaan terhadap sistem AI kesehatan.",
+          "Membantu tenaga medis dalam pengambilan keputusan.",
+          "Mendukung layanan kesehatan digital yang aman & bertanggung jawab.",
+        ].map((d, idx) => (
+          <div
+            key={idx}
+            className="rounded-2xl border border-white/10 bg-white/5 p-4"
+          >
+            <div className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-lg font-black text-transparent">
+              0{idx + 1}
+            </div>
+            <p className="mt-1.5 text-xs leading-relaxed text-white/70">{d}</p>
+          </div>
+        ))}
+      </div>
+      <p className="mt-6 text-center text-sm font-medium text-white/80 sm:text-base">
+        Bukan hanya tentang jawaban yang{" "}
+        <span className="text-white">benar</span>, tapi juga{" "}
+        <span className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text font-bold text-transparent">
+          mengapa
+        </span>{" "}
+        jawaban itu diberikan.
+      </p>
+    </div>
+  </SlideShell>,
 ];
 
 export default function Presentation() {
@@ -166,6 +334,7 @@ export default function Presentation() {
   const next = useCallback(() => setI((v) => Math.min(v + 1, TOTAL - 1)), []);
   const prev = useCallback(() => setI((v) => Math.max(v - 1, 0)), []);
 
+  // Buka via event global (logo footer memakai ini lewat page.tsx).
   useEffect(() => {
     const openDeck = () => {
       setI(0);
@@ -173,6 +342,22 @@ export default function Presentation() {
     };
     window.addEventListener("open-heca-deck", openDeck);
     return () => window.removeEventListener("open-heca-deck", openDeck);
+  }, []);
+
+  // Sambungkan logo di Navbar/header secara otomatis (tanpa mengubah Navbar).
+  useEffect(() => {
+    const openDeck = () =>
+      window.dispatchEvent(new CustomEvent("open-heca-deck"));
+    const nodes = Array.from(
+      document.querySelectorAll<HTMLElement>("nav img, header img"),
+    );
+    nodes.forEach((el) => {
+      el.style.cursor = "pointer";
+      el.addEventListener("click", openDeck);
+    });
+    return () => {
+      nodes.forEach((el) => el.removeEventListener("click", openDeck));
+    };
   }, []);
 
   useEffect(() => {
