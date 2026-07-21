@@ -9,10 +9,10 @@ import { useCallback, useEffect, useState, type ReactNode } from "react";
  * Memicu dari mana pun:
  *   onClick={() => window.dispatchEvent(new CustomEvent("open-heca-deck"))}
  *
- * Isi (padat): PEMBUKAAN (1) + LATAR BELAKANG (3) + METODE (3) = 7 slide.
+ * Isi: PEMBUKAAN (1) + LATAR BELAKANG (3) + METODE (3) + HASIL (5) = 12 slide.
  */
 
-const TOTAL = 7;
+const TOTAL = 12;
 
 /* ---------------------------------- Visual --------------------------------- */
 
@@ -256,6 +256,230 @@ function F1Curve({ className }: { className?: string }) {
   );
 }
 
+function MiniHistogram({
+  heights,
+  color,
+  meanFrac,
+  className,
+}: {
+  heights: number[];
+  color: string;
+  meanFrac?: number;
+  className?: string;
+}) {
+  const W = 200;
+  const H = 92;
+  const pad = 8;
+  const base = H - 12;
+  const n = heights.length;
+  const bw = (W - pad * 2) / n;
+  const max = Math.max(...heights);
+  return (
+    <svg viewBox={`0 0 ${W} ${H}`} className={className}>
+      {heights.map((h, i) => {
+        const bh = (h / max) * (base - 8);
+        return (
+          <rect
+            key={i}
+            x={pad + i * bw + 1}
+            y={base - bh}
+            width={bw - 2}
+            height={bh}
+            rx="1.5"
+            fill={color}
+            opacity="0.85"
+          />
+        );
+      })}
+      <line
+        x1={pad}
+        y1={base}
+        x2={W - pad}
+        y2={base}
+        stroke="#334155"
+        strokeWidth="1.5"
+      />
+      {meanFrac != null && (
+        <line
+          x1={pad + meanFrac * (W - pad * 2)}
+          y1="6"
+          x2={pad + meanFrac * (W - pad * 2)}
+          y2={base}
+          stroke="#e2e8f0"
+          strokeWidth="1.5"
+          strokeDasharray="3 3"
+          opacity="0.75"
+        />
+      )}
+    </svg>
+  );
+}
+
+function ConfusionHeatmap({ className }: { className?: string }) {
+  const N = 12;
+  const size = 15;
+  const gap = 2;
+  const pad = 2;
+  const dim = N * (size + gap) - gap + pad * 2;
+  const cells: ReactNode[] = [];
+  for (let r = 0; r < N; r++) {
+    for (let c = 0; c < N; c++) {
+      let v: number;
+      if (r === c) {
+        v = 0.62 + ((r * 7) % 4) * 0.1;
+      } else {
+        const d = Math.abs(r - c);
+        v = d <= 1 ? 0.14 : ((r * 3 + c * 5) % 5) * 0.03;
+      }
+      cells.push(
+        <rect
+          key={`${r}-${c}`}
+          x={pad + c * (size + gap)}
+          y={pad + r * (size + gap)}
+          width={size}
+          height={size}
+          rx="2"
+          fill="#22d3ee"
+          opacity={Math.max(0.06, Math.min(1, v))}
+        />,
+      );
+    }
+  }
+  return (
+    <svg viewBox={`0 0 ${dim} ${dim}`} className={className}>
+      {cells}
+    </svg>
+  );
+}
+
+function TradeoffChart({ className }: { className?: string }) {
+  const cov = "20,23.7 56,32.7 92,50.7 128,66 164,79.6 200,91.5";
+  const size = "20,15.9 56,59.6 92,80.5 128,87.3 164,90.2 200,91";
+  return (
+    <svg viewBox="0 0 210 112" className={className}>
+      <line
+        x1="20"
+        y1="100"
+        x2="204"
+        y2="100"
+        stroke="#334155"
+        strokeWidth="1.5"
+      />
+      <line
+        x1="20"
+        y1="10"
+        x2="20"
+        y2="100"
+        stroke="#334155"
+        strokeWidth="1.5"
+      />
+      <polyline
+        points={cov}
+        fill="none"
+        stroke="#38bdf8"
+        strokeWidth="2.5"
+        strokeLinejoin="round"
+      />
+      <polyline
+        points={size}
+        fill="none"
+        stroke="#fb923c"
+        strokeWidth="2.5"
+        strokeDasharray="4 3"
+        strokeLinejoin="round"
+      />
+      <text x="112" y="110" textAnchor="middle" fill="#94a3b8" fontSize="9">
+        Significance Level ε
+      </text>
+    </svg>
+  );
+}
+
+function ReliabilityChart({ className }: { className?: string }) {
+  const pts = "24,97.8 42,85.2 60,69 69,60 78,49.2 87,40.2 96,28.5 105,19.5";
+  return (
+    <svg viewBox="0 0 118 118" className={className}>
+      <line
+        x1="15"
+        y1="105"
+        x2="15"
+        y2="15"
+        stroke="#334155"
+        strokeWidth="1.5"
+      />
+      <line
+        x1="15"
+        y1="105"
+        x2="105"
+        y2="105"
+        stroke="#334155"
+        strokeWidth="1.5"
+      />
+      <line
+        x1="15"
+        y1="105"
+        x2="105"
+        y2="15"
+        stroke="#64748b"
+        strokeWidth="1.5"
+        strokeDasharray="4 3"
+      />
+      <polyline
+        points={pts}
+        fill="none"
+        stroke="#34d399"
+        strokeWidth="2.5"
+        strokeLinejoin="round"
+      />
+      {pts.split(" ").map((p, i) => {
+        const [x, y] = p.split(",");
+        return <circle key={i} cx={x} cy={y} r="2.6" fill="#34d399" />;
+      })}
+    </svg>
+  );
+}
+
+function RankBar({
+  rank,
+  name,
+  value,
+  tone,
+}: {
+  rank: number;
+  name: string;
+  value: number;
+  tone: "top" | "low";
+}) {
+  const pct = Math.max(6, Math.min(100, (value / 0.9) * 100));
+  const grad =
+    tone === "top"
+      ? "from-glass-green to-glass-blue"
+      : "from-orange-400 to-rose-500";
+  return (
+    <div className="flex items-center gap-3">
+      <span className="w-4 shrink-0 text-sm font-bold text-white/45">
+        {rank}
+      </span>
+      <div className="flex-1">
+        <div className="flex items-baseline justify-between gap-2">
+          <span className="text-sm font-medium text-white sm:text-base">
+            {name}
+          </span>
+          <span className="shrink-0 text-sm font-bold tabular-nums text-white">
+            {value.toFixed(4)}
+          </span>
+        </div>
+        <div className="mt-1 h-2.5 overflow-hidden rounded-full bg-white/10">
+          <div
+            className={`h-full rounded-full bg-gradient-to-r ${grad}`}
+            style={{ width: `${pct}%` }}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ---------------------------------- Shell ---------------------------------- */
 
 function SlideShell({ children, n }: { children: ReactNode; n: number }) {
@@ -332,6 +556,28 @@ function Panel({
   );
 }
 
+function SectionHead({
+  num,
+  title,
+  note,
+}: {
+  num: string;
+  title: string;
+  note?: string;
+}) {
+  return (
+    <div className="flex items-baseline gap-3">
+      <span className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-5xl font-black tracking-tighter text-transparent sm:text-6xl">
+        {num}
+      </span>
+      <h2 className="text-2xl font-black tracking-tight text-white sm:text-3xl">
+        {title}
+      </h2>
+      {note && <span className="text-sm text-white/45">{note}</span>}
+    </div>
+  );
+}
+
 /* --------------------------------- Slides ---------------------------------- */
 
 const SLIDES: ReactNode[] = [
@@ -385,14 +631,7 @@ const SLIDES: ReactNode[] = [
   // 2 — LATAR BELAKANG: konteks & masalah
   <SlideShell n={2} key="lb-masalah">
     <div className="flex h-full flex-col">
-      <div className="flex items-baseline gap-3">
-        <span className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-5xl font-black tracking-tighter text-transparent sm:text-6xl">
-          01
-        </span>
-        <h2 className="text-2xl font-black tracking-tight text-white sm:text-3xl">
-          Latar Belakang Penelitian
-        </h2>
-      </div>
+      <SectionHead num="01" title="Latar Belakang Penelitian" />
       <p className="mt-2 max-w-2xl text-base text-white/60">
         Mengapa Explainable AI dengan LMPNN &amp; Conformal Prediction penting
         untuk klasifikasi teks kesehatan?
@@ -538,15 +777,7 @@ const SLIDES: ReactNode[] = [
   // 5 — METODE: alur + data
   <SlideShell n={5} key="m-alur">
     <div className="flex h-full flex-col">
-      <div className="flex items-baseline gap-3">
-        <span className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-5xl font-black tracking-tighter text-transparent sm:text-6xl">
-          02
-        </span>
-        <h2 className="text-2xl font-black tracking-tight text-white sm:text-3xl">
-          Metode Penelitian
-        </h2>
-        <span className="text-sm text-white/45">Alur Metodologi</span>
-      </div>
+      <SectionHead num="02" title="Metode Penelitian" note="Alur Metodologi" />
 
       <div className="mt-5 grid grid-cols-3 gap-3 sm:grid-cols-6">
         {[
@@ -712,6 +943,300 @@ const SLIDES: ReactNode[] = [
           Coverage (target 1−ε) · Credibility · Confidence · Prediction Set Size
           · Reliability Diagram
         </Panel>
+      </div>
+    </div>
+  </SlideShell>,
+
+  // 8 — HASIL: divider + ringkasan dataset + performa overall
+  <SlideShell n={8} key="h-overall">
+    <div className="flex h-full flex-col">
+      <SectionHead num="03" title="Hasil Penelitian" />
+
+      <div className="mt-4 grid grid-cols-3 gap-3">
+        {[
+          { v: "288.105", l: "Data Mentah" },
+          { v: "81.064", l: "Setelah Filtering" },
+          { v: "107", l: "Kelas Medis" },
+        ].map((s) => (
+          <div
+            key={s.l}
+            className="rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-center"
+          >
+            <div className="text-xl font-black text-white sm:text-2xl">
+              {s.v}
+            </div>
+            <div className="text-xs text-white/55 sm:text-sm">{s.l}</div>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-4 text-sm font-semibold uppercase tracking-[0.15em] text-white/55">
+        4.1 Performa Overall Model
+        <span className="ml-2 font-normal normal-case tracking-normal text-white/40">
+          (Data Testing: 16.213 sampel)
+        </span>
+      </div>
+
+      <div className="mt-3 grid flex-1 grid-cols-2 gap-4 sm:grid-cols-4">
+        {[
+          { l: "Accuracy", v: "44,75%", g: "from-teal-400 to-emerald-500" },
+          {
+            l: "F1-Score (Macro)",
+            v: "45,48%",
+            g: "from-glass-green to-glass-blue",
+          },
+          {
+            l: "F1-Score (Weighted)",
+            v: "44,82%",
+            g: "from-sky-400 to-indigo-500",
+          },
+          { l: "Baseline Acak", v: "0,93%", g: "from-slate-500 to-slate-600" },
+        ].map((m) => (
+          <div
+            key={m.l}
+            className="flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-white/5 p-4 text-center"
+          >
+            <div className="text-xs font-medium uppercase tracking-wide text-white/55">
+              {m.l}
+            </div>
+            <div
+              className={`mt-2 bg-gradient-to-r ${m.g} bg-clip-text text-3xl font-black text-transparent sm:text-4xl`}
+            >
+              {m.v}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-4 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm leading-relaxed text-white/70 sm:text-base">
+        Model melampaui baseline acak{" "}
+        <span className="font-bold text-white">48,1×</span> · F1-Macro &amp;
+        F1-Weighted seimbang → performa stabil untuk kelas mayoritas maupun
+        minoritas · distribusi F1 per kelas{" "}
+        <span className="font-bold text-white">0,12 – 0,85</span>.
+      </div>
+    </div>
+  </SlideShell>,
+
+  // 9 — HASIL: optimasi hyperparameter + confusion matrix
+  <SlideShell n={9} key="h-opt-cm">
+    <div className="flex h-full flex-col">
+      <Kicker>Optimasi Hyperparameter &amp; Confusion Matrix</Kicker>
+      <div className="mt-5 grid flex-1 gap-4 sm:grid-cols-2">
+        <div className="flex flex-col rounded-2xl border border-white/10 bg-white/5 p-5">
+          <div className="flex items-center justify-between">
+            <div className="text-lg font-semibold text-white sm:text-xl">
+              Optimasi Hyperparameter
+            </div>
+            <div className="rounded-lg border border-glass-green/30 bg-glass-green/10 px-3 py-1 text-sm font-bold text-white">
+              Best k = 9
+            </div>
+          </div>
+          <div className="mt-1 text-xs text-white/55 sm:text-sm">
+            Grid Search k=1–51 (step 2) · 5-Fold CV · metrik F1-Macro
+          </div>
+          <F1Curve className="mt-2 h-32 w-full" />
+          <div className="mt-1 text-center text-sm text-white/70">
+            Mean F1-Macro terbaik:{" "}
+            <span className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-lg font-black text-transparent">
+              45,74%
+            </span>
+          </div>
+        </div>
+
+        <div className="flex flex-col rounded-2xl border border-white/10 bg-white/5 p-5">
+          <div className="text-lg font-semibold text-white sm:text-xl">
+            Confusion Matrix
+          </div>
+          <div className="text-xs text-white/55 sm:text-sm">
+            Top 20 kelas teratas (normalized per baris)
+          </div>
+          <div className="mt-2 flex flex-1 items-center justify-center">
+            <ConfusionHeatmap className="h-40 w-40" />
+          </div>
+          <div className="text-center text-xs text-white/60 sm:text-sm">
+            Diagonal terang = prediksi benar · performa{" "}
+            <span className="font-semibold text-white">&gt; 0,6</span> pada 20
+            kelas terbaik
+          </div>
+        </div>
+      </div>
+    </div>
+  </SlideShell>,
+
+  // 10 — HASIL: 5 kelas teratas & terbawah
+  <SlideShell n={10} key="h-classes">
+    <div className="flex h-full flex-col">
+      <Kicker>Performa per Kelas (F1-Score) — Data Testing</Kicker>
+      <div className="mt-5 grid flex-1 gap-4 sm:grid-cols-2">
+        <div className="flex flex-col rounded-2xl border border-glass-green/25 bg-white/5 p-5">
+          <div className="text-lg font-semibold text-white sm:text-xl">
+            🏆 5 Kelas Teratas
+          </div>
+          <div className="mt-4 flex flex-1 flex-col justify-around gap-3">
+            {[
+              { n: "cacar-air", v: 0.8538 },
+              { n: "hiv", v: 0.8304 },
+              { n: "gigi", v: 0.7735 },
+              { n: "vaksin-covid-19-1", v: 0.7639 },
+              { n: "rambut", v: 0.7579 },
+            ].map((c, i) => (
+              <RankBar
+                key={c.n}
+                rank={i + 1}
+                name={c.n}
+                value={c.v}
+                tone="top"
+              />
+            ))}
+          </div>
+        </div>
+
+        <div className="flex flex-col rounded-2xl border border-rose-500/25 bg-white/5 p-5">
+          <div className="text-lg font-semibold text-white sm:text-xl">
+            ⚠️ 5 Kelas Terbawah
+          </div>
+          <div className="mt-4 flex flex-1 flex-col justify-around gap-3">
+            {[
+              { n: "asam-lambung / sakit-maag", v: 0.0762 },
+              { n: "kecantikan", v: 0.1026 },
+              { n: "asam-lambung / gastritis", v: 0.1204 },
+              { n: "menstruasi / kehamilan", v: 0.1711 },
+              { n: "infeksi-saluran-pernapasan", v: 0.184 },
+            ].map((c, i) => (
+              <RankBar
+                key={c.n}
+                rank={i + 1}
+                name={c.n}
+                value={c.v}
+                tone="low"
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </SlideShell>,
+
+  // 11 — HASIL: explainability bagian 1 (distribusi)
+  <SlideShell n={11} key="h-xai-1">
+    <div className="flex h-full flex-col">
+      <Kicker>Analisis Explainability — Conformal Prediction</Kicker>
+      <div className="mt-1 text-xs text-white/50 sm:text-sm">
+        LMPNN k=9 · X_calib 19.456 · X_test 16.213 · 107 Kelas
+      </div>
+      <div className="mt-4 grid flex-1 gap-4 sm:grid-cols-3">
+        {[
+          {
+            t: "Distribusi Nonconformity",
+            color: "#60a5fa",
+            heights: [
+              0.05, 0.08, 0.13, 0.22, 0.34, 0.52, 0.74, 0.96, 0.82, 0.5, 0.22,
+            ],
+            mean: 0.74,
+            s: "Mean 0,739 · Median 0,750",
+            d: "Unimodal — skor α = cosine distance ke kelas benar.",
+          },
+          {
+            t: "Distribusi Credibility",
+            color: "#34d399",
+            heights: [
+              0.12, 0.3, 0.5, 0.62, 0.72, 0.78, 0.82, 0.78, 0.68, 0.52, 0.38,
+            ],
+            mean: 0.61,
+            s: "Mean 0,609",
+            d: "Mayoritas prediksi pada kategori medium–high.",
+          },
+          {
+            t: "Distribusi Confidence",
+            color: "#fb923c",
+            heights: [
+              0.1, 0.25, 0.45, 0.7, 0.9, 1.0, 0.92, 0.75, 0.5, 0.3, 0.16,
+            ],
+            mean: 0.55,
+            s: "Mean 0,552",
+            d: "Margin prediksi terbaik vs pesaing cukup baik.",
+          },
+        ].map((c) => (
+          <div
+            key={c.t}
+            className="flex flex-col rounded-2xl border border-white/10 bg-white/5 p-4"
+          >
+            <div className="text-base font-semibold text-white">{c.t}</div>
+            <MiniHistogram
+              heights={c.heights}
+              color={c.color}
+              meanFrac={c.mean}
+              className="mt-3 h-24 w-full"
+            />
+            <div className="mt-2 text-sm font-bold text-white">{c.s}</div>
+            <p className="mt-1 text-xs leading-snug text-white/60 sm:text-sm">
+              {c.d}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </SlideShell>,
+
+  // 12 — HASIL: explainability bagian 2 (kalibrasi & efisiensi)
+  <SlideShell n={12} key="h-xai-2">
+    <div className="flex h-full flex-col">
+      <Kicker>Explainability — Kalibrasi &amp; Efisiensi Prediksi</Kicker>
+      <div className="mt-4 grid flex-1 gap-4 sm:grid-cols-3">
+        <div className="flex flex-col rounded-2xl border border-white/10 bg-white/5 p-4">
+          <div className="text-base font-semibold text-white">
+            Trade-off Coverage vs Region Size
+          </div>
+          <TradeoffChart className="mt-3 h-24 w-full" />
+          <div className="mt-2 flex items-center gap-3 text-xs text-white/60">
+            <span className="flex items-center gap-1">
+              <span className="h-2 w-3 rounded bg-[#38bdf8]" /> Coverage
+            </span>
+            <span className="flex items-center gap-1">
+              <span className="h-2 w-3 rounded bg-[#fb923c]" /> Region Size
+            </span>
+          </div>
+          <p className="mt-2 text-xs leading-snug text-white/60 sm:text-sm">
+            ε 0,05 → Cov 0,949 / 19,8 · ε 0,1 → 0,896 / 9,5 · ε 0,2 → 0,790 /
+            4,6.
+          </p>
+        </div>
+
+        <div className="flex flex-col rounded-2xl border border-white/10 bg-white/5 p-4">
+          <div className="text-base font-semibold text-white">
+            Reliability Diagram
+          </div>
+          <div className="mt-3 flex flex-1 items-center justify-center">
+            <ReliabilityChart className="h-28 w-28" />
+          </div>
+          <p className="mt-2 text-xs leading-snug text-white/60 sm:text-sm">
+            Kurva mendekati diagonal → model{" "}
+            <span className="font-semibold text-white">terkalibrasi baik</span>;
+            akurasi empiris naik seiring confidence.
+          </p>
+        </div>
+
+        <div className="flex flex-col rounded-2xl border border-white/10 bg-white/5 p-4">
+          <div className="text-base font-semibold text-white">
+            Ukuran Prediction Region
+          </div>
+          <MiniHistogram
+            heights={[
+              0.3, 0.9, 1.0, 0.85, 0.65, 0.5, 0.38, 0.28, 0.2, 0.14, 0.1, 0.07,
+              0.05,
+            ]}
+            color="#34d399"
+            meanFrac={0.32}
+            className="mt-3 h-24 w-full"
+          />
+          <div className="mt-2 text-sm font-bold text-white">
+            ε = 0,1 · Coverage 89,6%
+          </div>
+          <p className="mt-1 text-xs leading-snug text-white/60 sm:text-sm">
+            Rata-rata 9,5 kelas · Singleton 3,7% · Empty set 1,8%.
+          </p>
+        </div>
       </div>
     </div>
   </SlideShell>,
