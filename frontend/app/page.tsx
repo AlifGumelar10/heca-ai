@@ -10,6 +10,7 @@ import Documentation from "@/components/Documentation";
 import Science from "@/components/Science";
 import Categories from "@/components/Categories";
 import Glossary from "@/components/Glossary";
+import Presentation from "@/components/Presentation";
 import CursorTrail from "@/components/CursorTrail";
 import HealthBackground from "@/components/HealthBackground";
 
@@ -17,6 +18,9 @@ export default function Home() {
   const appRef = useRef<HTMLDivElement>(null);
   const scrollToApp = () =>
     appRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+
+  const openDeck = () =>
+    window.dispatchEvent(new CustomEvent("open-heca-deck"));
 
   return (
     <main className="relative pb-20">
@@ -66,13 +70,19 @@ export default function Home() {
 
       <footer id="tentang" className="mx-auto max-w-5xl px-4 pt-16">
         <div className="glass rounded-4xl px-6 py-8 text-center">
-          {/* Logo di footer */}
+          {/* Logo di footer - klik untuk buka presentasi */}
           <div className="mb-3 flex justify-center">
-            <img
-              src="/logo.png"
-              alt="HeCa AI"
-              className="h-14 w-14 rounded-2xl object-contain shadow-md"
-            />
+            <button
+              onClick={openDeck}
+              aria-label="Buka presentasi sidang"
+              className="transition-transform hover:scale-105 active:scale-95"
+            >
+              <img
+                src="/logo.png"
+                alt="HeCa AI"
+                className="h-14 w-14 rounded-2xl object-contain shadow-md"
+              />
+            </button>
           </div>
           <div className="text-lg font-semibold tracking-tight">HeCa AI</div>
           <div className="mt-0.5 text-xs text-ink-soft">Health Category AI</div>
@@ -86,6 +96,9 @@ export default function Home() {
           </p>
         </div>
       </footer>
+
+      {/* Deck presentasi sidang - muncul saat logo diklik */}
+      <Presentation />
     </main>
   );
 }
