@@ -424,15 +424,15 @@ function RankBar({
       : "from-orange-400 to-rose-500";
   return (
     <div className="flex items-center gap-3">
-      <span className="w-4 shrink-0 text-sm font-bold text-white/45">
+      <span className="w-4 shrink-0 text-base font-bold text-white/45">
         {rank}
       </span>
       <div className="flex-1">
         <div className="flex items-baseline justify-between gap-2">
-          <span className="text-sm font-medium text-white sm:text-base">
+          <span className="text-base font-medium text-white sm:text-lg">
             {name}
           </span>
-          <span className="shrink-0 text-sm font-bold tabular-nums text-white">
+          <span className="shrink-0 text-base font-bold tabular-nums text-white">
             {value.toFixed(4)}
           </span>
         </div>
@@ -630,11 +630,11 @@ function SlideShell({ children, n }: { children: ReactNode; n: number }) {
             alt="HeCa AI"
             className="h-8 w-8 rounded-lg object-contain"
           />
-          <span className="text-base font-semibold tracking-tight text-white sm:text-lg">
+          <span className="text-lg font-semibold tracking-tight text-white sm:text-xl">
             HeCa AI
           </span>
         </div>
-        <span className="text-xs font-medium uppercase tracking-[0.2em] text-white/50 sm:text-sm">
+        <span className="text-sm font-medium uppercase tracking-[0.2em] text-white/50 sm:text-base">
           Sidang Skripsi · 2026
         </span>
       </div>
@@ -643,7 +643,7 @@ function SlideShell({ children, n }: { children: ReactNode; n: number }) {
         {children}
       </div>
 
-      <div className="relative z-10 flex items-center justify-between text-xs text-white/40 sm:text-sm">
+      <div className="relative z-10 flex items-center justify-between text-sm text-white/40 sm:text-base">
         <span>Universitas Sebelas April</span>
         <span className="tabular-nums">
           {String(n).padStart(2, "0")} / {String(TOTAL).padStart(2, "0")}
@@ -655,7 +655,7 @@ function SlideShell({ children, n }: { children: ReactNode; n: number }) {
 
 function Kicker({ children }: { children: ReactNode }) {
   return (
-    <div className="text-sm font-semibold uppercase tracking-[0.2em] text-white/55 sm:text-base">
+    <div className="text-base font-semibold uppercase tracking-[0.2em] text-white/55 sm:text-lg">
       {children}
     </div>
   );
@@ -680,11 +680,11 @@ function Panel({
       }
     >
       {title && (
-        <div className="text-lg font-semibold text-white sm:text-xl">
+        <div className="text-xl font-semibold text-white sm:text-2xl">
           {title}
         </div>
       )}
-      <div className="mt-2.5 text-sm leading-relaxed text-white/70 sm:text-base">
+      <div className="mt-2.5 text-base leading-relaxed text-white/70 sm:text-lg">
         {children}
       </div>
     </div>
@@ -702,13 +702,13 @@ function SectionHead({
 }) {
   return (
     <div className="flex items-baseline gap-3">
-      <span className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-5xl font-black tracking-tighter text-transparent sm:text-6xl">
+      <span className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-6xl font-black tracking-tighter text-transparent sm:text-6xl">
         {num}
       </span>
-      <h2 className="text-2xl font-black tracking-tight text-white sm:text-3xl">
+      <h2 className="text-3xl font-black tracking-tight text-white sm:text-4xl">
         {title}
       </h2>
-      {note && <span className="text-sm text-white/45">{note}</span>}
+      {note && <span className="text-base text-white/45">{note}</span>}
     </div>
   );
 }
@@ -727,11 +727,11 @@ function XaiCard({
 }) {
   return (
     <div className="flex flex-col rounded-2xl border border-white/10 bg-white/5 p-4">
-      <div className="text-base font-semibold text-white">{title}</div>
+      <div className="text-lg font-semibold text-white">{title}</div>
       <div className="mt-3 flex items-center justify-center">{chart}</div>
-      <div className="mt-2 text-sm font-bold text-white">{stat}</div>
+      <div className="mt-2 text-base font-bold text-white">{stat}</div>
       <div className="mt-2 border-t border-white/10 pt-2">
-        <p className="text-xs leading-relaxed text-white/60 sm:text-[13px]">
+        <p className="text-sm leading-relaxed text-white/60 sm:text-[13px]">
           {pembahasan}
         </p>
       </div>
@@ -746,24 +746,24 @@ const SLIDES: ReactNode[] = [
   <SlideShell n={1} key="cover">
     <div className="relative">
       <NodeGraph className="pointer-events-none absolute -right-1 -top-4 hidden h-32 w-32 opacity-70 sm:block" />
-      <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm font-medium text-white/75">
+      <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-base font-medium text-white/75">
         <span className="h-2 w-2 rounded-full bg-gradient-to-br from-glass-green to-glass-blue" />
         Presentasi Sidang Skripsi · 2026
       </div>
-      <h1 className="max-w-3xl text-2xl font-black leading-tight tracking-tight text-white sm:text-4xl">
+      <h1 className="max-w-3xl text-3xl font-black leading-tight tracking-tight text-white sm:text-5xl">
         Implementasi{" "}
         <span className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-transparent">
           Explainable AI
         </span>{" "}
         untuk Klasifikasi Tanya Jawab Kesehatan Bahasa Indonesia
       </h1>
-      <p className="mt-3 text-base text-white/65 sm:text-lg">
+      <p className="mt-3 text-lg text-white/65 sm:text-xl">
         Menggunakan Metode K-Nearest Neighbors (KNN)
       </p>
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
         <Panel title="Peneliti">
-          <div className="text-lg font-semibold text-white">
+          <div className="text-xl font-semibold text-white">
             Alif Gumelar Syah Moeslim
           </div>
           <div className="text-white/55">NIM 220660121161</div>
@@ -793,7 +793,7 @@ const SLIDES: ReactNode[] = [
   <SlideShell n={2} key="lb-masalah">
     <div className="flex h-full flex-col">
       <SectionHead num="01" title="Latar Belakang Penelitian" />
-      <p className="mt-2 max-w-2xl text-base text-white/60">
+      <p className="mt-2 max-w-2xl text-lg text-white/60">
         Mengapa Explainable AI dengan LMPNN &amp; Conformal Prediction penting
         untuk klasifikasi teks kesehatan?
       </p>
@@ -804,12 +804,12 @@ const SLIDES: ReactNode[] = [
             <GrowthChart className="h-20 w-32 shrink-0" />
             <div>
               <div className="flex items-baseline gap-2">
-                <span className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-3xl font-black text-transparent">
+                <span className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-4xl font-black text-transparent">
                   288.105
                 </span>
-                <span className="text-sm text-white/65">data mentah</span>
+                <span className="text-base text-white/65">data mentah</span>
               </div>
-              <p className="mt-1.5 text-sm leading-snug">
+              <p className="mt-1.5 text-base leading-snug">
                 Indonesia QnA Health Dataset (Alodokter). Pertanyaan kesehatan
                 online terus meningkat.
               </p>
@@ -827,7 +827,7 @@ const SLIDES: ReactNode[] = [
           </div>
         </Panel>
       </div>
-      <p className="mt-4 text-center text-base italic text-white/55">
+      <p className="mt-4 text-center text-lg italic text-white/55">
         “Dalam dunia medis, penjelasan sangatlah penting — kepercayaan harus
         dibangun.”
       </p>
@@ -869,8 +869,8 @@ const SLIDES: ReactNode[] = [
               <ChallengeIcon type={c.ic} />
             </div>
             <div>
-              <div className="text-lg font-semibold text-white">{c.t}</div>
-              <p className="mt-1 text-sm leading-snug text-white/65">{c.d}</p>
+              <div className="text-xl font-semibold text-white">{c.t}</div>
+              <p className="mt-1 text-base leading-snug text-white/65">{c.d}</p>
             </div>
           </div>
         ))}
@@ -884,23 +884,23 @@ const SLIDES: ReactNode[] = [
       <Kicker>Pendekatan &amp; Dampak yang Diharapkan</Kicker>
       <div className="mt-5 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
         <div className="flex-1 rounded-2xl border border-white/10 bg-white/5 p-4">
-          <div className="text-lg font-bold text-white">LMPNN</div>
-          <p className="mt-1 text-sm text-white/65">
+          <div className="text-xl font-bold text-white">LMPNN</div>
+          <p className="mt-1 text-base text-white/65">
             Prediksi berbasis tetangga yang representatif.
           </p>
         </div>
-        <div className="text-center text-2xl font-black text-white/40">+</div>
+        <div className="text-center text-3xl font-black text-white/40">+</div>
         <div className="flex-1 rounded-2xl border border-white/10 bg-white/5 p-4">
-          <div className="text-lg font-bold text-white">
+          <div className="text-xl font-bold text-white">
             Conformal Prediction
           </div>
-          <p className="mt-1 text-sm text-white/65">
+          <p className="mt-1 text-base text-white/65">
             Prediksi dengan ketidakpastian terukur.
           </p>
         </div>
-        <div className="text-center text-2xl font-black text-white/40">=</div>
+        <div className="text-center text-3xl font-black text-white/40">=</div>
         <div className="flex-1 rounded-2xl border border-glass-green/30 bg-gradient-to-br from-glass-green/15 to-glass-blue/15 p-4">
-          <div className="text-base font-bold text-white">
+          <div className="text-lg font-bold text-white">
             Akurat, Transparan &amp; Dipercaya
           </div>
         </div>
@@ -916,15 +916,15 @@ const SLIDES: ReactNode[] = [
             key={idx}
             className="flex flex-col rounded-2xl border border-white/10 bg-white/5 p-5"
           >
-            <div className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-2xl font-black text-transparent">
+            <div className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-3xl font-black text-transparent">
               0{idx + 1}
             </div>
-            <p className="mt-2 text-sm leading-snug text-white/75">{d}</p>
+            <p className="mt-2 text-base leading-snug text-white/75">{d}</p>
           </div>
         ))}
       </div>
 
-      <p className="mt-5 text-center text-base font-medium text-white/85 sm:text-lg">
+      <p className="mt-5 text-center text-lg font-medium text-white/85 sm:text-xl">
         Bukan hanya tentang jawaban yang{" "}
         <span className="text-white">benar</span>, tapi juga{" "}
         <span className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text font-bold text-transparent">
@@ -953,10 +953,10 @@ const SLIDES: ReactNode[] = [
             key={t}
             className="rounded-xl border border-white/10 bg-white/5 p-3 text-center"
           >
-            <div className="mx-auto flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-glass-green to-glass-blue text-sm font-bold text-white">
+            <div className="mx-auto flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-glass-green to-glass-blue text-base font-bold text-white">
               {idx + 1}
             </div>
-            <div className="mt-2 text-xs font-semibold leading-tight text-white sm:text-sm">
+            <div className="mt-2 text-sm font-semibold leading-tight text-white sm:text-base">
               {t}
             </div>
           </div>
@@ -967,17 +967,17 @@ const SLIDES: ReactNode[] = [
         <Panel title="Dataset">
           Indonesia QnA Health Dataset (Alodokter) · Kaggle.
           <div className="mt-3 flex flex-wrap items-center gap-2 text-white/80">
-            <span className="text-2xl font-black text-white">288.105</span>
-            <span className="text-sm">data mentah</span>
+            <span className="text-3xl font-black text-white">288.105</span>
+            <span className="text-base">data mentah</span>
             <span className="text-white/30">→</span>
-            <span className="text-2xl font-black text-white">81.064</span>
-            <span className="text-sm">
+            <span className="text-3xl font-black text-white">81.064</span>
+            <span className="text-base">
               data · <span className="font-bold text-white">107</span> kelas
             </span>
           </div>
         </Panel>
         <Panel title="Preprocessing Pipeline">
-          <div className="flex flex-wrap gap-1.5 text-xs text-white/80 sm:text-sm">
+          <div className="flex flex-wrap gap-1.5 text-sm text-white/80 sm:text-base">
             {[
               "Case Folding",
               "Cleaning",
@@ -991,7 +991,7 @@ const SLIDES: ReactNode[] = [
             ))}
           </div>
           <div className="mt-3">
-            <span className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-2xl font-black text-transparent">
+            <span className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-3xl font-black text-transparent">
               54,4%
             </span>{" "}
             reduksi rata-rata token/dokumen
@@ -1009,17 +1009,17 @@ const SLIDES: ReactNode[] = [
         <div className="flex flex-col gap-4">
           <Panel title="Feature Extraction — TF-IDF">
             max_features 5.000 · ngram (1,2) · min_df 2
-            <div className="mt-1.5 font-mono text-sm text-white/55">
+            <div className="mt-1.5 font-mono text-base text-white/55">
               Sparse Matrix 81.064 × 5.000
             </div>
           </Panel>
           <div className="flex flex-1 flex-col rounded-2xl border border-white/10 bg-white/5 p-5">
-            <div className="text-lg font-semibold text-white sm:text-xl">
+            <div className="text-xl font-semibold text-white sm:text-2xl">
               Split Data (Stratified)
             </div>
             <div className="mt-3 flex items-center gap-4">
               <SplitDonut className="h-28 w-28 shrink-0" />
-              <div className="space-y-2 text-sm sm:text-base">
+              <div className="space-y-2 text-base sm:text-lg">
                 <div className="flex items-center gap-2">
                   <span className="h-3 w-3 rounded-full bg-[#34d399]" />
                   Training <span className="font-semibold text-white">64%</span>
@@ -1042,21 +1042,21 @@ const SLIDES: ReactNode[] = [
           <Panel title="LMPNN">
             Mean lokal (centroid) tiap kelas → jarak cosine query–centroid →
             prediksi kelas terdekat.
-            <div className="mt-2 rounded-lg bg-white/5 px-3 py-1.5 text-center font-mono text-sm text-white/80">
+            <div className="mt-2 rounded-lg bg-white/5 px-3 py-1.5 text-center font-mono text-base text-white/80">
               Prediksi = argminᴄ d(xₒ, μᴄ)
             </div>
           </Panel>
           <div className="flex flex-1 flex-col rounded-2xl border border-white/10 bg-white/5 p-5">
             <div className="flex items-center justify-between">
-              <div className="text-lg font-semibold text-white sm:text-xl">
+              <div className="text-xl font-semibold text-white sm:text-2xl">
                 Grid Search k
               </div>
-              <div className="rounded-lg border border-glass-green/30 bg-glass-green/10 px-3 py-1 text-sm font-bold text-white">
+              <div className="rounded-lg border border-glass-green/30 bg-glass-green/10 px-3 py-1 text-base font-bold text-white">
                 k = 9
               </div>
             </div>
             <F1Curve className="mt-1 h-28 w-full" />
-            <div className="text-center text-xs text-white/55 sm:text-sm">
+            <div className="text-center text-sm text-white/55 sm:text-base">
               5-Fold CV · optimasi F1-Macro (CP = 0.4548)
             </div>
           </div>
@@ -1081,17 +1081,17 @@ const SLIDES: ReactNode[] = [
             key={s.t}
             className="rounded-xl border border-white/10 bg-white/5 p-3.5"
           >
-            <div className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-base font-black text-transparent">
+            <div className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-lg font-black text-transparent">
               {idx + 1}
             </div>
-            <div className="mt-1 text-sm font-semibold text-white">{s.t}</div>
-            <p className="mt-1 text-xs leading-snug text-white/65 sm:text-sm">
+            <div className="mt-1 text-base font-semibold text-white">{s.t}</div>
+            <p className="mt-1 text-sm leading-snug text-white/65 sm:text-base">
               {s.d}
             </p>
           </div>
         ))}
       </div>
-      <p className="mt-3 text-center text-sm text-white/60">
+      <p className="mt-3 text-center text-base text-white/60">
         Credibility = 1 − ε · Confidence = max(pᵧ)
       </p>
 
@@ -1123,15 +1123,15 @@ const SLIDES: ReactNode[] = [
             key={s.l}
             className="rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-center"
           >
-            <div className="text-xl font-black text-white sm:text-2xl">
+            <div className="text-2xl font-black text-white sm:text-3xl">
               {s.v}
             </div>
-            <div className="text-xs text-white/55 sm:text-sm">{s.l}</div>
+            <div className="text-sm text-white/55 sm:text-base">{s.l}</div>
           </div>
         ))}
       </div>
 
-      <div className="mt-4 text-sm font-semibold uppercase tracking-[0.15em] text-white/55">
+      <div className="mt-4 text-base font-semibold uppercase tracking-[0.15em] text-white/55">
         4.1 Performa Overall Model
         <span className="ml-2 font-normal normal-case tracking-normal text-white/40">
           (Data Testing: 16.213 sampel)
@@ -1157,11 +1157,11 @@ const SLIDES: ReactNode[] = [
             key={m.l}
             className="flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-white/5 p-4 text-center"
           >
-            <div className="text-xs font-medium uppercase tracking-wide text-white/55">
+            <div className="text-sm font-medium uppercase tracking-wide text-white/55">
               {m.l}
             </div>
             <div
-              className={`mt-2 bg-gradient-to-r ${m.g} bg-clip-text text-3xl font-black text-transparent sm:text-4xl`}
+              className={`mt-2 bg-gradient-to-r ${m.g} bg-clip-text text-4xl font-black text-transparent sm:text-5xl`}
             >
               {m.v}
             </div>
@@ -1169,7 +1169,7 @@ const SLIDES: ReactNode[] = [
         ))}
       </div>
 
-      <div className="mt-4 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm leading-relaxed text-white/70 sm:text-base">
+      <div className="mt-4 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-base leading-relaxed text-white/70 sm:text-lg">
         Model melampaui baseline acak{" "}
         <span className="font-bold text-white">48,1×</span> · F1-Macro &amp;
         F1-Weighted seimbang → performa stabil untuk kelas mayoritas maupun
@@ -1186,17 +1186,17 @@ const SLIDES: ReactNode[] = [
       <div className="mt-5 grid flex-1 gap-4 sm:grid-cols-5">
         <div className="flex flex-col rounded-2xl border border-white/10 bg-white/5 p-5 sm:col-span-3">
           <div className="flex items-center justify-between">
-            <div className="text-lg font-semibold text-white sm:text-xl">
+            <div className="text-xl font-semibold text-white sm:text-2xl">
               Perbandingan Mean F1-Macro
             </div>
-            <div className="rounded-lg border border-glass-green/30 bg-glass-green/10 px-3 py-1 text-sm font-bold text-white">
+            <div className="rounded-lg border border-glass-green/30 bg-glass-green/10 px-3 py-1 text-base font-bold text-white">
               Best k = 9
             </div>
           </div>
           <F1Curve className="mt-2 h-44 w-full" />
-          <div className="mt-1 text-center text-sm text-white/70">
+          <div className="mt-1 text-center text-base text-white/70">
             Mean F1-Macro terbaik:{" "}
-            <span className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-xl font-black text-transparent">
+            <span className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-2xl font-black text-transparent">
               45,74%
             </span>
           </div>
@@ -1247,17 +1247,15 @@ const SLIDES: ReactNode[] = [
         </div>
         <div className="flex min-h-0 flex-1 flex-col gap-3 overflow-hidden">
           <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-            <div className="text-base font-semibold text-white">
-              Cara Membaca
-            </div>
-            <p className="mt-1.5 text-xs leading-relaxed text-white/65 sm:text-sm">
+            <div className="text-lg font-semibold text-white">Cara Membaca</div>
+            <p className="mt-1.5 text-sm leading-relaxed text-white/65 sm:text-base">
               Diagonal = prediksi benar; off-diagonal = kesalahan. Semakin gelap
               sel, semakin tinggi proporsi prediksi (0–1).
             </p>
           </div>
           <div className="flex flex-1 flex-col rounded-2xl border border-white/10 bg-white/5 p-4">
-            <div className="text-base font-semibold text-white">Sorotan</div>
-            <ul className="mt-1.5 space-y-1.5 text-xs leading-relaxed text-white/65 sm:text-sm">
+            <div className="text-lg font-semibold text-white">Sorotan</div>
+            <ul className="mt-1.5 space-y-1.5 text-sm leading-relaxed text-white/65 sm:text-base">
               <li>
                 ✅ Akurasi tinggi: gigi{" "}
                 <span className="font-semibold text-white">0,97</span>,
@@ -1285,7 +1283,7 @@ const SLIDES: ReactNode[] = [
       <Kicker>Performa per Kelas (F1-Score) — Data Testing</Kicker>
       <div className="mt-5 grid flex-1 gap-4 sm:grid-cols-2">
         <div className="flex flex-col rounded-2xl border border-glass-green/25 bg-white/5 p-5">
-          <div className="text-lg font-semibold text-white sm:text-xl">
+          <div className="text-xl font-semibold text-white sm:text-2xl">
             🏆 5 Kelas Teratas
           </div>
           <div className="mt-4 flex flex-1 flex-col justify-around gap-3">
@@ -1308,7 +1306,7 @@ const SLIDES: ReactNode[] = [
         </div>
 
         <div className="flex flex-col rounded-2xl border border-rose-500/25 bg-white/5 p-5">
-          <div className="text-lg font-semibold text-white sm:text-xl">
+          <div className="text-xl font-semibold text-white sm:text-2xl">
             ⚠️ 5 Kelas Terbawah
           </div>
           <div className="mt-4 flex flex-1 flex-col justify-around gap-3">
@@ -1337,7 +1335,7 @@ const SLIDES: ReactNode[] = [
   <SlideShell n={12} key="h-xai-1">
     <div className="flex h-full flex-col">
       <Kicker>Analisis Explainability — Conformal Prediction</Kicker>
-      <div className="mt-1 text-xs text-white/50 sm:text-sm">
+      <div className="mt-1 text-sm text-white/50 sm:text-base">
         LMPNN k=9 · X_calib 19.456 · X_test 16.213 · 107 Kelas
       </div>
       <div className="mt-4 grid flex-1 gap-4 sm:grid-cols-3">
@@ -1400,7 +1398,7 @@ const SLIDES: ReactNode[] = [
           chart={
             <div className="w-full">
               <TradeoffChart className="h-24 w-full" />
-              <div className="mt-1 flex items-center justify-center gap-3 text-xs text-white/60">
+              <div className="mt-1 flex items-center justify-center gap-3 text-sm text-white/60">
                 <span className="flex items-center gap-1">
                   <span className="h-2 w-3 rounded bg-[#38bdf8]" /> Coverage
                 </span>
@@ -1448,10 +1446,10 @@ const SLIDES: ReactNode[] = [
           <div className="flex h-16 items-center justify-center">
             <IconTwoCluster className="h-14 w-28" />
           </div>
-          <div className="mt-2 text-base font-semibold text-white">
+          <div className="mt-2 text-lg font-semibold text-white">
             LMPNN vs KNN Standar
           </div>
-          <ul className="mt-2 space-y-1.5 text-xs leading-snug text-white/65 sm:text-sm">
+          <ul className="mt-2 space-y-1.5 text-sm leading-snug text-white/65 sm:text-base">
             <li>Mean lokal per kelas → lebih robust terhadap outlier.</li>
             <li>Performa lebih stabil pada data teks berdimensi tinggi.</li>
           </ul>
@@ -1461,10 +1459,10 @@ const SLIDES: ReactNode[] = [
           <div className="flex h-16 items-center justify-center">
             <IconDocMatrix className="h-14 w-28" />
           </div>
-          <div className="mt-2 text-base font-semibold text-white">
+          <div className="mt-2 text-lg font-semibold text-white">
             TF-IDF + Cosine Similarity
           </div>
-          <ul className="mt-2 space-y-1.5 text-xs leading-snug text-white/65 sm:text-sm">
+          <ul className="mt-2 space-y-1.5 text-sm leading-snug text-white/65 sm:text-base">
             <li>Representasi sparse 5.000 dimensi menangkap pola semantik.</li>
             <li>Cosine similarity efektif mengukur kemiripan dokumen.</li>
           </ul>
@@ -1474,10 +1472,10 @@ const SLIDES: ReactNode[] = [
           <div className="flex h-16 items-center justify-center">
             <F1Curve className="h-16 w-full" />
           </div>
-          <div className="mt-2 text-base font-semibold text-white">
+          <div className="mt-2 text-lg font-semibold text-white">
             K Optimal = 9
           </div>
-          <ul className="mt-2 space-y-1.5 text-xs leading-snug text-white/65 sm:text-sm">
+          <ul className="mt-2 space-y-1.5 text-sm leading-snug text-white/65 sm:text-base">
             <li>Berdasarkan Grid Search + 5-Fold CV.</li>
             <li>Menyeimbangkan bias–variance trade-off.</li>
             <li>k terlalu kecil/besar menurunkan performa.</li>
@@ -1488,10 +1486,10 @@ const SLIDES: ReactNode[] = [
           <div className="flex h-16 items-center justify-center">
             <NodeGraph className="h-16 w-16" />
           </div>
-          <div className="mt-2 text-base font-semibold text-white">
+          <div className="mt-2 text-lg font-semibold text-white">
             Skala 107 Kelas Medis
           </div>
-          <ul className="mt-2 space-y-1.5 text-xs leading-snug text-white/65 sm:text-sm">
+          <ul className="mt-2 space-y-1.5 text-sm leading-snug text-white/65 sm:text-base">
             <li>Tantangan extreme multi-class classification.</li>
             <li>F1-macro ~45% adalah hasil yang sangat kompetitif.</li>
           </ul>
@@ -1532,11 +1530,11 @@ const SLIDES: ReactNode[] = [
             <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/5">
               <Icon type={c.ic} />
             </div>
-            <div className="mt-3 text-lg font-bold text-white">{c.t}</div>
-            <p className="mt-2 flex-1 text-sm leading-relaxed text-white/65">
+            <div className="mt-3 text-xl font-bold text-white">{c.t}</div>
+            <p className="mt-2 flex-1 text-base leading-relaxed text-white/65">
               {c.d}
             </p>
-            <div className="mt-3 bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-base font-black text-transparent">
+            <div className="mt-3 bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-lg font-black text-transparent">
               {c.s}
             </div>
           </div>
@@ -1544,7 +1542,7 @@ const SLIDES: ReactNode[] = [
       </div>
       <div className="mt-4 flex items-center gap-3 rounded-xl border border-glass-green/25 bg-gradient-to-br from-glass-green/10 to-glass-blue/10 px-4 py-3">
         <Icon type="check" className="h-6 w-6 shrink-0" />
-        <p className="text-sm leading-relaxed text-white/80 sm:text-base">
+        <p className="text-base leading-relaxed text-white/80 sm:text-lg">
           <span className="font-semibold text-white">Hasil Utama:</span>{" "}
           Coverage <span className="font-bold text-white">89,61%</span> (ε =
           0,10) · distribusi p-value terkalibrasi baik → model dapat mengenali{" "}
@@ -1565,11 +1563,11 @@ const SLIDES: ReactNode[] = [
             <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-orange-400/10">
               <Icon type="warn" color="#fb923c" className="h-7 w-7" />
             </div>
-            <div className="text-lg font-semibold text-white sm:text-xl">
+            <div className="text-xl font-semibold text-white sm:text-2xl">
               Keterbatasan Penelitian
             </div>
           </div>
-          <ul className="mt-4 flex flex-1 flex-col justify-around gap-2.5 text-sm leading-snug text-white/70 sm:text-base">
+          <ul className="mt-4 flex flex-1 flex-col justify-around gap-2.5 text-base leading-snug text-white/70 sm:text-lg">
             <li>
               • Dataset dari satu platform (Alodokter) → potensi bias sumber.
             </li>
@@ -1590,11 +1588,11 @@ const SLIDES: ReactNode[] = [
             <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-glass-green/10">
               <Icon type="target" className="h-7 w-7" />
             </div>
-            <div className="text-lg font-semibold text-white sm:text-xl">
+            <div className="text-xl font-semibold text-white sm:text-2xl">
               Implikasi &amp; Arah Lanjutan
             </div>
           </div>
-          <ul className="mt-4 flex flex-1 flex-col justify-around gap-2.5 text-sm leading-snug text-white/70 sm:text-base">
+          <ul className="mt-4 flex flex-1 flex-col justify-around gap-2.5 text-base leading-snug text-white/70 sm:text-lg">
             <li>
               • Integrasi ke sistem konsultasi kesehatan digital untuk triase
               awal.
@@ -1616,7 +1614,7 @@ const SLIDES: ReactNode[] = [
     <div className="flex h-full flex-col">
       <div className="flex items-center gap-2.5">
         <Icon type="check" className="h-7 w-7" />
-        <h2 className="text-2xl font-black tracking-tight text-white sm:text-3xl">
+        <h2 className="text-3xl font-black tracking-tight text-white sm:text-4xl">
           Kesimpulan
         </h2>
       </div>
@@ -1632,10 +1630,10 @@ const SLIDES: ReactNode[] = [
             key={s.l}
             className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center"
           >
-            <div className="text-lg font-black text-white sm:text-xl">
+            <div className="text-xl font-black text-white sm:text-2xl">
               {s.v}
             </div>
-            <div className="text-xs text-white/55">{s.l}</div>
+            <div className="text-sm text-white/55">{s.l}</div>
           </div>
         ))}
       </div>
@@ -1667,12 +1665,12 @@ const SLIDES: ReactNode[] = [
             key={c.n}
             className="flex gap-3 rounded-2xl border border-white/10 bg-white/5 p-4"
           >
-            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-glass-green to-glass-blue text-sm font-bold text-white">
+            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-glass-green to-glass-blue text-base font-bold text-white">
               {c.n}
             </div>
             <div>
-              <div className="text-base font-semibold text-white">{c.t}</div>
-              <p className="mt-1 text-xs leading-relaxed text-white/65 sm:text-sm">
+              <div className="text-lg font-semibold text-white">{c.t}</div>
+              <p className="mt-1 text-sm leading-relaxed text-white/65 sm:text-base">
                 {c.d}
               </p>
             </div>
@@ -1687,7 +1685,7 @@ const SLIDES: ReactNode[] = [
     <div className="flex h-full flex-col">
       <div className="flex items-center gap-2.5">
         <Icon type="target" className="h-7 w-7" />
-        <h2 className="text-2xl font-black tracking-tight text-white sm:text-3xl">
+        <h2 className="text-3xl font-black tracking-tight text-white sm:text-4xl">
           Saran
         </h2>
       </div>
@@ -1719,12 +1717,12 @@ const SLIDES: ReactNode[] = [
             key={c.n}
             className="flex gap-3 rounded-2xl border border-white/10 bg-white/5 p-4"
           >
-            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-glass-green to-glass-blue text-sm font-bold text-white">
+            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-glass-green to-glass-blue text-base font-bold text-white">
               {c.n}
             </div>
             <div>
-              <div className="text-base font-semibold text-white">{c.t}</div>
-              <p className="mt-1 text-xs leading-relaxed text-white/65 sm:text-sm">
+              <div className="text-lg font-semibold text-white">{c.t}</div>
+              <p className="mt-1 text-sm leading-relaxed text-white/65 sm:text-base">
                 {c.d}
               </p>
             </div>
@@ -1733,7 +1731,7 @@ const SLIDES: ReactNode[] = [
 
         <div className="col-span-2 flex items-center gap-3 rounded-2xl border border-glass-green/25 bg-gradient-to-br from-glass-green/10 to-glass-blue/10 p-4">
           <Icon type="shield" className="h-7 w-7 shrink-0" />
-          <p className="text-sm leading-relaxed text-white/80 sm:text-base">
+          <p className="text-base leading-relaxed text-white/80 sm:text-lg">
             Seluruh pengembangan tetap mempertahankan{" "}
             <span className="font-semibold text-white">LMPNN</span> dan{" "}
             <span className="font-semibold text-white">
@@ -1810,7 +1808,7 @@ export default function Presentation() {
 
       <div className="animate-popIn relative w-full max-w-5xl">
         <div className="mb-3 flex items-center justify-between px-1">
-          <div className="text-sm font-medium text-white/80">
+          <div className="text-base font-medium text-white/80">
             Presentasi Sidang · HeCa AI
           </div>
           <button
@@ -1830,7 +1828,7 @@ export default function Presentation() {
           <button
             onClick={prev}
             disabled={i === 0}
-            className="rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-medium text-white transition-all hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-30"
+            className="rounded-full border border-white/15 bg-white/10 px-4 py-2 text-base font-medium text-white transition-all hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-30"
           >
             ← Sebelumnya
           </button>
@@ -1854,7 +1852,7 @@ export default function Presentation() {
           <button
             onClick={next}
             disabled={i === TOTAL - 1}
-            className="rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-medium text-white transition-all hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-30"
+            className="rounded-full border border-white/15 bg-white/10 px-4 py-2 text-base font-medium text-white transition-all hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-30"
           >
             Selanjutnya →
           </button>
