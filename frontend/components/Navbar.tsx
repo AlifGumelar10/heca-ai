@@ -15,12 +15,20 @@ export default function Navbar({ onCta }: Props) {
             alt="HeCa AI"
             className="h-9 w-9 rounded-2xl object-contain shadow-md"
           />
-          <div className="leading-none">
-            <span className="text-base font-bold tracking-tight">HeCa AI</span>
+          <button
+            onClick={() =>
+              window.dispatchEvent(new CustomEvent("open-heca-poster"))
+            }
+            aria-label="Buka poster penelitian"
+            className="text-left leading-none transition-opacity hover:opacity-70"
+          >
+            <span className="block text-base font-bold tracking-tight">
+              HeCa AI
+            </span>
             <div className="mt-0.5 hidden text-[10px] text-ink-soft sm:block">
               Health Category AI
             </div>
-          </div>
+          </button>
         </div>
 
         <div className="hidden items-center gap-7 text-sm text-ink-soft sm:flex">
@@ -33,14 +41,6 @@ export default function Navbar({ onCta }: Props) {
           <a href="#dokumentasi" className="transition-colors hover:text-ink">
             Dokumentasi
           </a>
-          <button
-            onClick={() =>
-              window.dispatchEvent(new CustomEvent("open-heca-poster"))
-            }
-            className="transition-colors hover:text-ink"
-          >
-            Bacaan
-          </button>
           <a href="#tentang" className="transition-colors hover:text-ink">
             Tentang
           </a>
