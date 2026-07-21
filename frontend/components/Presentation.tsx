@@ -25,7 +25,7 @@ function NodeGraph({ className }: { className?: string }) {
           <stop offset="100%" stopColor="#22d3ee" />
         </linearGradient>
       </defs>
-      <g stroke="url(#gNode)" strokeWidth="1" opacity="0.45">
+      <g stroke="url(#gNode)" strokeWidth="1.5" opacity="0.45">
         <line x1="20" y1="30" x2="60" y2="60" />
         <line x1="60" y1="60" x2="100" y2="25" />
         <line x1="60" y1="60" x2="95" y2="95" />
@@ -33,11 +33,11 @@ function NodeGraph({ className }: { className?: string }) {
         <line x1="20" y1="30" x2="25" y2="90" />
       </g>
       <g fill="url(#gNode)">
-        <circle cx="20" cy="30" r="5" />
-        <circle cx="100" cy="25" r="4" />
-        <circle cx="95" cy="95" r="4" />
-        <circle cx="25" cy="90" r="5" />
-        <circle cx="60" cy="60" r="7" />
+        <circle cx="20" cy="30" r="6" />
+        <circle cx="100" cy="25" r="5" />
+        <circle cx="95" cy="95" r="5" />
+        <circle cx="25" cy="90" r="6" />
+        <circle cx="60" cy="60" r="8" />
       </g>
     </svg>
   );
@@ -65,7 +65,14 @@ function GrowthChart({ className }: { className?: string }) {
           opacity={0.55 + i * 0.09}
         />
       ))}
-      <line x1="8" y1="72" x2="126" y2="72" stroke="#334155" strokeWidth="1" />
+      <line
+        x1="8"
+        y1="72"
+        x2="126"
+        y2="72"
+        stroke="#334155"
+        strokeWidth="1.5"
+      />
     </svg>
   );
 }
@@ -75,20 +82,20 @@ function BlackBoxIcon({ className }: { className?: string }) {
     <svg viewBox="0 0 72 64" className={className}>
       <rect
         x="20"
-        y="16"
-        width="34"
-        height="34"
+        y="14"
+        width="36"
+        height="36"
         rx="5"
         fill="#0b1120"
         stroke="#475569"
         strokeWidth="1.5"
       />
       <text
-        x="37"
+        x="38"
         y="40"
         textAnchor="middle"
         fill="#e2e8f0"
-        fontSize="22"
+        fontSize="26"
         fontWeight="bold"
       >
         ?
@@ -110,7 +117,7 @@ function ChallengeIcon({
     strokeLinejoin: "round" as const,
   };
   return (
-    <svg viewBox="0 0 24 24" className="h-6 w-6">
+    <svg viewBox="0 0 24 24" className="h-8 w-8">
       {type === "chat" && <path {...s} d="M4 5h16v10H9l-4 3v-3H4z" />}
       {type === "folder" && <path {...s} d="M3 6h6l2 2h10v10H3z" />}
       {type === "scale" && (
@@ -141,7 +148,7 @@ function SplitDonut({ className }: { className?: string }) {
           r="40"
           fill="none"
           stroke="#1e293b"
-          strokeWidth="15"
+          strokeWidth="16"
         />
         <circle
           cx="50"
@@ -149,7 +156,7 @@ function SplitDonut({ className }: { className?: string }) {
           r="40"
           fill="none"
           stroke="#34d399"
-          strokeWidth="15"
+          strokeWidth="16"
           strokeDasharray={`${seg(64)} ${C - seg(64)}`}
         />
         <circle
@@ -158,7 +165,7 @@ function SplitDonut({ className }: { className?: string }) {
           r="40"
           fill="none"
           stroke="#22d3ee"
-          strokeWidth="15"
+          strokeWidth="16"
           strokeDasharray={`${seg(16)} ${C - seg(16)}`}
           strokeDashoffset={-seg(64)}
         />
@@ -168,7 +175,7 @@ function SplitDonut({ className }: { className?: string }) {
           r="40"
           fill="none"
           stroke="#64748b"
-          strokeWidth="15"
+          strokeWidth="16"
           strokeDasharray={`${seg(20)} ${C - seg(20)}`}
           strokeDashoffset={-seg(80)}
         />
@@ -194,14 +201,21 @@ function F1Curve({ className }: { className?: string }) {
         x2="212"
         y2="100"
         stroke="#334155"
-        strokeWidth="1"
+        strokeWidth="1.5"
       />
-      <line x1="30" y1="15" x2="30" y2="100" stroke="#334155" strokeWidth="1" />
+      <line
+        x1="30"
+        y1="15"
+        x2="30"
+        y2="100"
+        stroke="#334155"
+        strokeWidth="1.5"
+      />
       <polyline
         points={pts}
         fill="none"
         stroke="url(#gLine)"
-        strokeWidth="2.5"
+        strokeWidth="3"
         strokeLinejoin="round"
         strokeLinecap="round"
       />
@@ -211,30 +225,30 @@ function F1Curve({ className }: { className?: string }) {
         x2="59"
         y2="100"
         stroke="#34d399"
-        strokeWidth="1"
+        strokeWidth="1.5"
         strokeDasharray="3 3"
         opacity="0.6"
       />
       <circle
         cx="59"
         cy="23"
-        r="4"
+        r="5"
         fill="#0a1020"
         stroke="#34d399"
-        strokeWidth="2"
+        strokeWidth="2.5"
       />
-      <text x="63" y="15" fill="#ffffff" fontSize="9" fontWeight="bold">
+      <text x="64" y="15" fill="#ffffff" fontSize="12" fontWeight="bold">
         k = 9
       </text>
-      <text x="120" y="114" textAnchor="middle" fill="#94a3b8" fontSize="8">
+      <text x="120" y="114" textAnchor="middle" fill="#94a3b8" fontSize="10">
         Nilai k (1 – 51)
       </text>
       <text
-        x="12"
+        x="11"
         y="58"
         fill="#94a3b8"
-        fontSize="8"
-        transform="rotate(-90 12 58)"
+        fontSize="10"
+        transform="rotate(-90 11 58)"
       >
         F1-Macro
       </text>
@@ -246,31 +260,31 @@ function F1Curve({ className }: { className?: string }) {
 
 function SlideShell({ children, n }: { children: ReactNode; n: number }) {
   return (
-    <div className="relative flex h-full w-full flex-col overflow-hidden bg-[#0a1020] px-7 py-5 sm:px-11 sm:py-7">
+    <div className="relative flex h-full w-full flex-col overflow-hidden bg-[#0a1020] px-8 py-6 sm:px-12 sm:py-8">
       <div className="pointer-events-none absolute -left-16 -top-16 h-56 w-56 rounded-full bg-glass-green/20 blur-3xl" />
       <div className="pointer-events-none absolute -bottom-20 -right-16 h-64 w-64 rounded-full bg-glass-blue/20 blur-3xl" />
 
       <div className="relative z-10 flex items-center justify-between">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2.5">
           <img
             src="/logo.png"
             alt="HeCa AI"
-            className="h-6 w-6 rounded-lg object-contain"
+            className="h-8 w-8 rounded-lg object-contain"
           />
-          <span className="text-xs font-semibold tracking-tight text-white sm:text-sm">
+          <span className="text-base font-semibold tracking-tight text-white sm:text-lg">
             HeCa AI
           </span>
         </div>
-        <span className="text-[10px] font-medium uppercase tracking-[0.2em] text-white/50 sm:text-xs">
+        <span className="text-xs font-medium uppercase tracking-[0.2em] text-white/50 sm:text-sm">
           Sidang Skripsi · 2026
         </span>
       </div>
 
-      <div className="relative z-10 flex flex-1 flex-col justify-center py-2">
+      <div className="relative z-10 flex flex-1 flex-col justify-center py-3">
         {children}
       </div>
 
-      <div className="relative z-10 flex items-center justify-between text-[10px] text-white/40 sm:text-[11px]">
+      <div className="relative z-10 flex items-center justify-between text-xs text-white/40 sm:text-sm">
         <span>Universitas Sebelas April</span>
         <span className="tabular-nums">
           {String(n).padStart(2, "0")} / {String(TOTAL).padStart(2, "0")}
@@ -282,7 +296,7 @@ function SlideShell({ children, n }: { children: ReactNode; n: number }) {
 
 function Kicker({ children }: { children: ReactNode }) {
   return (
-    <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/50 sm:text-xs">
+    <div className="text-sm font-semibold uppercase tracking-[0.2em] text-white/55 sm:text-base">
       {children}
     </div>
   );
@@ -300,14 +314,18 @@ function Panel({
   return (
     <div
       className={
-        "rounded-2xl border p-4 " +
+        "flex h-full flex-col rounded-2xl border p-5 " +
         (accent
           ? "border-glass-green/30 bg-gradient-to-br from-glass-green/15 to-glass-blue/15"
           : "border-white/10 bg-white/5")
       }
     >
-      {title && <div className="text-sm font-semibold text-white">{title}</div>}
-      <div className="mt-2 text-xs leading-relaxed text-white/65">
+      {title && (
+        <div className="text-lg font-semibold text-white sm:text-xl">
+          {title}
+        </div>
+      )}
+      <div className="mt-2.5 text-sm leading-relaxed text-white/70 sm:text-base">
         {children}
       </div>
     </div>
@@ -320,36 +338,36 @@ const SLIDES: ReactNode[] = [
   // 1 — PEMBUKAAN (all-in-one)
   <SlideShell n={1} key="cover">
     <div className="relative">
-      <NodeGraph className="pointer-events-none absolute -right-2 -top-3 hidden h-24 w-24 opacity-70 sm:block" />
-      <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] font-medium text-white/70">
-        <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-br from-glass-green to-glass-blue" />
+      <NodeGraph className="pointer-events-none absolute -right-1 -top-4 hidden h-32 w-32 opacity-70 sm:block" />
+      <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm font-medium text-white/75">
+        <span className="h-2 w-2 rounded-full bg-gradient-to-br from-glass-green to-glass-blue" />
         Presentasi Sidang Skripsi · 2026
       </div>
-      <h1 className="max-w-3xl text-xl font-black leading-tight tracking-tight text-white sm:text-3xl">
+      <h1 className="max-w-3xl text-2xl font-black leading-tight tracking-tight text-white sm:text-4xl">
         Implementasi{" "}
         <span className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-transparent">
           Explainable AI
         </span>{" "}
         untuk Klasifikasi Tanya Jawab Kesehatan Bahasa Indonesia
       </h1>
-      <p className="mt-2 text-xs text-white/60 sm:text-sm">
+      <p className="mt-3 text-base text-white/65 sm:text-lg">
         Menggunakan Metode K-Nearest Neighbors (KNN)
       </p>
 
-      <div className="mt-4 grid gap-3 sm:grid-cols-2">
+      <div className="mt-6 grid gap-4 sm:grid-cols-2">
         <Panel title="Peneliti">
-          <div className="text-sm font-semibold text-white">
+          <div className="text-lg font-semibold text-white">
             Alif Gumelar Syah Moeslim
           </div>
-          <div className="text-white/50">NIM 220660121161</div>
-          <div className="mt-2 leading-snug">
+          <div className="text-white/55">NIM 220660121161</div>
+          <div className="mt-2.5 leading-snug">
             Program Studi Informatika · Fakultas Teknologi Informasi
             <br />
             Universitas Sebelas April
           </div>
         </Panel>
         <Panel title="Dosen Pembimbing">
-          <div className="space-y-1.5">
+          <div className="space-y-2.5">
             <div>
               <span className="font-semibold text-white">1.</span> Esa
               Firmansyah, S.T., M.Kom.
@@ -366,32 +384,32 @@ const SLIDES: ReactNode[] = [
 
   // 2 — LATAR BELAKANG: konteks & masalah
   <SlideShell n={2} key="lb-masalah">
-    <div>
+    <div className="flex h-full flex-col">
       <div className="flex items-baseline gap-3">
-        <span className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-3xl font-black tracking-tighter text-transparent sm:text-4xl">
+        <span className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-5xl font-black tracking-tighter text-transparent sm:text-6xl">
           01
         </span>
-        <h2 className="text-lg font-black tracking-tight text-white sm:text-2xl">
+        <h2 className="text-2xl font-black tracking-tight text-white sm:text-3xl">
           Latar Belakang Penelitian
         </h2>
       </div>
-      <p className="mt-1 max-w-2xl text-xs text-white/55">
+      <p className="mt-2 max-w-2xl text-base text-white/60">
         Mengapa Explainable AI dengan LMPNN &amp; Conformal Prediction penting
         untuk klasifikasi teks kesehatan?
       </p>
 
-      <div className="mt-4 grid gap-3 sm:grid-cols-2">
+      <div className="mt-5 grid flex-1 gap-4 sm:grid-cols-2">
         <Panel title="Ledakan Data Kesehatan Digital">
-          <div className="flex items-center gap-3">
-            <GrowthChart className="h-14 w-24 shrink-0" />
+          <div className="flex items-center gap-4">
+            <GrowthChart className="h-20 w-32 shrink-0" />
             <div>
-              <div className="flex items-baseline gap-1.5">
-                <span className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-2xl font-black text-transparent">
+              <div className="flex items-baseline gap-2">
+                <span className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-3xl font-black text-transparent">
                   288.105
                 </span>
-                <span className="text-[11px] text-white/60">data mentah</span>
+                <span className="text-sm text-white/65">data mentah</span>
               </div>
-              <p className="mt-1 text-[11px] leading-snug">
+              <p className="mt-1.5 text-sm leading-snug">
                 Indonesia QnA Health Dataset (Alodokter). Pertanyaan kesehatan
                 online terus meningkat.
               </p>
@@ -399,9 +417,9 @@ const SLIDES: ReactNode[] = [
           </div>
         </Panel>
         <Panel title={"Permasalahan Utama: “Black Box”"}>
-          <div className="flex items-center gap-3">
-            <BlackBoxIcon className="h-14 w-16 shrink-0" />
-            <ul className="space-y-1 text-white/70">
+          <div className="flex items-center gap-4">
+            <BlackBoxIcon className="h-20 w-24 shrink-0" />
+            <ul className="space-y-2 text-white/75">
               <li>✗ Keputusan tidak transparan</li>
               <li>✗ Sulit dipahami pengguna</li>
               <li>✗ Risiko salah rekomendasi medis</li>
@@ -409,7 +427,7 @@ const SLIDES: ReactNode[] = [
           </div>
         </Panel>
       </div>
-      <p className="mt-3 text-center text-[11px] italic text-white/50">
+      <p className="mt-4 text-center text-base italic text-white/55">
         “Dalam dunia medis, penjelasan sangatlah penting — kepercayaan harus
         dibangun.”
       </p>
@@ -418,9 +436,9 @@ const SLIDES: ReactNode[] = [
 
   // 3 — LATAR BELAKANG: tantangan
   <SlideShell n={3} key="lb-tantangan">
-    <div>
+    <div className="flex h-full flex-col">
       <Kicker>Tantangan Spesifik Klasifikasi Teks Kesehatan</Kicker>
-      <div className="mt-4 grid grid-cols-2 gap-3">
+      <div className="mt-5 grid flex-1 grid-cols-2 gap-4">
         {[
           {
             ic: "chat" as const,
@@ -445,16 +463,14 @@ const SLIDES: ReactNode[] = [
         ].map((c) => (
           <div
             key={c.t}
-            className="flex gap-3 rounded-2xl border border-white/10 bg-white/5 p-4"
+            className="flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-5"
           >
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/5">
+            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white/5">
               <ChallengeIcon type={c.ic} />
             </div>
             <div>
-              <div className="text-sm font-semibold text-white">{c.t}</div>
-              <p className="mt-1 text-[11px] leading-snug text-white/60">
-                {c.d}
-              </p>
+              <div className="text-lg font-semibold text-white">{c.t}</div>
+              <p className="mt-1 text-sm leading-snug text-white/65">{c.d}</p>
             </div>
           </div>
         ))}
@@ -464,33 +480,33 @@ const SLIDES: ReactNode[] = [
 
   // 4 — LATAR BELAKANG: pendekatan & dampak
   <SlideShell n={4} key="lb-pendekatan">
-    <div>
+    <div className="flex h-full flex-col">
       <Kicker>Pendekatan &amp; Dampak yang Diharapkan</Kicker>
-      <div className="mt-3 flex flex-col items-stretch gap-2 sm:flex-row sm:items-center">
-        <div className="flex-1 rounded-2xl border border-white/10 bg-white/5 p-3">
-          <div className="text-sm font-bold text-white">LMPNN</div>
-          <p className="mt-0.5 text-[11px] text-white/60">
+      <div className="mt-5 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
+        <div className="flex-1 rounded-2xl border border-white/10 bg-white/5 p-4">
+          <div className="text-lg font-bold text-white">LMPNN</div>
+          <p className="mt-1 text-sm text-white/65">
             Prediksi berbasis tetangga yang representatif.
           </p>
         </div>
-        <div className="text-center text-lg font-black text-white/40">+</div>
-        <div className="flex-1 rounded-2xl border border-white/10 bg-white/5 p-3">
-          <div className="text-sm font-bold text-white">
+        <div className="text-center text-2xl font-black text-white/40">+</div>
+        <div className="flex-1 rounded-2xl border border-white/10 bg-white/5 p-4">
+          <div className="text-lg font-bold text-white">
             Conformal Prediction
           </div>
-          <p className="mt-0.5 text-[11px] text-white/60">
+          <p className="mt-1 text-sm text-white/65">
             Prediksi dengan ketidakpastian terukur.
           </p>
         </div>
-        <div className="text-center text-lg font-black text-white/40">=</div>
-        <div className="flex-1 rounded-2xl border border-glass-green/30 bg-gradient-to-br from-glass-green/15 to-glass-blue/15 p-3">
-          <div className="text-xs font-bold text-white">
+        <div className="text-center text-2xl font-black text-white/40">=</div>
+        <div className="flex-1 rounded-2xl border border-glass-green/30 bg-gradient-to-br from-glass-green/15 to-glass-blue/15 p-4">
+          <div className="text-base font-bold text-white">
             Akurat, Transparan &amp; Dipercaya
           </div>
         </div>
       </div>
 
-      <div className="mt-4 grid gap-3 sm:grid-cols-3">
+      <div className="mt-5 grid flex-1 gap-4 sm:grid-cols-3">
         {[
           "Meningkatkan kepercayaan pada sistem AI kesehatan.",
           "Membantu tenaga medis mengambil keputusan.",
@@ -498,17 +514,17 @@ const SLIDES: ReactNode[] = [
         ].map((d, idx) => (
           <div
             key={idx}
-            className="rounded-2xl border border-white/10 bg-white/5 p-3"
+            className="flex flex-col rounded-2xl border border-white/10 bg-white/5 p-5"
           >
-            <div className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-base font-black text-transparent">
+            <div className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-2xl font-black text-transparent">
               0{idx + 1}
             </div>
-            <p className="mt-1 text-[11px] leading-snug text-white/70">{d}</p>
+            <p className="mt-2 text-sm leading-snug text-white/75">{d}</p>
           </div>
         ))}
       </div>
 
-      <p className="mt-4 text-center text-xs font-medium text-white/80 sm:text-sm">
+      <p className="mt-5 text-center text-base font-medium text-white/85 sm:text-lg">
         Bukan hanya tentang jawaban yang{" "}
         <span className="text-white">benar</span>, tapi juga{" "}
         <span className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text font-bold text-transparent">
@@ -521,18 +537,18 @@ const SLIDES: ReactNode[] = [
 
   // 5 — METODE: alur + data
   <SlideShell n={5} key="m-alur">
-    <div>
+    <div className="flex h-full flex-col">
       <div className="flex items-baseline gap-3">
-        <span className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-3xl font-black tracking-tighter text-transparent sm:text-4xl">
+        <span className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-5xl font-black tracking-tighter text-transparent sm:text-6xl">
           02
         </span>
-        <h2 className="text-lg font-black tracking-tight text-white sm:text-2xl">
+        <h2 className="text-2xl font-black tracking-tight text-white sm:text-3xl">
           Metode Penelitian
         </h2>
-        <span className="text-[11px] text-white/45">Alur Metodologi</span>
+        <span className="text-sm text-white/45">Alur Metodologi</span>
       </div>
 
-      <div className="mt-3 grid grid-cols-3 gap-2 sm:grid-cols-6">
+      <div className="mt-5 grid grid-cols-3 gap-3 sm:grid-cols-6">
         {[
           "Data Collection",
           "Preprocessing",
@@ -543,31 +559,33 @@ const SLIDES: ReactNode[] = [
         ].map((t, idx) => (
           <div
             key={t}
-            className="rounded-xl border border-white/10 bg-white/5 p-2 text-center"
+            className="rounded-xl border border-white/10 bg-white/5 p-3 text-center"
           >
-            <div className="mx-auto flex h-5 w-5 items-center justify-center rounded-md bg-gradient-to-br from-glass-green to-glass-blue text-[10px] font-bold text-white">
+            <div className="mx-auto flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-glass-green to-glass-blue text-sm font-bold text-white">
               {idx + 1}
             </div>
-            <div className="mt-1 text-[10px] font-semibold leading-tight text-white">
+            <div className="mt-2 text-xs font-semibold leading-tight text-white sm:text-sm">
               {t}
             </div>
           </div>
         ))}
       </div>
 
-      <div className="mt-3 grid gap-3 sm:grid-cols-2">
+      <div className="mt-5 grid flex-1 gap-4 sm:grid-cols-2">
         <Panel title="Dataset">
           Indonesia QnA Health Dataset (Alodokter) · Kaggle.
-          <div className="mt-2 flex items-center gap-2">
-            <span className="font-semibold text-white">288.105</span> data
-            mentah
+          <div className="mt-3 flex flex-wrap items-center gap-2 text-white/80">
+            <span className="text-2xl font-black text-white">288.105</span>
+            <span className="text-sm">data mentah</span>
             <span className="text-white/30">→</span>
-            <span className="font-semibold text-white">81.064</span> data ·
-            <span className="font-semibold text-white">107</span> kelas
+            <span className="text-2xl font-black text-white">81.064</span>
+            <span className="text-sm">
+              data · <span className="font-bold text-white">107</span> kelas
+            </span>
           </div>
         </Panel>
         <Panel title="Preprocessing Pipeline">
-          <div className="flex flex-wrap gap-1 text-[10px] text-white/75">
+          <div className="flex flex-wrap gap-1.5 text-xs text-white/80 sm:text-sm">
             {[
               "Case Folding",
               "Cleaning",
@@ -575,13 +593,13 @@ const SLIDES: ReactNode[] = [
               "Stopword",
               "Stemming",
             ].map((x) => (
-              <span key={x} className="rounded bg-white/10 px-1.5 py-0.5">
+              <span key={x} className="rounded-md bg-white/10 px-2 py-1">
                 {x}
               </span>
             ))}
           </div>
-          <div className="mt-2">
-            <span className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-lg font-black text-transparent">
+          <div className="mt-3">
+            <span className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-2xl font-black text-transparent">
               54,4%
             </span>{" "}
             reduksi rata-rata token/dokumen
@@ -593,34 +611,34 @@ const SLIDES: ReactNode[] = [
 
   // 6 — METODE: fitur, split, modeling (dengan grafik)
   <SlideShell n={6} key="m-model">
-    <div>
+    <div className="flex h-full flex-col">
       <Kicker>Ekstraksi Fitur, Pembagian Data &amp; Modeling</Kicker>
-      <div className="mt-3 grid gap-3 sm:grid-cols-2">
-        <div className="space-y-3">
+      <div className="mt-5 grid flex-1 gap-4 sm:grid-cols-2">
+        <div className="flex flex-col gap-4">
           <Panel title="Feature Extraction — TF-IDF">
             max_features 5.000 · ngram (1,2) · min_df 2
-            <div className="mt-1 font-mono text-[10px] text-white/50">
+            <div className="mt-1.5 font-mono text-sm text-white/55">
               Sparse Matrix 81.064 × 5.000
             </div>
           </Panel>
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-3">
-            <div className="text-sm font-semibold text-white">
+          <div className="flex flex-1 flex-col rounded-2xl border border-white/10 bg-white/5 p-5">
+            <div className="text-lg font-semibold text-white sm:text-xl">
               Split Data (Stratified)
             </div>
-            <div className="mt-2 flex items-center gap-3">
-              <SplitDonut className="h-20 w-20 shrink-0" />
-              <div className="space-y-1 text-[11px]">
+            <div className="mt-3 flex items-center gap-4">
+              <SplitDonut className="h-28 w-28 shrink-0" />
+              <div className="space-y-2 text-sm sm:text-base">
                 <div className="flex items-center gap-2">
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#34d399]" />
+                  <span className="h-3 w-3 rounded-full bg-[#34d399]" />
                   Training <span className="font-semibold text-white">64%</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#22d3ee]" />
+                  <span className="h-3 w-3 rounded-full bg-[#22d3ee]" />
                   Calibration{" "}
                   <span className="font-semibold text-white">16%</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#64748b]" />
+                  <span className="h-3 w-3 rounded-full bg-[#64748b]" />
                   Testing <span className="font-semibold text-white">20%</span>
                 </div>
               </div>
@@ -628,25 +646,25 @@ const SLIDES: ReactNode[] = [
           </div>
         </div>
 
-        <div className="space-y-3">
+        <div className="flex flex-col gap-4">
           <Panel title="LMPNN">
             Mean lokal (centroid) tiap kelas → jarak cosine query–centroid →
             prediksi kelas terdekat.
-            <div className="mt-1 rounded bg-white/5 px-2 py-1 text-center font-mono text-[10px] text-white/70">
+            <div className="mt-2 rounded-lg bg-white/5 px-3 py-1.5 text-center font-mono text-sm text-white/80">
               Prediksi = argminᴄ d(xₒ, μᴄ)
             </div>
           </Panel>
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-3">
+          <div className="flex flex-1 flex-col rounded-2xl border border-white/10 bg-white/5 p-5">
             <div className="flex items-center justify-between">
-              <div className="text-sm font-semibold text-white">
+              <div className="text-lg font-semibold text-white sm:text-xl">
                 Grid Search k
               </div>
-              <div className="rounded-md border border-glass-green/30 bg-glass-green/10 px-2 py-0.5 text-[11px] font-bold text-white">
+              <div className="rounded-lg border border-glass-green/30 bg-glass-green/10 px-3 py-1 text-sm font-bold text-white">
                 k = 9
               </div>
             </div>
-            <F1Curve className="mt-1 h-24 w-full" />
-            <div className="text-center text-[10px] text-white/50">
+            <F1Curve className="mt-1 h-28 w-full" />
+            <div className="text-center text-xs text-white/55 sm:text-sm">
               5-Fold CV · optimasi F1-Macro (CP = 0.4548)
             </div>
           </div>
@@ -657,9 +675,9 @@ const SLIDES: ReactNode[] = [
 
   // 7 — METODE: explainability + evaluasi
   <SlideShell n={7} key="m-eval">
-    <div>
+    <div className="flex h-full flex-col">
       <Kicker>Explainability (Conformal Prediction) &amp; Evaluasi</Kicker>
-      <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-5">
+      <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-5">
         {[
           { t: "Query Baru", d: "Pertanyaan pengguna." },
           { t: "Model LMPNN", d: "Jarak ke centroid kelas." },
@@ -669,25 +687,23 @@ const SLIDES: ReactNode[] = [
         ].map((s, idx) => (
           <div
             key={s.t}
-            className="rounded-xl border border-white/10 bg-white/5 p-2.5"
+            className="rounded-xl border border-white/10 bg-white/5 p-3.5"
           >
-            <div className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-xs font-black text-transparent">
+            <div className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-base font-black text-transparent">
               {idx + 1}
             </div>
-            <div className="mt-0.5 text-[11px] font-semibold text-white">
-              {s.t}
-            </div>
-            <p className="mt-0.5 text-[10px] leading-snug text-white/60">
+            <div className="mt-1 text-sm font-semibold text-white">{s.t}</div>
+            <p className="mt-1 text-xs leading-snug text-white/65 sm:text-sm">
               {s.d}
             </p>
           </div>
         ))}
       </div>
-      <p className="mt-2 text-center text-[10px] text-white/55">
+      <p className="mt-3 text-center text-sm text-white/60">
         Credibility = 1 − ε · Confidence = max(pᵧ)
       </p>
 
-      <div className="mt-3 grid gap-3 sm:grid-cols-2">
+      <div className="mt-5 grid flex-1 gap-4 sm:grid-cols-2">
         <Panel title="Metrik Klasifikasi">
           Accuracy · Precision · Recall · F1-Score (Macro &amp; Weighted) ·
           Confusion Matrix
