@@ -3,20 +3,20 @@
 import { useCallback, useEffect, useState, type ReactNode } from "react";
 
 /**
- * Deck presentasi Sidang Skripsi — muncul sebagai pop-up saat logo HeCa AI
- * diklik. Slide 16:9 (layaknya PPT), desain selaras web HeCa AI.
+ * Deck presentasi Sidang Skripsi — pop-up saat logo HeCa AI diklik.
+ * Slide 16:9 (layaknya PPT), desain selaras web HeCa AI.
  *
  * Memicu dari mana pun:
  *   onClick={() => window.dispatchEvent(new CustomEvent("open-heca-deck"))}
  *
- * Isi: BAGIAN PEMBUKAAN (4) + BAGIAN 1 LATAR BELAKANG (5) = 9 slide.
+ * Isi: PEMBUKAAN (4) + BAGIAN 1 LATAR BELAKANG (5) + BAGIAN 2 METODE (6) = 15.
  */
 
-const TOTAL = 9;
+const TOTAL = 15;
 
 function SlideShell({ children, n }: { children: ReactNode; n: number }) {
   return (
-    <div className="relative flex h-full w-full flex-col overflow-hidden bg-[#0a1020] px-8 py-6 sm:px-12 sm:py-9">
+    <div className="relative flex h-full w-full flex-col overflow-hidden bg-[#0a1020] px-7 py-5 sm:px-11 sm:py-8">
       {/* dekorasi gradasi */}
       <div className="pointer-events-none absolute -left-16 -top-16 h-56 w-56 rounded-full bg-glass-green/20 blur-3xl" />
       <div className="pointer-events-none absolute -bottom-20 -right-16 h-64 w-64 rounded-full bg-glass-blue/20 blur-3xl" />
@@ -39,7 +39,7 @@ function SlideShell({ children, n }: { children: ReactNode; n: number }) {
       </div>
 
       {/* isi slide */}
-      <div className="relative z-10 flex flex-1 flex-col justify-center py-3">
+      <div className="relative z-10 flex flex-1 flex-col justify-center py-2">
         {children}
       </div>
 
@@ -58,6 +58,32 @@ function Kicker({ children }: { children: ReactNode }) {
   return (
     <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/50 sm:text-xs">
       {children}
+    </div>
+  );
+}
+
+function Card({
+  title,
+  children,
+  accent,
+}: {
+  title: ReactNode;
+  children: ReactNode;
+  accent?: boolean;
+}) {
+  return (
+    <div
+      className={
+        "rounded-2xl border p-4 " +
+        (accent
+          ? "border-glass-green/30 bg-gradient-to-br from-glass-green/15 to-glass-blue/15"
+          : "border-white/10 bg-white/5")
+      }
+    >
+      <div className="text-sm font-semibold text-white">{title}</div>
+      <div className="mt-2 text-xs leading-relaxed text-white/65">
+        {children}
+      </div>
     </div>
   );
 }
@@ -139,24 +165,22 @@ const SLIDES: ReactNode[] = [
     <div>
       <Kicker>Dosen Pembimbing</Kicker>
       <div className="mt-5 grid gap-4 sm:grid-cols-2">
-        <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
-          <div className="text-xs text-white/50">Pembimbing 1</div>
-          <div className="mt-1 text-base font-semibold text-white sm:text-lg">
+        <Card title="Pembimbing 1">
+          <div className="text-base font-semibold text-white">
             Esa Firmansyah, S.T., M.Kom.
           </div>
           <div className="mt-1 text-xs text-white/50">
             NUPTK 6458757658130102
           </div>
-        </div>
-        <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
-          <div className="text-xs text-white/50">Pembimbing 2</div>
-          <div className="mt-1 text-base font-semibold text-white sm:text-lg">
+        </Card>
+        <Card title="Pembimbing 2">
+          <div className="text-base font-semibold text-white">
             Beben Sutara, S.Kom., M.T.
           </div>
           <div className="mt-1 text-xs text-white/50">
             NUPTK 8549767668130232
           </div>
-        </div>
+        </Card>
       </div>
     </div>
   </SlideShell>,
@@ -182,35 +206,26 @@ const SLIDES: ReactNode[] = [
     <div>
       <Kicker>Latar Belakang · Konteks &amp; Masalah</Kicker>
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
-        <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
-          <div className="text-sm font-semibold text-white">
-            Ledakan Data Kesehatan Digital
-          </div>
-          <div className="mt-3 flex items-baseline gap-2">
+        <Card title="Ledakan Data Kesehatan Digital">
+          <div className="flex items-baseline gap-2">
             <span className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-3xl font-black text-transparent sm:text-4xl">
               288.105
             </span>
             <span className="text-xs text-white/60">data mentah</span>
           </div>
-          <p className="mt-2 text-xs leading-relaxed text-white/60">
+          <p className="mt-2">
             Indonesia QnA Health Dataset (Alodokter). Pertanyaan kesehatan di
             platform digital terus meningkat setiap hari.
           </p>
-        </div>
-        <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
-          <div className="text-sm font-semibold text-white">
-            Permasalahan Utama: “Black Box”
-          </div>
-          <p className="mt-2 text-xs leading-relaxed text-white/60">
-            Model AI berperforma tinggi, namun sering bertindak sebagai kotak
-            hitam:
-          </p>
-          <ul className="mt-3 space-y-1.5 text-xs text-white/70">
+        </Card>
+        <Card title={"Permasalahan Utama: “Black Box”"}>
+          <p>Model AI berperforma tinggi, namun sering jadi kotak hitam:</p>
+          <ul className="mt-2 space-y-1 text-white/70">
             <li>✗ Keputusan tidak transparan</li>
             <li>✗ Sulit dipahami pengguna</li>
             <li>✗ Risiko salah rekomendasi di domain kesehatan</li>
           </ul>
-        </div>
+        </Card>
       </div>
       <p className="mt-4 text-center text-xs italic text-white/50">
         “Dalam dunia medis, penjelasan sangatlah penting — kepercayaan harus
@@ -242,15 +257,9 @@ const SLIDES: ReactNode[] = [
             d: "Keputusan harus dapat dijelaskan dan dipercaya tenaga medis/pengguna.",
           },
         ].map((c) => (
-          <div
-            key={c.t}
-            className="rounded-2xl border border-white/10 bg-white/5 p-4"
-          >
-            <div className="text-sm font-semibold text-white">{c.t}</div>
-            <p className="mt-1.5 text-xs leading-relaxed text-white/60">
-              {c.d}
-            </p>
-          </div>
+          <Card key={c.t} title={c.t}>
+            {c.d}
+          </Card>
         ))}
       </div>
     </div>
@@ -322,6 +331,271 @@ const SLIDES: ReactNode[] = [
         </span>{" "}
         jawaban itu diberikan.
       </p>
+    </div>
+  </SlideShell>,
+
+  // 10 — Divider Bagian 2 + Alur Metodologi (6 tahap)
+  <SlideShell n={10} key="bab2-alur">
+    <div>
+      <div className="flex items-baseline gap-3">
+        <span className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-4xl font-black tracking-tighter text-transparent sm:text-5xl">
+          02
+        </span>
+        <h2 className="text-xl font-black tracking-tight text-white sm:text-3xl">
+          Metode Penelitian
+        </h2>
+      </div>
+      <p className="mt-1 text-xs text-white/50">Alur Metodologi Penelitian</p>
+      <div className="mt-4 grid grid-cols-2 gap-2.5 sm:grid-cols-3">
+        {[
+          {
+            n: "1",
+            t: "Data Collection",
+            d: "Indonesia QnA Health Dataset (Alodokter), 288.105 data mentah.",
+          },
+          {
+            n: "2",
+            t: "Data Preprocessing",
+            d: "Case folding, cleaning, tokenisasi, stopword removal, stemming.",
+          },
+          {
+            n: "3",
+            t: "Feature Extraction",
+            d: "TF-IDF, max_features 5.000, n-gram (1,2) — vektor sparse.",
+          },
+          {
+            n: "4",
+            t: "Split Data",
+            d: "Training 64% · Calibration 16% · Testing 20% (stratified).",
+          },
+          {
+            n: "5",
+            t: "Training & Tuning",
+            d: "LMPNN + Grid Search k=1..51, 5-Fold CV, F1-Macro → k=9.",
+          },
+          {
+            n: "6",
+            t: "Model Evaluation",
+            d: "Uji pada 16.213 sampel: Accuracy, Precision, Recall, F1.",
+          },
+        ].map((s) => (
+          <div
+            key={s.n}
+            className="rounded-xl border border-white/10 bg-white/5 p-3"
+          >
+            <div className="flex items-center gap-2">
+              <span className="flex h-5 w-5 items-center justify-center rounded-md bg-gradient-to-br from-glass-green to-glass-blue text-[10px] font-bold text-white">
+                {s.n}
+              </span>
+              <span className="text-xs font-semibold text-white">{s.t}</span>
+            </div>
+            <p className="mt-1.5 text-[11px] leading-snug text-white/60">
+              {s.d}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </SlideShell>,
+
+  // 11 — Dataset + Preprocessing
+  <SlideShell n={11} key="bab2-data">
+    <div>
+      <Kicker>Metode · Dataset &amp; Preprocessing</Kicker>
+      <div className="mt-4 grid gap-4 sm:grid-cols-2">
+        <Card title="1 · Dataset">
+          <div>Indonesia QnA Health Dataset (Alodokter).</div>
+          <div className="mt-1 text-white/50">
+            Sumber: Kaggle (user: gufranakasamudra)
+          </div>
+          <div className="mt-3 space-y-1">
+            <div>
+              Total data mentah:{" "}
+              <span className="font-semibold text-white">288.105</span> sampel
+            </div>
+            <div>
+              Setelah filtering (min. 300/kelas):{" "}
+              <span className="font-semibold text-white">81.064</span> sampel
+              dalam <span className="font-semibold text-white">107</span> kelas
+              medis
+            </div>
+          </div>
+        </Card>
+        <Card title="2 · Preprocessing Pipeline">
+          <div className="flex flex-wrap items-center gap-1.5 text-[11px] text-white/75">
+            {[
+              "Case Folding",
+              "Cleaning",
+              "Tokenization",
+              "Stopword Removal",
+              "Stemming",
+            ].map((step, idx, arr) => (
+              <span key={step} className="flex items-center gap-1.5">
+                <span className="rounded-md bg-white/10 px-2 py-1 font-medium">
+                  {step}
+                </span>
+                {idx < arr.length - 1 && (
+                  <span className="text-white/30">→</span>
+                )}
+              </span>
+            ))}
+          </div>
+          <div className="mt-3 flex items-baseline gap-2">
+            <span className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-2xl font-black text-transparent">
+              54,4%
+            </span>
+            <span className="text-[11px] text-white/60">
+              reduksi rata-rata token per dokumen
+            </span>
+          </div>
+        </Card>
+      </div>
+    </div>
+  </SlideShell>,
+
+  // 12 — Feature Extraction + Split
+  <SlideShell n={12} key="bab2-fitur">
+    <div>
+      <Kicker>Metode · Ekstraksi Fitur &amp; Pembagian Data</Kicker>
+      <div className="mt-4 grid gap-4 sm:grid-cols-2">
+        <Card title="3 · Feature Extraction — TF-IDF">
+          <ul className="space-y-1">
+            <li>• max_features = 5.000</li>
+            <li>• ngram_range = (1, 2) — unigram &amp; bigram</li>
+            <li>• lowercase = True · min_df = 2</li>
+          </ul>
+          <div className="mt-3 rounded-lg bg-white/5 px-3 py-2 text-[11px] text-white/70">
+            Representasi: Sparse Matrix{" "}
+            <span className="font-semibold text-white">81.064 × 5.000</span>
+            <div className="mt-1 font-mono text-white/50">
+              TF-IDF(t,d) = TF(t,d) × IDF(t)
+            </div>
+          </div>
+        </Card>
+        <Card title="4 · Split Data (Stratified)">
+          <div className="space-y-1.5">
+            <div className="flex items-center justify-between">
+              <span>Training</span>
+              <span className="font-semibold text-white">64%</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span>Calibration</span>
+              <span className="font-semibold text-white">16%</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span>Testing</span>
+              <span className="font-semibold text-white">
+                20% (16.213 sampel)
+              </span>
+            </div>
+          </div>
+          <div className="mt-3 text-[11px] text-white/50">
+            Stratified split, reproducible (random_state) agar hasil konsisten.
+          </div>
+        </Card>
+      </div>
+    </div>
+  </SlideShell>,
+
+  // 13 — Modeling: LMPNN + Grid Search
+  <SlideShell n={13} key="bab2-model">
+    <div>
+      <Kicker>Metode · Modeling (LMPNN + Grid Search)</Kicker>
+      <div className="mt-4 grid gap-4 sm:grid-cols-2">
+        <Card title="5a · Algoritma LMPNN">
+          <ol className="list-decimal space-y-1 pl-4">
+            <li>
+              Hitung mean lokal (centroid μᴄ) dari k tetangga terdekat tiap
+              kelas.
+            </li>
+            <li>Hitung jarak cosine antara query xₒ dan centroid μᴄ.</li>
+            <li>Prediksi kelas dengan centroid terdekat (jarak minimum).</li>
+          </ol>
+          <div className="mt-3 rounded-lg bg-white/5 px-3 py-2 text-center font-mono text-[11px] text-white/70">
+            Prediksi = argminᴄ d(xₒ, μᴄ)
+          </div>
+        </Card>
+        <Card title="5b · Hyperparameter Tuning">
+          <ul className="space-y-1">
+            <li>• Grid Search k = 1 s.d. 51 (step 2)</li>
+            <li>• 5-Fold Cross Validation</li>
+            <li>• Metrik optimasi: F1-Macro</li>
+          </ul>
+          <div className="mt-3 rounded-lg border border-glass-green/30 bg-gradient-to-br from-glass-green/15 to-glass-blue/15 px-3 py-2">
+            <span className="text-sm font-bold text-white">k optimal = 9</span>
+            <span className="ml-2 text-[11px] text-white/70">
+              (F1-macro CP = 0.4548)
+            </span>
+          </div>
+        </Card>
+      </div>
+    </div>
+  </SlideShell>,
+
+  // 14 — Explainability: Conformal Prediction
+  <SlideShell n={14} key="bab2-cp">
+    <div>
+      <Kicker>Metode · Explainability: Conformal Prediction</Kicker>
+      <div className="mt-4 grid grid-cols-1 gap-2.5 sm:grid-cols-5">
+        {[
+          { t: "Query Baru", d: "Pertanyaan kesehatan dari pengguna." },
+          { t: "Model LMPNN", d: "Hitung jarak ke centroid tiap kelas." },
+          {
+            t: "Nonconformity Score",
+            d: "αᵢ = d(xᵢ, yᵢ) — seberapa ‘tidak sesuai’.",
+          },
+          {
+            t: "P-value (Conformal)",
+            d: "pᵧ = (|{αᵢ ≥ αₒ}| + 1) / (n + 1)",
+          },
+          {
+            t: "Prediction Set",
+            d: "Masukkan kelas jika pᵧ > ε.",
+          },
+        ].map((s, idx) => (
+          <div
+            key={s.t}
+            className="rounded-xl border border-white/10 bg-white/5 p-3"
+          >
+            <div className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-xs font-black text-transparent">
+              {idx + 1}
+            </div>
+            <div className="mt-1 text-xs font-semibold text-white">{s.t}</div>
+            <p className="mt-1 text-[11px] leading-snug text-white/60">{s.d}</p>
+          </div>
+        ))}
+      </div>
+      <p className="mt-4 text-center text-[11px] text-white/60">
+        Credibility = 1 − ε · Confidence = max(pᵧ) — memberi ukuran keyakinan
+        pada tiap prediksi.
+      </p>
+    </div>
+  </SlideShell>,
+
+  // 15 — Evaluation
+  <SlideShell n={15} key="bab2-evaluasi">
+    <div>
+      <Kicker>Metode · Evaluasi</Kicker>
+      <div className="mt-4 grid gap-4 sm:grid-cols-2">
+        <Card title="Metrik Klasifikasi">
+          <ul className="space-y-1">
+            <li>• Accuracy</li>
+            <li>• Precision</li>
+            <li>• Recall</li>
+            <li>• F1-Score (Macro &amp; Weighted)</li>
+            <li>• Confusion Matrix</li>
+          </ul>
+        </Card>
+        <Card title="Evaluasi Explainability">
+          <ul className="space-y-1">
+            <li>• Coverage (target 1 − ε)</li>
+            <li>• Credibility Analysis (distribusi &amp; korelasi)</li>
+            <li>• Confidence Analysis (distribusi skor keyakinan)</li>
+            <li>• Prediction Set Size (ukuran wilayah prediksi)</li>
+            <li>• Reliability Diagram (kalibrasi model)</li>
+          </ul>
+        </Card>
+      </div>
     </div>
   </SlideShell>,
 ];
