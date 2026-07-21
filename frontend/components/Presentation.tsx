@@ -245,7 +245,7 @@ function F1Curve({ className }: { className?: string }) {
         k = 9
       </text>
       <text x="120" y="114" textAnchor="middle" fill="#94a3b8" fontSize="10">
-        Nilai k (1 – 51)
+        Nilai k (1 sampai 51)
       </text>
       <text
         x="11"
@@ -254,7 +254,7 @@ function F1Curve({ className }: { className?: string }) {
         fontSize="10"
         transform="rotate(-90 11 58)"
       >
-        F1-Macro
+        F1 Macro
       </text>
     </svg>
   );
@@ -758,7 +758,7 @@ const SLIDES: ReactNode[] = [
         untuk Klasifikasi Tanya Jawab Kesehatan Bahasa Indonesia
       </h1>
       <p className="mt-3 text-lg text-white/65 sm:text-xl">
-        Menggunakan Metode K-Nearest Neighbors (KNN)
+        Menggunakan Metode K Nearest Neighbors (KNN)
       </p>
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
@@ -828,7 +828,7 @@ const SLIDES: ReactNode[] = [
         </Panel>
       </div>
       <p className="mt-4 text-center text-lg italic text-white/55">
-        “Dalam dunia medis, penjelasan sangatlah penting — kepercayaan harus
+        “Dalam dunia medis, penjelasan sangatlah penting, kepercayaan harus
         dibangun.”
       </p>
     </div>
@@ -994,7 +994,7 @@ const SLIDES: ReactNode[] = [
             <span className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-3xl font-black text-transparent">
               54,4%
             </span>{" "}
-            reduksi rata-rata token/dokumen
+            reduksi rata rata token/dokumen
           </div>
         </Panel>
       </div>
@@ -1007,7 +1007,7 @@ const SLIDES: ReactNode[] = [
       <Kicker>Ekstraksi Fitur, Pembagian Data &amp; Modeling</Kicker>
       <div className="mt-5 grid flex-1 gap-4 sm:grid-cols-2">
         <div className="flex flex-col gap-4">
-          <Panel title="Feature Extraction — TF-IDF">
+          <Panel title="Feature Extraction (TF IDF)">
             max_features 5.000 · ngram (1,2) · min_df 2
             <div className="mt-1.5 font-mono text-base text-white/55">
               Sparse Matrix 81.064 × 5.000
@@ -1040,7 +1040,7 @@ const SLIDES: ReactNode[] = [
 
         <div className="flex flex-col gap-4">
           <Panel title="LMPNN">
-            Mean lokal (centroid) tiap kelas → jarak cosine query–centroid →
+            Mean lokal (centroid) tiap kelas → jarak cosine query ke centroid →
             prediksi kelas terdekat.
             <div className="mt-2 rounded-lg bg-white/5 px-3 py-1.5 text-center font-mono text-base text-white/80">
               Prediksi = argminᴄ d(xₒ, μᴄ)
@@ -1057,7 +1057,7 @@ const SLIDES: ReactNode[] = [
             </div>
             <F1Curve className="mt-1 h-28 w-full" />
             <div className="text-center text-sm text-white/55 sm:text-base">
-              5-Fold CV · optimasi F1-Macro (CP = 0.4548)
+              5 Fold CV · optimasi F1 Macro (CP = 0.4548)
             </div>
           </div>
         </div>
@@ -1073,36 +1073,67 @@ const SLIDES: ReactNode[] = [
         {[
           { t: "Query Baru", d: "Pertanyaan pengguna." },
           { t: "Model LMPNN", d: "Jarak ke centroid kelas." },
-          { t: "Nonconformity", d: "αᵢ = d(xᵢ, yᵢ)." },
-          { t: "P-value", d: "pᵧ = (|{αᵢ≥αₒ}|+1)/(n+1)" },
+          { t: "Nonconformity", d: "αᵢ = d(xᵢ, yᵢ).", eq: true },
+          { t: "P value", d: "pᵧ = (|{αᵢ≥αₒ}|+1)/(n+1)", eq: true },
           { t: "Prediction Set", d: "Masukkan jika pᵧ > ε." },
         ].map((s, idx) => (
           <div
             key={s.t}
-            className="rounded-xl border border-white/10 bg-white/5 p-3.5"
+            className="flex flex-col rounded-xl border border-white/10 bg-white/5 p-3.5"
           >
             <div className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-lg font-black text-transparent">
               {idx + 1}
             </div>
             <div className="mt-1 text-base font-semibold text-white">{s.t}</div>
-            <p className="mt-1 text-sm leading-snug text-white/65 sm:text-base">
+            <p
+              className={
+                "mt-1 leading-snug text-white/65 " +
+                (s.eq
+                  ? "mt-auto pt-1 font-mono text-[11px] sm:text-xs"
+                  : "text-sm sm:text-base")
+              }
+            >
               {s.d}
             </p>
           </div>
         ))}
       </div>
       <p className="mt-3 text-center text-base text-white/60">
-        Credibility = 1 − ε · Confidence = max(pᵧ)
+        Credibility = nilai p (pᵧ) prediksi · Confidence = maks(pᵧ)
       </p>
 
       <div className="mt-5 grid flex-1 gap-4 sm:grid-cols-2">
         <Panel title="Metrik Klasifikasi">
-          Accuracy · Precision · Recall · F1-Score (Macro &amp; Weighted) ·
-          Confusion Matrix
+          <ul className="space-y-2.5">
+            {[
+              "Accuracy",
+              "Precision",
+              "Recall",
+              "F1 Score (Macro & Weighted)",
+              "Confusion Matrix",
+            ].map((it) => (
+              <li key={it} className="flex items-start gap-2.5">
+                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-glass-green" />
+                <span>{it}</span>
+              </li>
+            ))}
+          </ul>
         </Panel>
         <Panel title="Evaluasi Explainability">
-          Coverage (target 1−ε) · Credibility · Confidence · Prediction Set Size
-          · Reliability Diagram
+          <ul className="space-y-2.5">
+            {[
+              "Coverage (target 90%)",
+              "Credibility",
+              "Confidence",
+              "Prediction Set Size",
+              "Reliability Diagram",
+            ].map((it) => (
+              <li key={it} className="flex items-start gap-2.5">
+                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-glass-blue" />
+                <span>{it}</span>
+              </li>
+            ))}
+          </ul>
         </Panel>
       </div>
     </div>
@@ -1142,12 +1173,12 @@ const SLIDES: ReactNode[] = [
         {[
           { l: "Accuracy", v: "44,75%", g: "from-teal-400 to-emerald-500" },
           {
-            l: "F1-Score (Macro)",
+            l: "F1 Score (Macro)",
             v: "45,48%",
             g: "from-glass-green to-glass-blue",
           },
           {
-            l: "F1-Score (Weighted)",
+            l: "F1 Score (Weighted)",
             v: "44,82%",
             g: "from-sky-400 to-indigo-500",
           },
@@ -1171,10 +1202,10 @@ const SLIDES: ReactNode[] = [
 
       <div className="mt-4 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-base leading-relaxed text-white/70 sm:text-lg">
         Model melampaui baseline acak{" "}
-        <span className="font-bold text-white">48,1×</span> · F1-Macro &amp;
-        F1-Weighted seimbang → performa stabil untuk kelas mayoritas maupun
+        <span className="font-bold text-white">48,1×</span> · F1 Macro &amp; F1
+        Weighted seimbang → performa stabil untuk kelas mayoritas maupun
         minoritas · distribusi F1 per kelas{" "}
-        <span className="font-bold text-white">0,12 – 0,85</span>.
+        <span className="font-bold text-white">0,12 sampai 0,85</span>.
       </div>
     </div>
   </SlideShell>,
@@ -1187,7 +1218,7 @@ const SLIDES: ReactNode[] = [
         <div className="flex flex-col rounded-2xl border border-white/10 bg-white/5 p-5 sm:col-span-3">
           <div className="flex items-center justify-between">
             <div className="text-xl font-semibold text-white sm:text-2xl">
-              Perbandingan Mean F1-Macro
+              Perbandingan Mean F1 Macro
             </div>
             <div className="rounded-lg border border-glass-green/30 bg-glass-green/10 px-3 py-1 text-base font-bold text-white">
               Best k = 9
@@ -1195,7 +1226,7 @@ const SLIDES: ReactNode[] = [
           </div>
           <F1Curve className="mt-2 h-44 w-full" />
           <div className="mt-1 text-center text-base text-white/70">
-            Mean F1-Macro terbaik:{" "}
+            Mean F1 Macro terbaik:{" "}
             <span className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-2xl font-black text-transparent">
               45,74%
             </span>
@@ -1208,21 +1239,21 @@ const SLIDES: ReactNode[] = [
               <li>
                 Metode:{" "}
                 <span className="font-semibold text-white">Grid Search</span> k
-                = 1–51 (step 2)
+                = 1 sampai 51 (step 2)
               </li>
               <li>
                 Validasi:{" "}
                 <span className="font-semibold text-white">
-                  5-Fold Cross Validation
+                  5 Fold Cross Validation
                 </span>
               </li>
               <li>
                 Metrik optimasi:{" "}
-                <span className="font-semibold text-white">F1-Macro</span>
+                <span className="font-semibold text-white">F1 Macro</span>
               </li>
               <li className="pt-1 text-white/80">
-                k terlalu kecil → sensitif noise; k terlalu besar →
-                over-smoothing.{" "}
+                k terlalu kecil → sensitif noise; k terlalu besar → over
+                smoothing.{" "}
                 <span className="font-semibold text-white">k = 9</span> memberi
                 keseimbangan terbaik.
               </li>
@@ -1236,7 +1267,7 @@ const SLIDES: ReactNode[] = [
   // 10 — HASIL: confusion matrix (gambar asli, top-aligned & tinggi penuh)
   <SlideShell n={10} key="h-cm">
     <div className="flex h-full flex-col">
-      <Kicker>Confusion Matrix — 20 Kelas Terbesar</Kicker>
+      <Kicker>Confusion Matrix · 20 Kelas Terbesar</Kicker>
       <div className="mt-3 flex min-h-0 flex-1 gap-4">
         <div className="relative min-h-0 flex-[2] rounded-2xl bg-white p-2">
           <img
@@ -1249,8 +1280,8 @@ const SLIDES: ReactNode[] = [
           <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
             <div className="text-lg font-semibold text-white">Cara Membaca</div>
             <p className="mt-1.5 text-sm leading-relaxed text-white/65 sm:text-base">
-              Diagonal = prediksi benar; off-diagonal = kesalahan. Semakin gelap
-              sel, semakin tinggi proporsi prediksi (0–1).
+              Diagonal = prediksi benar; off diagonal = kesalahan. Semakin gelap
+              sel, semakin tinggi proporsi prediksi (0 sampai 1).
             </p>
           </div>
           <div className="flex flex-1 flex-col rounded-2xl border border-white/10 bg-white/5 p-4">
@@ -1258,16 +1289,15 @@ const SLIDES: ReactNode[] = [
             <ul className="mt-1.5 space-y-1.5 text-sm leading-relaxed text-white/65 sm:text-base">
               <li>
                 ✅ Akurasi tinggi: gigi{" "}
-                <span className="font-semibold text-white">0,97</span>,
-                sakit-kepala{" "}
-                <span className="font-semibold text-white">0,94</span>, bayi
-                &amp; hasil-lab{" "}
+                <span className="font-semibold text-white">0,97</span>, sakit
+                kepala <span className="font-semibold text-white">0,94</span>,
+                bayi &amp; hasil lab{" "}
                 <span className="font-semibold text-white">0,93</span>.
               </li>
               <li>
                 ⚠️ Sering tertukar: kehamilan ↔ menstruasi (0,20), kontrasepsi ↔
-                menstruasi-kontrasepsi (0,35), asam-lambung ↔
-                gangguan-pencernaan (0,22).
+                menstruasi kontrasepsi (0,35), asam lambung ↔ gangguan
+                pencernaan (0,22).
               </li>
               <li>Kelas yang mirip secara topik cenderung saling tertukar.</li>
             </ul>
@@ -1280,7 +1310,7 @@ const SLIDES: ReactNode[] = [
   // 11 — HASIL: 5 kelas teratas & terbawah
   <SlideShell n={11} key="h-classes">
     <div className="flex h-full flex-col">
-      <Kicker>Performa per Kelas (F1-Score) — Data Testing</Kicker>
+      <Kicker>Performa per Kelas (F1 Score) · Data Testing</Kicker>
       <div className="mt-5 grid flex-1 gap-4 sm:grid-cols-2">
         <div className="flex flex-col rounded-2xl border border-glass-green/25 bg-white/5 p-5">
           <div className="text-xl font-semibold text-white sm:text-2xl">
@@ -1288,10 +1318,10 @@ const SLIDES: ReactNode[] = [
           </div>
           <div className="mt-4 flex flex-1 flex-col justify-around gap-3">
             {[
-              { n: "cacar-air", v: 0.8538 },
+              { n: "cacar air", v: 0.8538 },
               { n: "hiv", v: 0.8304 },
               { n: "gigi", v: 0.7735 },
-              { n: "vaksin-covid-19-1", v: 0.7639 },
+              { n: "vaksin covid 19", v: 0.7639 },
               { n: "rambut", v: 0.7579 },
             ].map((c, i) => (
               <RankBar
@@ -1311,11 +1341,11 @@ const SLIDES: ReactNode[] = [
           </div>
           <div className="mt-4 flex flex-1 flex-col justify-around gap-3">
             {[
-              { n: "asam-lambung / sakit-maag", v: 0.0762 },
+              { n: "asam lambung / sakit maag", v: 0.0762 },
               { n: "kecantikan", v: 0.1026 },
-              { n: "asam-lambung / gastritis", v: 0.1204 },
+              { n: "asam lambung / gastritis", v: 0.1204 },
               { n: "menstruasi / kehamilan", v: 0.1711 },
-              { n: "infeksi-saluran-pernapasan", v: 0.184 },
+              { n: "infeksi saluran pernapasan", v: 0.184 },
             ].map((c, i) => (
               <RankBar
                 key={c.n}
@@ -1334,7 +1364,7 @@ const SLIDES: ReactNode[] = [
   // 12 — HASIL: explainability bagian 1 (distribusi) + pembahasan
   <SlideShell n={12} key="h-xai-1">
     <div className="flex h-full flex-col">
-      <Kicker>Analisis Explainability — Conformal Prediction</Kicker>
+      <Kicker>Analisis Explainability · Conformal Prediction</Kicker>
       <div className="mt-1 text-sm text-white/50 sm:text-base">
         LMPNN k=9 · X_calib 19.456 · X_test 16.213 · 107 Kelas
       </div>
@@ -1352,7 +1382,7 @@ const SLIDES: ReactNode[] = [
             />
           }
           stat="Mean 0,739 · Median 0,750"
-          pembahasan="Skor α (cosine distance ke kelas benar) terdistribusi unimodal di sekitar 0,74. Nilainya stabil, sehingga menjadi dasar kalibrasi p-value yang andal."
+          pembahasan="Skor α (cosine distance ke kelas benar) terdistribusi unimodal di sekitar 0,74. Nilainya stabil, sehingga menjadi dasar kalibrasi nilai p yang andal."
         />
         <XaiCard
           title="Distribusi Credibility"
@@ -1367,7 +1397,7 @@ const SLIDES: ReactNode[] = [
             />
           }
           stat="Mean 0,609"
-          pembahasan="Sebagian besar prediksi berada pada kategori medium–high. Artinya label yang benar jarang dianggap 'aneh' oleh model — keyakinan cukup sehat."
+          pembahasan="Sebagian besar prediksi berada pada kategori medium hingga tinggi. Artinya label yang benar jarang dianggap ’aneh’ oleh model, keyakinan cukup sehat."
         />
         <XaiCard
           title="Distribusi Confidence"
@@ -1382,7 +1412,7 @@ const SLIDES: ReactNode[] = [
             />
           }
           stat="Mean 0,552"
-          pembahasan="Margin antara prediksi terbaik dan pesaing terdekatnya rata-rata 0,552, menandakan keputusan model umumnya tidak ambigu."
+          pembahasan="Margin antara prediksi terbaik dan pesaing terdekatnya rata rata 0,552, menandakan keputusan model umumnya tidak ambigu."
         />
       </div>
     </div>
@@ -1391,10 +1421,10 @@ const SLIDES: ReactNode[] = [
   // 13 — HASIL: explainability bagian 2 (kalibrasi & efisiensi) + pembahasan
   <SlideShell n={13} key="h-xai-2">
     <div className="flex h-full flex-col">
-      <Kicker>Explainability — Kalibrasi &amp; Efisiensi Prediksi</Kicker>
+      <Kicker>Explainability · Kalibrasi &amp; Efisiensi Prediksi</Kicker>
       <div className="mt-4 grid flex-1 gap-4 sm:grid-cols-3">
         <XaiCard
-          title="Trade-off Coverage vs Region Size"
+          title="Trade off Coverage vs Region Size"
           chart={
             <div className="w-full">
               <TradeoffChart className="h-24 w-full" />
@@ -1415,7 +1445,7 @@ const SLIDES: ReactNode[] = [
           title="Reliability Diagram"
           chart={<ReliabilityChart className="h-28 w-28" />}
           stat="Mendekati garis diagonal"
-          pembahasan="Akurasi empiris mengikuti probabilitas yang diprediksi (garis ideal). Artinya keluaran keyakinan model well-calibrated dan layak dipercaya."
+          pembahasan="Akurasi empiris mengikuti probabilitas yang diprediksi (garis ideal). Artinya keluaran keyakinan model well calibrated dan layak dipercaya."
         />
         <XaiCard
           title="Ukuran Prediction Region"
@@ -1460,7 +1490,7 @@ const SLIDES: ReactNode[] = [
             <IconDocMatrix className="h-14 w-28" />
           </div>
           <div className="mt-2 text-lg font-semibold text-white">
-            TF-IDF + Cosine Similarity
+            TF IDF + Cosine Similarity
           </div>
           <ul className="mt-2 space-y-1.5 text-sm leading-snug text-white/65 sm:text-base">
             <li>Representasi sparse 5.000 dimensi menangkap pola semantik.</li>
@@ -1476,8 +1506,8 @@ const SLIDES: ReactNode[] = [
             K Optimal = 9
           </div>
           <ul className="mt-2 space-y-1.5 text-sm leading-snug text-white/65 sm:text-base">
-            <li>Berdasarkan Grid Search + 5-Fold CV.</li>
-            <li>Menyeimbangkan bias–variance trade-off.</li>
+            <li>Berdasarkan Grid Search + 5 Fold CV.</li>
+            <li>Menyeimbangkan bias dan variance.</li>
             <li>k terlalu kecil/besar menurunkan performa.</li>
           </ul>
         </div>
@@ -1490,8 +1520,8 @@ const SLIDES: ReactNode[] = [
             Skala 107 Kelas Medis
           </div>
           <ul className="mt-2 space-y-1.5 text-sm leading-snug text-white/65 sm:text-base">
-            <li>Tantangan extreme multi-class classification.</li>
-            <li>F1-macro ~45% adalah hasil yang sangat kompetitif.</li>
+            <li>Tantangan extreme multi class classification.</li>
+            <li>F1 macro ~45% adalah hasil yang sangat kompetitif.</li>
           </ul>
         </div>
       </div>
@@ -1501,26 +1531,26 @@ const SLIDES: ReactNode[] = [
   // 15 — PEMBAHASAN: kekuatan explainability conformal prediction
   <SlideShell n={15} key="p-explain">
     <div className="flex h-full flex-col">
-      <Kicker>Kekuatan Explainability — Conformal Prediction</Kicker>
+      <Kicker>Kekuatan Explainability · Conformal Prediction</Kicker>
       <div className="mt-5 grid flex-1 gap-4 sm:grid-cols-3">
         {[
           {
             ic: "shield" as const,
-            t: "Credibility (P-Value)",
+            t: "Credibility (P Value)",
             d: "Mengukur tingkat keyakinan model terhadap prediksinya.",
-            s: "Rata-rata 0,6093",
+            s: "Rata rata 0,6093",
           },
           {
             ic: "bars" as const,
             t: "Confidence Score",
             d: "Ukuran kepercayaan yang terukur pada setiap prediksi.",
-            s: "Rata-rata 0,5523",
+            s: "Rata rata 0,5523",
           },
           {
             ic: "layers" as const,
             t: "Prediction Set",
             d: "Model menyatakan ketidakpastian dengan menghasilkan set kelas, bukan hanya 1 kelas.",
-            s: "Rata-rata 9,5 kelas",
+            s: "Rata rata 9,5 kelas",
           },
         ].map((c) => (
           <div
@@ -1545,7 +1575,7 @@ const SLIDES: ReactNode[] = [
         <p className="text-base leading-relaxed text-white/80 sm:text-lg">
           <span className="font-semibold text-white">Hasil Utama:</span>{" "}
           Coverage <span className="font-bold text-white">89,61%</span> (ε =
-          0,10) · distribusi p-value terkalibrasi baik → model dapat mengenali{" "}
+          0,10) · distribusi nilai p terkalibrasi baik → model dapat mengenali{" "}
           <span className="font-semibold text-white">kapan tidak yakin</span>{" "}
           dan meningkatkan keamanan.
         </p>
@@ -1572,13 +1602,13 @@ const SLIDES: ReactNode[] = [
               • Dataset dari satu platform (Alodokter) → potensi bias sumber.
             </li>
             <li>
-              • Ketergantungan pada TF-IDF — tidak menangkap konteks semantik
+              • Ketergantungan pada TF IDF, tidak menangkap konteks semantik
               mendalam.
             </li>
             <li>• Kelas dengan gejala umum masih sulit dibedakan.</li>
             <li>• Belum membandingkan performa dengan algoritma lain.</li>
             <li>
-              • Belum diuji pada dataset eksternal / real-time deployment.
+              • Belum diuji pada dataset eksternal / real time deployment.
             </li>
           </ul>
         </div>
@@ -1648,12 +1678,12 @@ const SLIDES: ReactNode[] = [
           {
             n: "2",
             t: "Performa Signifikan",
-            d: "Accuracy 44,75% · F1-Macro 45,48% · Precision 45,68% · Recall 48,63% · F1-Weighted 44,82%. 48,1× baseline, tanpa overfitting (CV 0,4574 vs Testing 0,4548).",
+            d: "Accuracy 44,75% · F1 Macro 45,48% · Precision 45,68% · Recall 48,63% · F1 Weighted 44,82%. 48,1× baseline, tanpa overfitting (CV 0,4574 vs Testing 0,4548).",
           },
           {
             n: "3",
             t: "Explainability & Trustworthiness",
-            d: "Coverage 89,61% (ε = 0,10) · Credibility 0,6093 · Confidence 0,5523 — prediksi dilengkapi ukuran ketidakpastian.",
+            d: "Coverage 89,61% (ε = 0,10) · Credibility 0,6093 · Confidence 0,5523, prediksi dilengkapi ukuran ketidakpastian.",
           },
           {
             n: "4",
@@ -1695,7 +1725,7 @@ const SLIDES: ReactNode[] = [
           {
             n: "1",
             t: "Representasi Fitur Berbasis Model Bahasa",
-            d: "Eksplorasi IndoBERT sebagai pengganti TF-IDF dalam pipeline klasifikasi untuk menangkap makna kontekstual gejala yang lebih kaya.",
+            d: "Eksplorasi IndoBERT sebagai pengganti TF IDF dalam pipeline klasifikasi untuk menangkap makna kontekstual gejala yang lebih kaya.",
           },
           {
             n: "2",
@@ -1704,8 +1734,8 @@ const SLIDES: ReactNode[] = [
           },
           {
             n: "3",
-            t: "Multi-Label Classification",
-            d: "Kembangkan sistem ke arah multi-label untuk mengakomodasi pertanyaan medis yang relevan terhadap lebih dari satu kategori sekaligus.",
+            t: "Multi Label Classification",
+            d: "Kembangkan sistem ke arah multi label untuk mengakomodasi pertanyaan medis yang relevan terhadap lebih dari satu kategori sekaligus.",
           },
           {
             n: "4",
@@ -1738,7 +1768,7 @@ const SLIDES: ReactNode[] = [
               Conformal Prediction
             </span>{" "}
             sebagai mekanisme{" "}
-            <span className="font-semibold text-white">Explainable AI</span> —
+            <span className="font-semibold text-white">Explainable AI</span>,
             peningkatan akurasi dicapai tanpa mengorbankan transparansi &
             interpretabilitas.
           </p>
