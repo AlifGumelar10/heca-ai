@@ -9,13 +9,14 @@ import { useCallback, useEffect, useState, type ReactNode } from "react";
  * Memicu dari mana pun:
  *   onClick={() => window.dispatchEvent(new CustomEvent("open-heca-deck"))}
  *
- * Isi: PEMBUKAAN (1) + LATAR BELAKANG (3) + METODE (3) + HASIL (6) = 13 slide.
+ * Isi: PEMBUKAAN (1) + LATAR BELAKANG (3) + METODE (3) + HASIL (6)
+ *      + PEMBAHASAN (5) = 18 slide.
  *
  * CATATAN ASET: slide Confusion Matrix memakai gambar asli.
  * Simpan figure matplotlib kamu ke: frontend/public/confusion-matrix.png
  */
 
-const TOTAL = 13;
+const TOTAL = 18;
 
 /* ---------------------------------- Visual --------------------------------- */
 
@@ -443,6 +444,174 @@ function RankBar({
         </div>
       </div>
     </div>
+  );
+}
+
+/* --- Ikon kecil untuk Bagian 4 --- */
+
+function IconTwoCluster({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 120 60" className={className}>
+      <g fill="#64748b">
+        <circle cx="14" cy="16" r="2.6" />
+        <circle cx="26" cy="12" r="2.6" />
+        <circle cx="10" cy="32" r="2.6" />
+        <circle cx="28" cy="36" r="2.6" />
+        <circle cx="18" cy="48" r="2.6" />
+      </g>
+      <path d="M42 30 h16" stroke="#5eead4" strokeWidth="1.8" fill="none" />
+      <path
+        d="M55 25 l7 5 -7 5"
+        stroke="#5eead4"
+        strokeWidth="1.8"
+        fill="none"
+        strokeLinejoin="round"
+        strokeLinecap="round"
+      />
+      <g fill="#34d399">
+        <circle cx="86" cy="16" r="2.6" />
+        <circle cx="100" cy="14" r="2.6" />
+        <circle cx="82" cy="36" r="2.6" />
+        <circle cx="102" cy="38" r="2.6" />
+      </g>
+      <circle
+        cx="93"
+        cy="30"
+        r="9"
+        fill="none"
+        stroke="#22d3ee"
+        strokeWidth="2"
+      />
+      <circle cx="93" cy="30" r="2.8" fill="#22d3ee" />
+    </svg>
+  );
+}
+
+function IconDocMatrix({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 120 56" className={className}>
+      <rect
+        x="12"
+        y="10"
+        width="24"
+        height="34"
+        rx="3"
+        fill="none"
+        stroke="#5eead4"
+        strokeWidth="1.8"
+      />
+      <line
+        x1="18"
+        y1="19"
+        x2="30"
+        y2="19"
+        stroke="#5eead4"
+        strokeWidth="1.5"
+      />
+      <line
+        x1="18"
+        y1="25"
+        x2="30"
+        y2="25"
+        stroke="#5eead4"
+        strokeWidth="1.5"
+      />
+      <line
+        x1="18"
+        y1="31"
+        x2="27"
+        y2="31"
+        stroke="#5eead4"
+        strokeWidth="1.5"
+      />
+      <path d="M44 27 h14" stroke="#5eead4" strokeWidth="1.8" fill="none" />
+      <path
+        d="M55 22 l7 5 -7 5"
+        stroke="#5eead4"
+        strokeWidth="1.8"
+        fill="none"
+        strokeLinejoin="round"
+        strokeLinecap="round"
+      />
+      <g>
+        {[0, 1, 2, 3].map((r) =>
+          [0, 1, 2, 3].map((c) => (
+            <rect
+              key={`${r}-${c}`}
+              x={74 + c * 10}
+              y={12 + r * 8}
+              width="8"
+              height="6"
+              rx="1"
+              fill="#22d3ee"
+              opacity={0.25 + ((r + c) % 3) * 0.25}
+            />
+          )),
+        )}
+      </g>
+    </svg>
+  );
+}
+
+function Icon({
+  type,
+  color = "#5eead4",
+  className = "h-9 w-9",
+}: {
+  type: "shield" | "bars" | "layers" | "warn" | "target" | "check";
+  color?: string;
+  className?: string;
+}) {
+  const s = {
+    fill: "none",
+    stroke: color,
+    strokeWidth: 1.8,
+    strokeLinecap: "round" as const,
+    strokeLinejoin: "round" as const,
+  };
+  return (
+    <svg viewBox="0 0 24 24" className={className}>
+      {type === "shield" && (
+        <g {...s}>
+          <path d="M12 3l7 3v5c0 4-3 7-7 9-4-2-7-5-7-9V6z" />
+          <path d="M9 12l2 2 4-4" />
+        </g>
+      )}
+      {type === "bars" && (
+        <g {...s}>
+          <line x1="5" y1="20" x2="5" y2="13" />
+          <line x1="12" y1="20" x2="12" y2="8" />
+          <line x1="19" y1="20" x2="19" y2="4" />
+        </g>
+      )}
+      {type === "layers" && (
+        <g {...s}>
+          <path d="M12 3l9 5-9 5-9-5z" />
+          <path d="M3 12l9 5 9-5" />
+          <path d="M3 16l9 5 9-5" />
+        </g>
+      )}
+      {type === "warn" && (
+        <g {...s}>
+          <path d="M12 3l9 16H3z" />
+          <line x1="12" y1="10" x2="12" y2="14" />
+          <circle cx="12" cy="17" r="0.4" fill={color} />
+        </g>
+      )}
+      {type === "target" && (
+        <g {...s}>
+          <circle cx="12" cy="12" r="8" />
+          <circle cx="12" cy="12" r="4" />
+          <circle cx="12" cy="12" r="0.6" fill={color} />
+        </g>
+      )}
+      {type === "check" && (
+        <g {...s}>
+          <circle cx="12" cy="12" r="9" />
+          <path d="M8 12l3 3 5-6" />
+        </g>
+      )}
+    </svg>
   );
 }
 
@@ -1266,6 +1435,316 @@ const SLIDES: ReactNode[] = [
           stat="ε = 0,1 · Coverage 89,6% · Mean 9,5"
           pembahasan="Distribusi condong ke kiri: mayoritas query menghasilkan set kecil. Singleton (pasti 1 kelas) 3,7% dan empty set hanya 1,8%."
         />
+      </div>
+    </div>
+  </SlideShell>,
+
+  // 14 — PEMBAHASAN: divider + implikasi metodologis
+  <SlideShell n={14} key="p-implikasi">
+    <div className="flex h-full flex-col">
+      <SectionHead num="04" title="Pembahasan" note="Implikasi Metodologis" />
+      <div className="mt-5 grid flex-1 grid-cols-2 gap-4 sm:grid-cols-4">
+        <div className="flex flex-col rounded-2xl border border-white/10 bg-white/5 p-4">
+          <div className="flex h-16 items-center justify-center">
+            <IconTwoCluster className="h-14 w-28" />
+          </div>
+          <div className="mt-2 text-base font-semibold text-white">
+            LMPNN vs KNN Standar
+          </div>
+          <ul className="mt-2 space-y-1.5 text-xs leading-snug text-white/65 sm:text-sm">
+            <li>Mean lokal per kelas → lebih robust terhadap outlier.</li>
+            <li>Performa lebih stabil pada data teks berdimensi tinggi.</li>
+          </ul>
+        </div>
+
+        <div className="flex flex-col rounded-2xl border border-white/10 bg-white/5 p-4">
+          <div className="flex h-16 items-center justify-center">
+            <IconDocMatrix className="h-14 w-28" />
+          </div>
+          <div className="mt-2 text-base font-semibold text-white">
+            TF-IDF + Cosine Similarity
+          </div>
+          <ul className="mt-2 space-y-1.5 text-xs leading-snug text-white/65 sm:text-sm">
+            <li>Representasi sparse 5.000 dimensi menangkap pola semantik.</li>
+            <li>Cosine similarity efektif mengukur kemiripan dokumen.</li>
+          </ul>
+        </div>
+
+        <div className="flex flex-col rounded-2xl border border-white/10 bg-white/5 p-4">
+          <div className="flex h-16 items-center justify-center">
+            <F1Curve className="h-16 w-full" />
+          </div>
+          <div className="mt-2 text-base font-semibold text-white">
+            K Optimal = 9
+          </div>
+          <ul className="mt-2 space-y-1.5 text-xs leading-snug text-white/65 sm:text-sm">
+            <li>Berdasarkan Grid Search + 5-Fold CV.</li>
+            <li>Menyeimbangkan bias–variance trade-off.</li>
+            <li>k terlalu kecil/besar menurunkan performa.</li>
+          </ul>
+        </div>
+
+        <div className="flex flex-col rounded-2xl border border-white/10 bg-white/5 p-4">
+          <div className="flex h-16 items-center justify-center">
+            <NodeGraph className="h-16 w-16" />
+          </div>
+          <div className="mt-2 text-base font-semibold text-white">
+            Skala 107 Kelas Medis
+          </div>
+          <ul className="mt-2 space-y-1.5 text-xs leading-snug text-white/65 sm:text-sm">
+            <li>Tantangan extreme multi-class classification.</li>
+            <li>F1-macro ~45% adalah hasil yang sangat kompetitif.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </SlideShell>,
+
+  // 15 — PEMBAHASAN: kekuatan explainability conformal prediction
+  <SlideShell n={15} key="p-explain">
+    <div className="flex h-full flex-col">
+      <Kicker>Kekuatan Explainability — Conformal Prediction</Kicker>
+      <div className="mt-5 grid flex-1 gap-4 sm:grid-cols-3">
+        {[
+          {
+            ic: "shield" as const,
+            t: "Credibility (P-Value)",
+            d: "Mengukur tingkat keyakinan model terhadap prediksinya.",
+            s: "Rata-rata 0,6093",
+          },
+          {
+            ic: "bars" as const,
+            t: "Confidence Score",
+            d: "Ukuran kepercayaan yang terukur pada setiap prediksi.",
+            s: "Rata-rata 0,5523",
+          },
+          {
+            ic: "layers" as const,
+            t: "Prediction Set",
+            d: "Model menyatakan ketidakpastian dengan menghasilkan set kelas, bukan hanya 1 kelas.",
+            s: "Rata-rata 9,5 kelas",
+          },
+        ].map((c) => (
+          <div
+            key={c.t}
+            className="flex flex-col items-center rounded-2xl border border-white/10 bg-white/5 p-5 text-center"
+          >
+            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/5">
+              <Icon type={c.ic} />
+            </div>
+            <div className="mt-3 text-lg font-bold text-white">{c.t}</div>
+            <p className="mt-2 flex-1 text-sm leading-relaxed text-white/65">
+              {c.d}
+            </p>
+            <div className="mt-3 bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-base font-black text-transparent">
+              {c.s}
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="mt-4 flex items-center gap-3 rounded-xl border border-glass-green/25 bg-gradient-to-br from-glass-green/10 to-glass-blue/10 px-4 py-3">
+        <Icon type="check" className="h-6 w-6 shrink-0" />
+        <p className="text-sm leading-relaxed text-white/80 sm:text-base">
+          <span className="font-semibold text-white">Hasil Utama:</span>{" "}
+          Coverage <span className="font-bold text-white">89,61%</span> (ε =
+          0,10) · distribusi p-value terkalibrasi baik → model dapat mengenali{" "}
+          <span className="font-semibold text-white">kapan tidak yakin</span>{" "}
+          dan meningkatkan keamanan.
+        </p>
+      </div>
+    </div>
+  </SlideShell>,
+
+  // 16 — PEMBAHASAN: keterbatasan + arah penelitian lanjutan
+  <SlideShell n={16} key="p-limit">
+    <div className="flex h-full flex-col">
+      <Kicker>Keterbatasan &amp; Arah Penelitian Lanjutan</Kicker>
+      <div className="mt-5 grid flex-1 gap-4 sm:grid-cols-2">
+        <div className="flex flex-col rounded-2xl border border-orange-400/25 bg-white/5 p-5">
+          <div className="flex items-center gap-3">
+            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-orange-400/10">
+              <Icon type="warn" color="#fb923c" className="h-7 w-7" />
+            </div>
+            <div className="text-lg font-semibold text-white sm:text-xl">
+              Keterbatasan Penelitian
+            </div>
+          </div>
+          <ul className="mt-4 flex flex-1 flex-col justify-around gap-2.5 text-sm leading-snug text-white/70 sm:text-base">
+            <li>
+              • Dataset dari satu platform (Alodokter) → potensi bias sumber.
+            </li>
+            <li>
+              • Ketergantungan pada TF-IDF — tidak menangkap konteks semantik
+              mendalam.
+            </li>
+            <li>• Kelas dengan gejala umum masih sulit dibedakan.</li>
+            <li>• Belum membandingkan performa dengan algoritma lain.</li>
+            <li>
+              • Belum diuji pada dataset eksternal / real-time deployment.
+            </li>
+          </ul>
+        </div>
+
+        <div className="flex flex-col rounded-2xl border border-glass-green/25 bg-white/5 p-5">
+          <div className="flex items-center gap-3">
+            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-glass-green/10">
+              <Icon type="target" className="h-7 w-7" />
+            </div>
+            <div className="text-lg font-semibold text-white sm:text-xl">
+              Implikasi &amp; Arah Lanjutan
+            </div>
+          </div>
+          <ul className="mt-4 flex flex-1 flex-col justify-around gap-2.5 text-sm leading-snug text-white/70 sm:text-base">
+            <li>
+              • Integrasi ke sistem konsultasi kesehatan digital untuk triase
+              awal.
+            </li>
+            <li>• Pengembangan dengan embedding semantik (BERT / IndoBERT).</li>
+            <li>• Eksplorasi hybrid model (LMPNN + embedding).</li>
+            <li>
+              • Validasi eksternal &amp; uji klinis terbatas sebelum
+              implementasi penuh.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </SlideShell>,
+
+  // 17 — PEMBAHASAN: kesimpulan
+  <SlideShell n={17} key="p-kesimpulan">
+    <div className="flex h-full flex-col">
+      <div className="flex items-center gap-2.5">
+        <Icon type="check" className="h-7 w-7" />
+        <h2 className="text-2xl font-black tracking-tight text-white sm:text-3xl">
+          Kesimpulan
+        </h2>
+      </div>
+
+      <div className="mt-4 grid grid-cols-2 gap-2.5 sm:grid-cols-4">
+        {[
+          { v: "288.105", l: "Data Mentah" },
+          { v: "81.064", l: "Data Bersih" },
+          { v: "107", l: "Kelas Medis" },
+          { v: "54,4%", l: "Reduksi Token" },
+        ].map((s) => (
+          <div
+            key={s.l}
+            className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center"
+          >
+            <div className="text-lg font-black text-white sm:text-xl">
+              {s.v}
+            </div>
+            <div className="text-xs text-white/55">{s.l}</div>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-4 grid flex-1 grid-cols-2 gap-4">
+        {[
+          {
+            n: "1",
+            t: "Implementasi Berhasil",
+            d: "Model LMPNN yang diintegrasikan dengan Conformal Prediction berhasil mengklasifikasi teks tanya jawab kesehatan bahasa Indonesia.",
+          },
+          {
+            n: "2",
+            t: "Performa Signifikan",
+            d: "Accuracy 44,75% · F1-Macro 45,48% · Precision 45,68% · Recall 48,63% · F1-Weighted 44,82%. 48,1× baseline, tanpa overfitting (CV 0,4574 vs Testing 0,4548).",
+          },
+          {
+            n: "3",
+            t: "Explainability & Trustworthiness",
+            d: "Coverage 89,61% (ε = 0,10) · Credibility 0,6093 · Confidence 0,5523 — prediksi dilengkapi ukuran ketidakpastian.",
+          },
+          {
+            n: "4",
+            t: "Transparansi & Interpretabilitas",
+            d: "Setiap prediksi dijelaskan melalui nearest neighbors; sistem memenuhi prinsip XAI tanpa teknik interpretasi tambahan.",
+          },
+        ].map((c) => (
+          <div
+            key={c.n}
+            className="flex gap-3 rounded-2xl border border-white/10 bg-white/5 p-4"
+          >
+            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-glass-green to-glass-blue text-sm font-bold text-white">
+              {c.n}
+            </div>
+            <div>
+              <div className="text-base font-semibold text-white">{c.t}</div>
+              <p className="mt-1 text-xs leading-relaxed text-white/65 sm:text-sm">
+                {c.d}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </SlideShell>,
+
+  // 18 — PEMBAHASAN: saran
+  <SlideShell n={18} key="p-saran">
+    <div className="flex h-full flex-col">
+      <div className="flex items-center gap-2.5">
+        <Icon type="target" className="h-7 w-7" />
+        <h2 className="text-2xl font-black tracking-tight text-white sm:text-3xl">
+          Saran
+        </h2>
+      </div>
+
+      <div className="mt-4 grid flex-1 grid-cols-2 gap-3">
+        {[
+          {
+            n: "1",
+            t: "Gunakan Seluruh Dataset",
+            d: "Manfaatkan 288.105 sampel tanpa filtering minimum agar informasi medis penting tidak hilang.",
+          },
+          {
+            n: "2",
+            t: "Penanganan Ketidakseimbangan",
+            d: "Terapkan Class Weighting, Oversampling (SMOTE), atau Undersampling / Hybrid Sampling.",
+          },
+          {
+            n: "3",
+            t: "Pengembangan Metode",
+            d: "Eksplorasi Mondrian Conformal Prediction, multi-label classification, & hybrid (LMPNN + embedding).",
+          },
+          {
+            n: "4",
+            t: "Implementasi & Validasi Nyata",
+            d: "Posisikan sebagai Clinical Decision Support Tool dengan credibility thresholding (<0,3 review manual; >0,7 keyakinan tinggi) + uji klinis.",
+          },
+          {
+            n: "5",
+            t: "Penerapan Praktis",
+            d: "Terapkan sebagai modul triase otomatis; jaminan coverage 89,61% menjadi landasan akuntabilitas sistem.",
+          },
+        ].map((c) => (
+          <div
+            key={c.n}
+            className="flex gap-3 rounded-2xl border border-white/10 bg-white/5 p-4"
+          >
+            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-glass-green to-glass-blue text-sm font-bold text-white">
+              {c.n}
+            </div>
+            <div>
+              <div className="text-base font-semibold text-white">{c.t}</div>
+              <p className="mt-1 text-xs leading-relaxed text-white/65 sm:text-sm">
+                {c.d}
+              </p>
+            </div>
+          </div>
+        ))}
+
+        <div className="flex flex-col justify-center rounded-2xl border border-glass-green/25 bg-gradient-to-br from-glass-green/10 to-glass-blue/10 p-4 text-center">
+          <div className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-3xl font-black text-transparent">
+            28,1%
+          </div>
+          <p className="mt-1 text-xs leading-relaxed text-white/70 sm:text-sm">
+            dari total data mentah yang saat ini dimanfaatkan — potensi
+            peningkatan performa masih sangat besar.
+          </p>
+        </div>
       </div>
     </div>
   </SlideShell>,
