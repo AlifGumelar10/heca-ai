@@ -1064,19 +1064,19 @@ const SLIDES: ReactNode[] = [
     </div>
   </SlideShell>,
 
-  // 10 — HASIL: confusion matrix (gambar asli)
+  // 10 — HASIL: confusion matrix (gambar asli, top-aligned & tinggi penuh)
   <SlideShell n={10} key="h-cm">
     <div className="flex h-full flex-col">
       <Kicker>Confusion Matrix — 20 Kelas Terbesar</Kicker>
-      <div className="mt-4 grid min-h-0 flex-1 gap-4 sm:grid-cols-3">
-        <div className="flex min-h-0 items-center justify-center rounded-2xl bg-white p-3 sm:col-span-2">
+      <div className="mt-3 flex min-h-0 flex-1 gap-4">
+        <div className="relative min-h-0 flex-[2] rounded-2xl bg-white p-2">
           <img
             src="/confusion-matrix.png"
             alt="Confusion Matrix 20 Kelas Terbesar (normalized per baris)"
-            className="max-h-full max-w-full object-contain"
+            className="absolute inset-2 h-[calc(100%-1rem)] w-[calc(100%-1rem)] object-contain object-top"
           />
         </div>
-        <div className="flex min-h-0 flex-col gap-3">
+        <div className="flex min-h-0 flex-1 flex-col gap-3 overflow-hidden">
           <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
             <div className="text-base font-semibold text-white">
               Cara Membaca
