@@ -45,6 +45,9 @@ export default function Home() {
       <Science />
       <Categories />
 
+      {/* Glosarium - laci di bawah 107 Kategori Medis */}
+      <Glossary />
+
       {/* Poster penelitian */}
       <section className="mx-auto max-w-5xl px-4 pt-16 text-center">
         <div className="mb-6">
@@ -60,9 +63,6 @@ export default function Home() {
           loading="lazy"
         />
       </section>
-
-      {/* Glosarium - laci terakhir */}
-      <Glossary />
 
       <footer id="tentang" className="mx-auto max-w-5xl px-4 pt-16">
         <div className="glass rounded-4xl px-6 py-8 text-center">
