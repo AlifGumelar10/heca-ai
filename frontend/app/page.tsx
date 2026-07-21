@@ -11,6 +11,7 @@ import Science from "@/components/Science";
 import Categories from "@/components/Categories";
 import Glossary from "@/components/Glossary";
 import Presentation from "@/components/Presentation";
+import Poster from "@/components/Poster";
 import CursorTrail from "@/components/CursorTrail";
 import HealthBackground from "@/components/HealthBackground";
 
@@ -21,6 +22,8 @@ export default function Home() {
 
   const openDeck = () =>
     window.dispatchEvent(new CustomEvent("open-heca-deck"));
+  const openPoster = () =>
+    window.dispatchEvent(new CustomEvent("open-heca-poster"));
 
   return (
     <main className="relative pb-20">
@@ -52,22 +55,6 @@ export default function Home() {
       {/* Glosarium - laci di bawah 107 Kategori Medis */}
       <Glossary />
 
-      {/* Poster penelitian */}
-      <section className="mx-auto max-w-5xl px-4 pt-16 text-center">
-        <div className="mb-6">
-          <div className="text-sm font-medium text-ink-soft">Publikasi</div>
-          <h2 className="mt-2 text-4xl font-semibold tracking-tight">
-            Poster Penelitian
-          </h2>
-        </div>
-        <img
-          src="https://qktrbkbvszqyxexuzump.supabase.co/storage/v1/object/public/posters/poster_3000.webp"
-          alt="Poster Skripsi HeCa AI - Alif Gumelar Syah Moeslim"
-          className="mx-auto w-full max-w-[900px] rounded-3xl shadow-lg"
-          loading="lazy"
-        />
-      </section>
-
       <footer id="tentang" className="mx-auto max-w-5xl px-4 pt-16">
         <div className="glass rounded-4xl px-6 py-8 text-center">
           {/* Logo di footer - klik untuk buka presentasi */}
@@ -84,6 +71,17 @@ export default function Home() {
               />
             </button>
           </div>
+
+          {/* Tombol buka poster penelitian (pop-up) */}
+          <div className="mb-4 flex justify-center">
+            <button
+              onClick={openPoster}
+              className="pill border border-ink/15 bg-white/5 text-sm font-medium text-ink-soft transition-colors hover:text-ink"
+            >
+              📄 Baca Poster Penelitian
+            </button>
+          </div>
+
           <div className="text-lg font-semibold tracking-tight">HeCa AI</div>
           <div className="mt-0.5 text-xs text-ink-soft">Health Category AI</div>
           <p className="mx-auto mt-3 max-w-xl text-sm text-ink-soft">
@@ -99,6 +97,8 @@ export default function Home() {
 
       {/* Deck presentasi sidang - muncul saat logo diklik */}
       <Presentation />
+      {/* Poster penelitian - muncul sebagai pop-up */}
+      <Poster />
     </main>
   );
 }

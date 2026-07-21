@@ -33,6 +33,14 @@ export default function Navbar({ onCta }: Props) {
           <a href="#dokumentasi" className="transition-colors hover:text-ink">
             Dokumentasi
           </a>
+          <button
+            onClick={() =>
+              window.dispatchEvent(new CustomEvent("open-heca-poster"))
+            }
+            className="transition-colors hover:text-ink"
+          >
+            Bacaan
+          </button>
           <a href="#tentang" className="transition-colors hover:text-ink">
             Tentang
           </a>
