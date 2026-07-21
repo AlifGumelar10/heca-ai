@@ -9,10 +9,13 @@ import { useCallback, useEffect, useState, type ReactNode } from "react";
  * Memicu dari mana pun:
  *   onClick={() => window.dispatchEvent(new CustomEvent("open-heca-deck"))}
  *
- * Isi: PEMBUKAAN (1) + LATAR BELAKANG (3) + METODE (3) + HASIL (5) = 12 slide.
+ * Isi: PEMBUKAAN (1) + LATAR BELAKANG (3) + METODE (3) + HASIL (6) = 13 slide.
+ *
+ * CATATAN ASET: slide Confusion Matrix memakai gambar asli.
+ * Simpan figure matplotlib kamu ke: frontend/public/confusion-matrix.png
  */
 
-const TOTAL = 12;
+const TOTAL = 13;
 
 /* ---------------------------------- Visual --------------------------------- */
 
@@ -315,43 +318,6 @@ function MiniHistogram({
   );
 }
 
-function ConfusionHeatmap({ className }: { className?: string }) {
-  const N = 12;
-  const size = 15;
-  const gap = 2;
-  const pad = 2;
-  const dim = N * (size + gap) - gap + pad * 2;
-  const cells: ReactNode[] = [];
-  for (let r = 0; r < N; r++) {
-    for (let c = 0; c < N; c++) {
-      let v: number;
-      if (r === c) {
-        v = 0.62 + ((r * 7) % 4) * 0.1;
-      } else {
-        const d = Math.abs(r - c);
-        v = d <= 1 ? 0.14 : ((r * 3 + c * 5) % 5) * 0.03;
-      }
-      cells.push(
-        <rect
-          key={`${r}-${c}`}
-          x={pad + c * (size + gap)}
-          y={pad + r * (size + gap)}
-          width={size}
-          height={size}
-          rx="2"
-          fill="#22d3ee"
-          opacity={Math.max(0.06, Math.min(1, v))}
-        />,
-      );
-    }
-  }
-  return (
-    <svg viewBox={`0 0 ${dim} ${dim}`} className={className}>
-      {cells}
-    </svg>
-  );
-}
-
 function TradeoffChart({ className }: { className?: string }) {
   const cov = "20,23.7 56,32.7 92,50.7 128,66 164,79.6 200,91.5";
   const size = "20,15.9 56,59.6 92,80.5 128,87.3 164,90.2 200,91";
@@ -574,6 +540,32 @@ function SectionHead({
         {title}
       </h2>
       {note && <span className="text-sm text-white/45">{note}</span>}
+    </div>
+  );
+}
+
+/* XAI figure card: chart + statistik + pembahasan singkat */
+function XaiCard({
+  title,
+  chart,
+  stat,
+  pembahasan,
+}: {
+  title: string;
+  chart: ReactNode;
+  stat: ReactNode;
+  pembahasan: string;
+}) {
+  return (
+    <div className="flex flex-col rounded-2xl border border-white/10 bg-white/5 p-4">
+      <div className="text-base font-semibold text-white">{title}</div>
+      <div className="mt-3 flex items-center justify-center">{chart}</div>
+      <div className="mt-2 text-sm font-bold text-white">{stat}</div>
+      <div className="mt-2 border-t border-white/10 pt-2">
+        <p className="text-xs leading-relaxed text-white/60 sm:text-[13px]">
+          {pembahasan}
+        </p>
+      </div>
     </div>
   );
 }
@@ -1018,54 +1010,108 @@ const SLIDES: ReactNode[] = [
     </div>
   </SlideShell>,
 
-  // 9 — HASIL: optimasi hyperparameter + confusion matrix
-  <SlideShell n={9} key="h-opt-cm">
+  // 9 — HASIL: optimasi hyperparameter
+  <SlideShell n={9} key="h-opt">
     <div className="flex h-full flex-col">
-      <Kicker>Optimasi Hyperparameter &amp; Confusion Matrix</Kicker>
-      <div className="mt-5 grid flex-1 gap-4 sm:grid-cols-2">
-        <div className="flex flex-col rounded-2xl border border-white/10 bg-white/5 p-5">
+      <Kicker>Optimasi Hyperparameter (Grid Search)</Kicker>
+      <div className="mt-5 grid flex-1 gap-4 sm:grid-cols-5">
+        <div className="flex flex-col rounded-2xl border border-white/10 bg-white/5 p-5 sm:col-span-3">
           <div className="flex items-center justify-between">
             <div className="text-lg font-semibold text-white sm:text-xl">
-              Optimasi Hyperparameter
+              Perbandingan Mean F1-Macro
             </div>
             <div className="rounded-lg border border-glass-green/30 bg-glass-green/10 px-3 py-1 text-sm font-bold text-white">
               Best k = 9
             </div>
           </div>
-          <div className="mt-1 text-xs text-white/55 sm:text-sm">
-            Grid Search k=1–51 (step 2) · 5-Fold CV · metrik F1-Macro
-          </div>
-          <F1Curve className="mt-2 h-32 w-full" />
+          <F1Curve className="mt-2 h-44 w-full" />
           <div className="mt-1 text-center text-sm text-white/70">
             Mean F1-Macro terbaik:{" "}
-            <span className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-lg font-black text-transparent">
+            <span className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-xl font-black text-transparent">
               45,74%
             </span>
           </div>
         </div>
 
-        <div className="flex flex-col rounded-2xl border border-white/10 bg-white/5 p-5">
-          <div className="text-lg font-semibold text-white sm:text-xl">
-            Confusion Matrix
+        <div className="sm:col-span-2">
+          <Panel title="Pengaturan & Temuan">
+            <ul className="space-y-2.5">
+              <li>
+                Metode:{" "}
+                <span className="font-semibold text-white">Grid Search</span> k
+                = 1–51 (step 2)
+              </li>
+              <li>
+                Validasi:{" "}
+                <span className="font-semibold text-white">
+                  5-Fold Cross Validation
+                </span>
+              </li>
+              <li>
+                Metrik optimasi:{" "}
+                <span className="font-semibold text-white">F1-Macro</span>
+              </li>
+              <li className="pt-1 text-white/80">
+                k terlalu kecil → sensitif noise; k terlalu besar →
+                over-smoothing.{" "}
+                <span className="font-semibold text-white">k = 9</span> memberi
+                keseimbangan terbaik.
+              </li>
+            </ul>
+          </Panel>
+        </div>
+      </div>
+    </div>
+  </SlideShell>,
+
+  // 10 — HASIL: confusion matrix (gambar asli)
+  <SlideShell n={10} key="h-cm">
+    <div className="flex h-full flex-col">
+      <Kicker>Confusion Matrix — 20 Kelas Terbesar</Kicker>
+      <div className="mt-4 grid min-h-0 flex-1 gap-4 sm:grid-cols-3">
+        <div className="flex min-h-0 items-center justify-center rounded-2xl bg-white p-3 sm:col-span-2">
+          <img
+            src="/confusion-matrix.png"
+            alt="Confusion Matrix 20 Kelas Terbesar (normalized per baris)"
+            className="max-h-full max-w-full object-contain"
+          />
+        </div>
+        <div className="flex min-h-0 flex-col gap-3">
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+            <div className="text-base font-semibold text-white">
+              Cara Membaca
+            </div>
+            <p className="mt-1.5 text-xs leading-relaxed text-white/65 sm:text-sm">
+              Diagonal = prediksi benar; off-diagonal = kesalahan. Semakin gelap
+              sel, semakin tinggi proporsi prediksi (0–1).
+            </p>
           </div>
-          <div className="text-xs text-white/55 sm:text-sm">
-            Top 20 kelas teratas (normalized per baris)
-          </div>
-          <div className="mt-2 flex flex-1 items-center justify-center">
-            <ConfusionHeatmap className="h-40 w-40" />
-          </div>
-          <div className="text-center text-xs text-white/60 sm:text-sm">
-            Diagonal terang = prediksi benar · performa{" "}
-            <span className="font-semibold text-white">&gt; 0,6</span> pada 20
-            kelas terbaik
+          <div className="flex flex-1 flex-col rounded-2xl border border-white/10 bg-white/5 p-4">
+            <div className="text-base font-semibold text-white">Sorotan</div>
+            <ul className="mt-1.5 space-y-1.5 text-xs leading-relaxed text-white/65 sm:text-sm">
+              <li>
+                ✅ Akurasi tinggi: gigi{" "}
+                <span className="font-semibold text-white">0,97</span>,
+                sakit-kepala{" "}
+                <span className="font-semibold text-white">0,94</span>, bayi
+                &amp; hasil-lab{" "}
+                <span className="font-semibold text-white">0,93</span>.
+              </li>
+              <li>
+                ⚠️ Sering tertukar: kehamilan ↔ menstruasi (0,20), kontrasepsi ↔
+                menstruasi-kontrasepsi (0,35), asam-lambung ↔
+                gangguan-pencernaan (0,22).
+              </li>
+              <li>Kelas yang mirip secara topik cenderung saling tertukar.</li>
+            </ul>
           </div>
         </div>
       </div>
     </div>
   </SlideShell>,
 
-  // 10 — HASIL: 5 kelas teratas & terbawah
-  <SlideShell n={10} key="h-classes">
+  // 11 — HASIL: 5 kelas teratas & terbawah
+  <SlideShell n={11} key="h-classes">
     <div className="flex h-full flex-col">
       <Kicker>Performa per Kelas (F1-Score) — Data Testing</Kicker>
       <div className="mt-5 grid flex-1 gap-4 sm:grid-cols-2">
@@ -1118,125 +1164,108 @@ const SLIDES: ReactNode[] = [
     </div>
   </SlideShell>,
 
-  // 11 — HASIL: explainability bagian 1 (distribusi)
-  <SlideShell n={11} key="h-xai-1">
+  // 12 — HASIL: explainability bagian 1 (distribusi) + pembahasan
+  <SlideShell n={12} key="h-xai-1">
     <div className="flex h-full flex-col">
       <Kicker>Analisis Explainability — Conformal Prediction</Kicker>
       <div className="mt-1 text-xs text-white/50 sm:text-sm">
         LMPNN k=9 · X_calib 19.456 · X_test 16.213 · 107 Kelas
       </div>
       <div className="mt-4 grid flex-1 gap-4 sm:grid-cols-3">
-        {[
-          {
-            t: "Distribusi Nonconformity",
-            color: "#60a5fa",
-            heights: [
-              0.05, 0.08, 0.13, 0.22, 0.34, 0.52, 0.74, 0.96, 0.82, 0.5, 0.22,
-            ],
-            mean: 0.74,
-            s: "Mean 0,739 · Median 0,750",
-            d: "Unimodal — skor α = cosine distance ke kelas benar.",
-          },
-          {
-            t: "Distribusi Credibility",
-            color: "#34d399",
-            heights: [
-              0.12, 0.3, 0.5, 0.62, 0.72, 0.78, 0.82, 0.78, 0.68, 0.52, 0.38,
-            ],
-            mean: 0.61,
-            s: "Mean 0,609",
-            d: "Mayoritas prediksi pada kategori medium–high.",
-          },
-          {
-            t: "Distribusi Confidence",
-            color: "#fb923c",
-            heights: [
-              0.1, 0.25, 0.45, 0.7, 0.9, 1.0, 0.92, 0.75, 0.5, 0.3, 0.16,
-            ],
-            mean: 0.55,
-            s: "Mean 0,552",
-            d: "Margin prediksi terbaik vs pesaing cukup baik.",
-          },
-        ].map((c) => (
-          <div
-            key={c.t}
-            className="flex flex-col rounded-2xl border border-white/10 bg-white/5 p-4"
-          >
-            <div className="text-base font-semibold text-white">{c.t}</div>
+        <XaiCard
+          title="Distribusi Nonconformity"
+          chart={
             <MiniHistogram
-              heights={c.heights}
-              color={c.color}
-              meanFrac={c.mean}
-              className="mt-3 h-24 w-full"
+              heights={[
+                0.05, 0.08, 0.13, 0.22, 0.34, 0.52, 0.74, 0.96, 0.82, 0.5, 0.22,
+              ]}
+              color="#60a5fa"
+              meanFrac={0.74}
+              className="h-24 w-full"
             />
-            <div className="mt-2 text-sm font-bold text-white">{c.s}</div>
-            <p className="mt-1 text-xs leading-snug text-white/60 sm:text-sm">
-              {c.d}
-            </p>
-          </div>
-        ))}
+          }
+          stat="Mean 0,739 · Median 0,750"
+          pembahasan="Skor α (cosine distance ke kelas benar) terdistribusi unimodal di sekitar 0,74. Nilainya stabil, sehingga menjadi dasar kalibrasi p-value yang andal."
+        />
+        <XaiCard
+          title="Distribusi Credibility"
+          chart={
+            <MiniHistogram
+              heights={[
+                0.12, 0.3, 0.5, 0.62, 0.72, 0.78, 0.82, 0.78, 0.68, 0.52, 0.38,
+              ]}
+              color="#34d399"
+              meanFrac={0.61}
+              className="h-24 w-full"
+            />
+          }
+          stat="Mean 0,609"
+          pembahasan="Sebagian besar prediksi berada pada kategori medium–high. Artinya label yang benar jarang dianggap 'aneh' oleh model — keyakinan cukup sehat."
+        />
+        <XaiCard
+          title="Distribusi Confidence"
+          chart={
+            <MiniHistogram
+              heights={[
+                0.1, 0.25, 0.45, 0.7, 0.9, 1.0, 0.92, 0.75, 0.5, 0.3, 0.16,
+              ]}
+              color="#fb923c"
+              meanFrac={0.55}
+              className="h-24 w-full"
+            />
+          }
+          stat="Mean 0,552"
+          pembahasan="Margin antara prediksi terbaik dan pesaing terdekatnya rata-rata 0,552, menandakan keputusan model umumnya tidak ambigu."
+        />
       </div>
     </div>
   </SlideShell>,
 
-  // 12 — HASIL: explainability bagian 2 (kalibrasi & efisiensi)
-  <SlideShell n={12} key="h-xai-2">
+  // 13 — HASIL: explainability bagian 2 (kalibrasi & efisiensi) + pembahasan
+  <SlideShell n={13} key="h-xai-2">
     <div className="flex h-full flex-col">
       <Kicker>Explainability — Kalibrasi &amp; Efisiensi Prediksi</Kicker>
       <div className="mt-4 grid flex-1 gap-4 sm:grid-cols-3">
-        <div className="flex flex-col rounded-2xl border border-white/10 bg-white/5 p-4">
-          <div className="text-base font-semibold text-white">
-            Trade-off Coverage vs Region Size
-          </div>
-          <TradeoffChart className="mt-3 h-24 w-full" />
-          <div className="mt-2 flex items-center gap-3 text-xs text-white/60">
-            <span className="flex items-center gap-1">
-              <span className="h-2 w-3 rounded bg-[#38bdf8]" /> Coverage
-            </span>
-            <span className="flex items-center gap-1">
-              <span className="h-2 w-3 rounded bg-[#fb923c]" /> Region Size
-            </span>
-          </div>
-          <p className="mt-2 text-xs leading-snug text-white/60 sm:text-sm">
-            ε 0,05 → Cov 0,949 / 19,8 · ε 0,1 → 0,896 / 9,5 · ε 0,2 → 0,790 /
-            4,6.
-          </p>
-        </div>
-
-        <div className="flex flex-col rounded-2xl border border-white/10 bg-white/5 p-4">
-          <div className="text-base font-semibold text-white">
-            Reliability Diagram
-          </div>
-          <div className="mt-3 flex flex-1 items-center justify-center">
-            <ReliabilityChart className="h-28 w-28" />
-          </div>
-          <p className="mt-2 text-xs leading-snug text-white/60 sm:text-sm">
-            Kurva mendekati diagonal → model{" "}
-            <span className="font-semibold text-white">terkalibrasi baik</span>;
-            akurasi empiris naik seiring confidence.
-          </p>
-        </div>
-
-        <div className="flex flex-col rounded-2xl border border-white/10 bg-white/5 p-4">
-          <div className="text-base font-semibold text-white">
-            Ukuran Prediction Region
-          </div>
-          <MiniHistogram
-            heights={[
-              0.3, 0.9, 1.0, 0.85, 0.65, 0.5, 0.38, 0.28, 0.2, 0.14, 0.1, 0.07,
-              0.05,
-            ]}
-            color="#34d399"
-            meanFrac={0.32}
-            className="mt-3 h-24 w-full"
-          />
-          <div className="mt-2 text-sm font-bold text-white">
-            ε = 0,1 · Coverage 89,6%
-          </div>
-          <p className="mt-1 text-xs leading-snug text-white/60 sm:text-sm">
-            Rata-rata 9,5 kelas · Singleton 3,7% · Empty set 1,8%.
-          </p>
-        </div>
+        <XaiCard
+          title="Trade-off Coverage vs Region Size"
+          chart={
+            <div className="w-full">
+              <TradeoffChart className="h-24 w-full" />
+              <div className="mt-1 flex items-center justify-center gap-3 text-xs text-white/60">
+                <span className="flex items-center gap-1">
+                  <span className="h-2 w-3 rounded bg-[#38bdf8]" /> Coverage
+                </span>
+                <span className="flex items-center gap-1">
+                  <span className="h-2 w-3 rounded bg-[#fb923c]" /> Region Size
+                </span>
+              </div>
+            </div>
+          }
+          stat="ε 0,1 → Cov 0,896 · Size 9,5"
+          pembahasan="Makin besar ε, coverage turun tetapi prediction set makin ringkas. ε=0,1 dipilih sebagai kompromi terbaik antara jaminan cakupan dan efisiensi."
+        />
+        <XaiCard
+          title="Reliability Diagram"
+          chart={<ReliabilityChart className="h-28 w-28" />}
+          stat="Mendekati garis diagonal"
+          pembahasan="Akurasi empiris mengikuti probabilitas yang diprediksi (garis ideal). Artinya keluaran keyakinan model well-calibrated dan layak dipercaya."
+        />
+        <XaiCard
+          title="Ukuran Prediction Region"
+          chart={
+            <MiniHistogram
+              heights={[
+                0.3, 0.9, 1.0, 0.85, 0.65, 0.5, 0.38, 0.28, 0.2, 0.14, 0.1,
+                0.07, 0.05,
+              ]}
+              color="#34d399"
+              meanFrac={0.32}
+              className="h-24 w-full"
+            />
+          }
+          stat="ε = 0,1 · Coverage 89,6% · Mean 9,5"
+          pembahasan="Distribusi condong ke kiri: mayoritas query menghasilkan set kecil. Singleton (pasti 1 kelas) 3,7% dan empty set hanya 1,8%."
+        />
       </div>
     </div>
   </SlideShell>,
