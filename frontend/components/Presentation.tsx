@@ -1696,28 +1696,23 @@ const SLIDES: ReactNode[] = [
         {[
           {
             n: "1",
-            t: "Gunakan Seluruh Dataset",
-            d: "Manfaatkan 288.105 sampel tanpa filtering minimum agar informasi medis penting tidak hilang.",
+            t: "Representasi Fitur Berbasis Model Bahasa",
+            d: "Eksplorasi IndoBERT sebagai pengganti TF-IDF dalam pipeline klasifikasi untuk menangkap makna kontekstual gejala yang lebih kaya.",
           },
           {
             n: "2",
-            t: "Penanganan Ketidakseimbangan",
-            d: "Terapkan Class Weighting, Oversampling (SMOTE), atau Undersampling / Hybrid Sampling.",
+            t: "Variasi Nonconformity Measure",
+            d: "Terapkan Mondrian Conformal Prediction agar jaminan coverage lebih terkalibrasi secara spesifik per kelas medis.",
           },
           {
             n: "3",
-            t: "Pengembangan Metode",
-            d: "Eksplorasi Mondrian Conformal Prediction, multi-label classification, & hybrid (LMPNN + embedding).",
+            t: "Multi-Label Classification",
+            d: "Kembangkan sistem ke arah multi-label untuk mengakomodasi pertanyaan medis yang relevan terhadap lebih dari satu kategori sekaligus.",
           },
           {
             n: "4",
-            t: "Implementasi & Validasi Nyata",
-            d: "Posisikan sebagai Clinical Decision Support Tool dengan credibility thresholding (<0,3 review manual; >0,7 keyakinan tinggi) + uji klinis.",
-          },
-          {
-            n: "5",
-            t: "Penerapan Praktis",
-            d: "Terapkan sebagai modul triase otomatis; jaminan coverage 89,61% menjadi landasan akuntabilitas sistem.",
+            t: "Sistem Pendukung Keputusan Klinis",
+            d: "Wujudkan sistem berbasis AI yang transparan & dapat dipertanggungjawabkan pada platform kesehatan digital Indonesia.",
           },
         ].map((c) => (
           <div
@@ -1736,13 +1731,18 @@ const SLIDES: ReactNode[] = [
           </div>
         ))}
 
-        <div className="flex flex-col justify-center rounded-2xl border border-glass-green/25 bg-gradient-to-br from-glass-green/10 to-glass-blue/10 p-4 text-center">
-          <div className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-3xl font-black text-transparent">
-            28,1%
-          </div>
-          <p className="mt-1 text-xs leading-relaxed text-white/70 sm:text-sm">
-            dari total data mentah yang saat ini dimanfaatkan — potensi
-            peningkatan performa masih sangat besar.
+        <div className="col-span-2 flex items-center gap-3 rounded-2xl border border-glass-green/25 bg-gradient-to-br from-glass-green/10 to-glass-blue/10 p-4">
+          <Icon type="shield" className="h-7 w-7 shrink-0" />
+          <p className="text-sm leading-relaxed text-white/80 sm:text-base">
+            Seluruh pengembangan tetap mempertahankan{" "}
+            <span className="font-semibold text-white">LMPNN</span> dan{" "}
+            <span className="font-semibold text-white">
+              Conformal Prediction
+            </span>{" "}
+            sebagai mekanisme{" "}
+            <span className="font-semibold text-white">Explainable AI</span> —
+            peningkatan akurasi dicapai tanpa mengorbankan transparansi &
+            interpretabilitas.
           </p>
         </div>
       </div>
