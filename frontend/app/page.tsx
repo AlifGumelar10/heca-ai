@@ -22,8 +22,6 @@ export default function Home() {
 
   const openDeck = () =>
     window.dispatchEvent(new CustomEvent("open-heca-deck"));
-  const openPoster = () =>
-    window.dispatchEvent(new CustomEvent("open-heca-poster"));
 
   return (
     <main className="relative pb-20">
@@ -69,16 +67,6 @@ export default function Home() {
                 alt="HeCa AI"
                 className="h-14 w-14 rounded-2xl object-contain shadow-md"
               />
-            </button>
-          </div>
-
-          {/* Tombol buka poster penelitian (pop-up) */}
-          <div className="mb-4 flex justify-center">
-            <button
-              onClick={openPoster}
-              className="pill border border-ink/15 bg-white/5 text-sm font-medium text-ink-soft transition-colors hover:text-ink"
-            >
-              📄 Baca Poster Penelitian
             </button>
           </div>
 
