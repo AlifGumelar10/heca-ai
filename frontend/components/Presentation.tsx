@@ -636,22 +636,22 @@ const SLIDES: ReactNode[] = [
   <SlideShell n={1} key="cover">
     <div className="relative">
       <NodeGraph className="pointer-events-none absolute -right-1 -top-6 hidden h-32 w-32 opacity-70 sm:block" />
-      <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-base font-medium text-white/75">
+      <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm font-medium text-white/75">
         <span className="h-2 w-2 rounded-full bg-gradient-to-br from-glass-green to-glass-blue" />
         Presentasi Sidang Skripsi 2026
       </div>
-      <h1 className="max-w-4xl text-3xl font-black leading-tight tracking-tight text-white sm:text-5xl">
+      <h1 className="max-w-4xl text-2xl font-black leading-tight tracking-tight text-white sm:text-4xl">
         Implementasi{" "}
         <span className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-transparent">
           Explainable AI
         </span>{" "}
         untuk Klasifikasi Tanya Jawab Kesehatan Bahasa Indonesia
       </h1>
-      <p className="mt-3 text-lg text-white/65 sm:text-2xl">
+      <p className="mt-2 text-base text-white/65 sm:text-xl">
         Menggunakan Metode K Nearest Neighbors (KNN)
       </p>
 
-      <div className="mt-6 grid gap-4 sm:grid-cols-2">
+      <div className="mt-5 grid gap-4 sm:grid-cols-2">
         <Panel title="Peneliti">
           <div className="text-xl font-semibold text-white">
             Alif Gumelar Syah Moeslim
@@ -683,16 +683,16 @@ const SLIDES: ReactNode[] = [
   <SlideShell n={2} key="intro-1" section="Introduction">
     <div className="flex h-full flex-col">
       <SectionHead title="Latar Belakang" note="Pendahuluan" />
-      <p className="mt-2 max-w-3xl text-lg text-white/60 sm:text-xl">
+      <p className="mt-2 max-w-3xl text-base text-white/60 sm:text-lg">
         Layanan tanya jawab kesehatan daring tumbuh pesat, namun keputusan model
         AI sering menjadi kotak hitam yang sulit dipercaya di ranah medis.
       </p>
 
-      <div className="mt-5 grid flex-1 gap-4 sm:grid-cols-2">
+      <div className="mt-4 grid flex-1 gap-4 sm:grid-cols-2">
         <Panel title="Ledakan Data Kesehatan Digital">
           <div className="flex items-center gap-4">
             <div className="flex items-baseline gap-2">
-              <span className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-5xl font-black text-transparent">
+              <span className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-4xl font-black text-transparent">
                 288.105
               </span>
             </div>
@@ -714,7 +714,7 @@ const SLIDES: ReactNode[] = [
           </div>
         </Panel>
       </div>
-      <p className="mt-4 text-center text-lg italic text-white/55 sm:text-xl">
+      <p className="mt-3 text-center text-base italic text-white/55 sm:text-lg">
         Di dunia medis, penjelasan sama pentingnya dengan akurasi, sebab
         kepercayaan harus dibangun.
       </p>
@@ -874,7 +874,7 @@ const SLIDES: ReactNode[] = [
   <SlideShell n={6} key="method-3" section="Method">
     <div className="flex h-full flex-col">
       <Kicker>Pemodelan LMPNN dan Conformal Prediction</Kicker>
-      <div className="mt-4 grid gap-4 sm:grid-cols-2">
+      <div className="mt-3 grid gap-4 sm:grid-cols-2">
         <Panel title="LMPNN" accent>
           <p className="leading-snug">
             Local Mean Pseudo Nearest Neighbor menghitung{" "}
@@ -898,7 +898,7 @@ const SLIDES: ReactNode[] = [
         </Panel>
       </div>
 
-      <div className="mt-4 grid flex-1 gap-3 sm:grid-cols-4">
+      <div className="mt-3 grid flex-1 gap-3 sm:grid-cols-4">
         {[
           { t: "Nonconformity", d: "\u03b1 = jarak ke kelas benar" },
           { t: "Nilai p", d: "proporsi skor yang lebih janggal" },
@@ -922,7 +922,7 @@ const SLIDES: ReactNode[] = [
         ))}
       </div>
 
-      <div className="mt-4 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-base text-white/70 sm:text-lg">
+      <div className="mt-3 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white/70 sm:text-base">
         <span className="font-semibold text-white">Evaluasi:</span> Accuracy,
         Precision, Recall, F1 Score (Macro dan Weighted), Confusion Matrix,
         Coverage, Reliability Diagram, serta ukuran prediction set.
@@ -1024,7 +1024,7 @@ const SLIDES: ReactNode[] = [
   <SlideShell n={9} key="result-3" section="Results">
     <div className="flex h-full flex-col">
       <Kicker>Confusion Matrix 20 Kelas Terbesar</Kicker>
-      <div className="mt-3 flex min-h-0 flex-1 gap-4">
+      <div className="mt-2 flex min-h-0 flex-1 gap-4">
         <div className="relative min-h-0 flex-[2] rounded-2xl bg-white p-2">
           <img
             src="/confusion-matrix.png"
@@ -1033,16 +1033,18 @@ const SLIDES: ReactNode[] = [
           />
         </div>
         <div className="flex min-h-0 flex-1 flex-col gap-3 overflow-hidden">
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-            <div className="text-lg font-semibold text-white">Cara Membaca</div>
-            <p className="mt-1.5 text-sm leading-relaxed text-white/65 sm:text-base">
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-3.5">
+            <div className="text-base font-semibold text-white">
+              Cara Membaca
+            </div>
+            <p className="mt-1.5 text-sm leading-relaxed text-white/65">
               Diagonal menunjukkan prediksi benar, sel di luar diagonal adalah
               kesalahan. Makin gelap sel, makin tinggi proporsinya (0 sampai 1).
             </p>
           </div>
-          <div className="flex flex-1 flex-col rounded-2xl border border-white/10 bg-white/5 p-4">
-            <div className="text-lg font-semibold text-white">Sorotan</div>
-            <ul className="mt-1.5 space-y-1.5 text-sm leading-relaxed text-white/65 sm:text-base">
+          <div className="flex flex-1 flex-col rounded-2xl border border-white/10 bg-white/5 p-3.5">
+            <div className="text-base font-semibold text-white">Sorotan</div>
+            <ul className="mt-1.5 space-y-1.5 text-sm leading-relaxed text-white/65">
               <li>Akurasi tinggi pada gigi (0,97) dan sakit kepala (0,94).</li>
               <li>
                 Kesalahan terbesar menstruasi tertukar menstruasi intim wanita
@@ -1060,12 +1062,12 @@ const SLIDES: ReactNode[] = [
   <SlideShell n={10} key="result-4" section="Results">
     <div className="flex h-full flex-col">
       <Kicker>Performa per Kelas (F1 Score)</Kicker>
-      <div className="mt-5 grid flex-1 gap-4 sm:grid-cols-2">
-        <div className="flex flex-col rounded-2xl border border-glass-green/25 bg-white/5 p-5">
-          <div className="text-xl font-semibold text-white sm:text-2xl">
+      <div className="mt-4 grid flex-1 gap-4 sm:grid-cols-2">
+        <div className="flex flex-col rounded-2xl border border-glass-green/25 bg-white/5 p-4">
+          <div className="text-lg font-semibold text-white sm:text-xl">
             5 Kelas Teratas
           </div>
-          <div className="mt-4 flex flex-1 flex-col justify-around gap-3">
+          <div className="mt-3 flex flex-1 flex-col justify-around gap-2.5">
             {[
               { n: "cacar air", v: 0.8538 },
               { n: "hiv", v: 0.8304 },
@@ -1083,11 +1085,11 @@ const SLIDES: ReactNode[] = [
             ))}
           </div>
         </div>
-        <div className="flex flex-col rounded-2xl border border-rose-500/25 bg-white/5 p-5">
-          <div className="text-xl font-semibold text-white sm:text-2xl">
+        <div className="flex flex-col rounded-2xl border border-rose-500/25 bg-white/5 p-4">
+          <div className="text-lg font-semibold text-white sm:text-xl">
             5 Kelas Terbawah
           </div>
-          <div className="mt-4 flex flex-1 flex-col justify-around gap-3">
+          <div className="mt-3 flex flex-1 flex-col justify-around gap-2.5">
             {[
               { n: "asam lambung / sakit maag", v: 0.0762 },
               { n: "kecantikan", v: 0.1026 },
@@ -1106,7 +1108,7 @@ const SLIDES: ReactNode[] = [
           </div>
         </div>
       </div>
-      <p className="mt-4 text-center text-base text-white/55 sm:text-lg">
+      <p className="mt-3 text-center text-sm text-white/55 sm:text-base">
         Rentang F1 per kelas 0,12 sampai 0,85. Kelas dengan gejala khas jauh
         lebih mudah dikenali dibanding kelas bergejala umum.
       </p>
@@ -1386,20 +1388,20 @@ const SLIDES: ReactNode[] = [
   // 16 — PENUTUP: QR code, web HeCa AI, dan terima kasih
   <SlideShell n={16} key="penutup-qr" section="Penutup">
     <div className="flex h-full flex-col items-center justify-center text-center">
-      <h2 className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-5xl font-black tracking-tight text-transparent sm:text-6xl">
+      <h2 className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-4xl font-black tracking-tight text-transparent sm:text-5xl">
         Terima Kasih
       </h2>
-      <p className="mt-3 max-w-2xl text-lg text-white/65 sm:text-2xl">
+      <p className="mt-2 max-w-2xl text-base text-white/65 sm:text-xl">
         Kode program penelitian dan aplikasi HeCa AI dapat diakses secara
         terbuka.
       </p>
 
-      <div className="mt-7 flex items-center gap-6 rounded-3xl border border-white/10 bg-white/5 p-6 sm:gap-8 sm:p-8">
+      <div className="mt-5 flex items-center gap-6 rounded-3xl border border-white/10 bg-white/5 p-5 sm:gap-8 sm:p-6">
         <div className="rounded-2xl bg-white p-3">
           <img
             src={qrCode.src}
             alt="QR code menuju web HeCa AI"
-            className="h-36 w-36 object-contain sm:h-44 sm:w-44"
+            className="h-32 w-32 object-contain sm:h-40 sm:w-40"
           />
         </div>
         <div className="text-left">
