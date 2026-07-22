@@ -1,6 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useState, type ReactNode } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 
 /**
  * Deck presentasi Sidang Skripsi — pop-up saat logo HeCa AI diklik.
@@ -1788,6 +1794,65 @@ export default function Presentation() {
   const next = useCallback(() => setI((v) => Math.min(v + 1, TOTAL - 1)), []);
   const prev = useCallback(() => setI((v) => Math.max(v - 1, 0)), []);
 
+  const [exporting, setExporting] = useState(false);
+  const exportRef = useRef<HTMLDivElement>(null);
+
+  const downloadPdf = useCallback(async () => {
+    if (exporting) return;
+    const loadScript = (src: string) =>
+      new Promise<void>((resolve, reject) => {
+        if (document.querySelector(`script[src="${src}"]`)) {
+          resolve();
+          return;
+        }
+        const s = document.createElement("script");
+        s.src = src;
+        s.onload = () => resolve();
+        s.onerror = () => reject(new Error("Gagal memuat " + src));
+        document.head.appendChild(s);
+      });
+    setExporting(true);
+    try {
+      await loadScript(
+        "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js",
+      );
+      await loadScript(
+        "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js",
+      );
+      const h2c = (window as any).html2canvas;
+      const JsPdf = (window as any).jspdf?.jsPDF;
+      const container = exportRef.current;
+      if (!h2c || !JsPdf || !container) throw new Error("Modul PDF belum siap");
+      const slides = Array.from(
+        container.querySelectorAll<HTMLElement>("[data-export-slide]"),
+      );
+      const pdf = new JsPdf({
+        orientation: "landscape",
+        unit: "px",
+        format: [1280, 720],
+      });
+      for (let idx = 0; idx < slides.length; idx++) {
+        const canvas = await h2c(slides[idx], {
+          scale: 2,
+          backgroundColor: "#0a1020",
+          useCORS: true,
+          logging: false,
+        });
+        const img = canvas.toDataURL("image/jpeg", 0.92);
+        if (idx > 0) pdf.addPage([1280, 720], "landscape");
+        pdf.addImage(img, "JPEG", 0, 0, 1280, 720);
+      }
+      pdf.save("HeCa_AI_Presentasi_Sidang.pdf");
+    } catch (err) {
+      console.error(err);
+      alert(
+        "Maaf, gagal membuat PDF. Pastikan ada koneksi internet lalu coba lagi.",
+      );
+    } finally {
+      setExporting(false);
+    }
+  }, [exporting]);
+
   useEffect(() => {
     const openDeck = () => {
       setI(0);
@@ -1841,13 +1906,30 @@ export default function Presentation() {
           <div className="text-base font-medium text-white/80">
             Presentasi Sidang · HeCa AI
           </div>
-          <button
-            onClick={close}
-            aria-label="Tutup"
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition-all hover:scale-105 active:scale-95"
-          >
-            ✕
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={downloadPdf}
+              disabled={exporting}
+              aria-label="Download PDF presentasi"
+              className="flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-medium text-white transition-all hover:bg-white/20 active:scale-95 disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              {exporting ? (
+                <>
+                  <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                  Menyiapkan…
+                </>
+              ) : (
+                <>⬇ Download PDF</>
+              )}
+            </button>
+            <button
+              onClick={close}
+              aria-label="Tutup"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition-all hover:scale-105 active:scale-95"
+            >
+              ✕
+            </button>
+          </div>
         </div>
 
         <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl shadow-glass-lg ring-1 ring-white/10">
@@ -1887,6 +1969,30 @@ export default function Presentation() {
             Selanjutnya →
           </button>
         </div>
+      </div>
+
+      {/* Kontainer tersembunyi untuk ekspor PDF (semua slide 1280×720) */}
+      <div
+        ref={exportRef}
+        aria-hidden
+        style={{
+          position: "fixed",
+          left: "-10000px",
+          top: 0,
+          width: "1280px",
+          pointerEvents: "none",
+        }}
+      >
+        {SLIDES.map((s, idx) => (
+          <div
+            key={idx}
+            data-export-slide
+            style={{ width: "1280px", height: "720px" }}
+            className="relative overflow-hidden"
+          >
+            {s}
+          </div>
+        ))}
       </div>
     </div>
   );
