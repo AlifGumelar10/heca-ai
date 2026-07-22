@@ -7,14 +7,12 @@ const POSTER_URL =
 
 export default function Poster() {
   const [open, setOpen] = useState(false);
-  const [zoom, setZoom] = useState(false);
 
   const close = useCallback(() => setOpen(false), []);
 
   // Buka pop-up saat event "open-heca-poster" dipicu (navbar / footer)
   useEffect(() => {
     const openPoster = () => {
-      setZoom(false);
       setOpen(true);
     };
     window.addEventListener("open-heca-poster", openPoster);
@@ -66,25 +64,16 @@ export default function Poster() {
         </button>
       </div>
 
-      {/* Area gambar poster (klik gambar untuk zoom) */}
+      {/* Area gambar poster (scroll manual untuk melihat detail) */}
       <div className="flex-1 overflow-auto px-4 pb-10" onClick={close}>
         <img
           src={POSTER_URL}
           alt="Poster Penelitian HeCa AI — Alif Gumelar Syah Moeslim"
-          onClick={(e) => {
-            e.stopPropagation();
-            setZoom((z) => !z);
-          }}
-          className={
-            "mx-auto rounded-2xl shadow-2xl transition-all duration-300 " +
-            (zoom
-              ? "w-[1400px] max-w-none cursor-zoom-out"
-              : "w-full max-w-4xl cursor-zoom-in")
-          }
+          onClick={(e) => e.stopPropagation()}
+          className="mx-auto w-full max-w-4xl rounded-2xl shadow-2xl"
         />
         <p className="mt-4 text-center text-xs text-white/50">
-          Klik gambar untuk memperbesar · tekan Esc atau klik area gelap untuk
-          menutup
+          Tekan Esc atau klik area gelap untuk menutup
         </p>
       </div>
     </div>
