@@ -876,7 +876,7 @@ const SLIDES: ReactNode[] = [
       <Kicker>Pemodelan LMPNN dan Conformal Prediction</Kicker>
       <div className="mt-3 grid gap-4 sm:grid-cols-2">
         <Panel title="LMPNN" accent>
-          <p className="leading-snug">
+          <p className="text-sm leading-snug sm:text-base">
             Local Mean Pseudo Nearest Neighbor menghitung{" "}
             <span className="font-semibold text-white">
               mean lokal per kelas
@@ -888,7 +888,7 @@ const SLIDES: ReactNode[] = [
           </p>
         </Panel>
         <Panel title="Conformal Prediction" accent>
-          <p className="leading-snug">
+          <p className="text-sm leading-snug sm:text-base">
             Menghasilkan{" "}
             <span className="font-semibold text-white">prediction set</span>{" "}
             bukan satu label. Sebuah kelas masuk set jika nilai p melebihi
@@ -907,22 +907,22 @@ const SLIDES: ReactNode[] = [
         ].map((s, i) => (
           <div
             key={s.t}
-            className="flex flex-col rounded-xl border border-white/10 bg-white/5 p-4"
+            className="flex flex-col rounded-xl border border-white/10 bg-white/5 p-3"
           >
-            <div className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-lg font-black text-transparent">
+            <div className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-base font-black text-transparent">
               {i + 1}
             </div>
-            <div className="mt-1 text-base font-semibold text-white sm:text-lg">
+            <div className="mt-1 text-sm font-semibold text-white sm:text-base">
               {s.t}
             </div>
-            <p className="mt-1 text-sm leading-snug text-white/60 sm:text-base">
+            <p className="mt-0.5 text-xs leading-snug text-white/60 sm:text-sm">
               {s.d}
             </p>
           </div>
         ))}
       </div>
 
-      <div className="mt-3 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white/70 sm:text-base">
+      <div className="mt-3 rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-xs text-white/70 sm:text-sm">
         <span className="font-semibold text-white">Evaluasi:</span> Accuracy,
         Precision, Recall, F1 Score (Macro dan Weighted), Confusion Matrix,
         Coverage, Reliability Diagram, serta ukuran prediction set.
