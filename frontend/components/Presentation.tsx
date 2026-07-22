@@ -1390,8 +1390,8 @@ const SLIDES: ReactNode[] = [
         Terima Kasih
       </h2>
       <p className="mt-3 max-w-2xl text-lg text-white/65 sm:text-2xl">
-        Coba langsung HeCa AI, asisten tanya jawab kesehatan berbasis
-        Explainable AI yang transparan.
+        Kode program penelitian dan aplikasi HeCa AI dapat diakses secara
+        terbuka.
       </p>
 
       <div className="mt-7 flex items-center gap-6 rounded-3xl border border-white/10 bg-white/5 p-6 sm:gap-8 sm:p-8">
@@ -1407,18 +1407,22 @@ const SLIDES: ReactNode[] = [
             Pindai QR Code
           </div>
           <div className="mt-2 text-2xl font-bold text-white sm:text-3xl">
-            Akses HeCa AI
+            Dokumentasi Kode Skripsi
+          </div>
+          <p className="mt-2 max-w-xs text-base leading-snug text-white/60">
+            Arahkan kamera ponsel ke QR code untuk membuka dokumentasi kode
+            program penelitian.
+          </p>
+          <div className="mt-4 text-sm font-semibold uppercase tracking-[0.2em] text-white/55 sm:text-base">
+            Web HeCa AI
           </div>
           <a
             href="https://heca-ai.vercel.app"
-            className="mt-3 inline-flex items-center gap-2 rounded-full border border-glass-green/30 bg-glass-green/10 px-4 py-2 text-base font-medium text-white sm:text-lg"
+            className="mt-2 inline-flex items-center gap-2 rounded-full border border-glass-green/30 bg-glass-green/10 px-4 py-2 text-base font-medium text-white sm:text-lg"
           >
             <span className="h-2 w-2 rounded-full bg-gradient-to-br from-glass-green to-glass-blue" />
             heca-ai.vercel.app
           </a>
-          <p className="mt-3 max-w-xs text-base leading-snug text-white/60">
-            Arahkan kamera ponsel ke QR code untuk membuka aplikasinya.
-          </p>
         </div>
       </div>
     </div>
