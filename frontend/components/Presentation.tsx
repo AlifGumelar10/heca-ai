@@ -7,6 +7,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import logoFTI from "./logo_FTI.png";
 
 /**
  * Deck presentasi Sidang Skripsi — pop-up saat logo HeCa AI diklik.
@@ -632,12 +633,12 @@ function SlideShell({ children, n }: { children: ReactNode; n: number }) {
       <div className="relative z-10 flex items-center justify-between">
         <div className="flex items-center gap-2.5">
           <img
-            src="/logo.png"
-            alt="HeCa AI"
-            className="h-8 w-8 rounded-lg object-contain"
+            src={logoFTI.src}
+            alt="Universitas Sebelas April"
+            className="h-9 w-auto rounded-lg object-contain"
           />
           <span className="text-lg font-semibold tracking-tight text-white sm:text-xl">
-            HeCa AI
+            Universitas Sebelas April
           </span>
         </div>
         <span className="text-sm font-medium uppercase tracking-[0.2em] text-white/50 sm:text-base">
