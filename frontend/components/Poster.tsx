@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 
+// Poster HeCa AI — tampilan manual tanpa zoom (rev. 2026-07-22)
 const POSTER_URL =
   "https://qktrbkbvszqyxexuzump.supabase.co/storage/v1/object/public/posters/poster_3000.webp";
 
@@ -69,8 +70,9 @@ export default function Poster() {
         <img
           src={POSTER_URL}
           alt="Poster Penelitian HeCa AI — Alif Gumelar Syah Moeslim"
+          draggable={false}
           onClick={(e) => e.stopPropagation()}
-          className="mx-auto w-full max-w-4xl rounded-2xl shadow-2xl"
+          className="mx-auto w-full max-w-4xl select-none rounded-2xl shadow-2xl"
         />
         <p className="mt-4 text-center text-xs text-white/50">
           Tekan Esc atau klik area gelap untuk menutup
