@@ -541,20 +541,9 @@ function Kicker({ children }: { children: ReactNode }) {
   );
 }
 
-function SectionHead({
-  letter,
-  title,
-  note,
-}: {
-  letter: string;
-  title: string;
-  note?: string;
-}) {
+function SectionHead({ title, note }: { title: string; note?: string }) {
   return (
     <div className="flex items-baseline gap-3">
-      <span className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-5xl font-black tracking-tighter text-transparent sm:text-6xl">
-        {letter}
-      </span>
       <h2 className="text-3xl font-black tracking-tight text-white sm:text-4xl">
         {title}
       </h2>
@@ -605,7 +594,7 @@ function StatCard({
   return (
     <div className="flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-white/5 p-4 text-center">
       <div
-        className={`bg-gradient-to-r ${grad} bg-clip-text text-4xl font-black text-transparent sm:text-5xl`}
+        className={`bg-gradient-to-r ${grad} bg-clip-text text-2xl font-extrabold tracking-tight text-transparent tabular-nums sm:text-3xl`}
       >
         {value}
       </div>
@@ -692,7 +681,7 @@ const SLIDES: ReactNode[] = [
   // 2 — INTRODUCTION: latar belakang & masalah
   <SlideShell n={2} key="intro-1" section="Introduction">
     <div className="flex h-full flex-col">
-      <SectionHead letter="I" title="Latar Belakang" note="Pendahuluan" />
+      <SectionHead title="Latar Belakang" note="Pendahuluan" />
       <p className="mt-2 max-w-3xl text-lg text-white/60 sm:text-xl">
         Layanan tanya jawab kesehatan daring tumbuh pesat, namun keputusan model
         AI sering menjadi kotak hitam yang sulit dipercaya di ranah medis.
@@ -783,11 +772,7 @@ const SLIDES: ReactNode[] = [
   // 4 — METHOD: alur penelitian & dataset
   <SlideShell n={4} key="method-1" section="Method">
     <div className="flex h-full flex-col">
-      <SectionHead
-        letter="M"
-        title="Alur Penelitian dan Dataset"
-        note="Metode"
-      />
+      <SectionHead title="Alur Penelitian dan Dataset" note="Metode" />
       <div className="mt-5 grid flex-1 gap-4 sm:grid-cols-2">
         <Panel title="Dataset Indonesia QnA Health">
           <div className="mt-1 space-y-3">
@@ -947,7 +932,7 @@ const SLIDES: ReactNode[] = [
   // 7 — RESULTS: performa overall
   <SlideShell n={7} key="result-1" section="Results">
     <div className="flex h-full flex-col">
-      <SectionHead letter="R" title="Performa Model" note="16.213 data uji" />
+      <SectionHead title="Performa Model" note="16.213 data uji" />
       <div className="mt-5 grid flex-1 grid-cols-2 gap-4 sm:grid-cols-5">
         <StatCard
           value="44,75%"
@@ -1182,7 +1167,7 @@ const SLIDES: ReactNode[] = [
   // 12 — DISCUSSION: interpretasi & implikasi
   <SlideShell n={12} key="disc-1" section="Discussion">
     <div className="flex h-full flex-col">
-      <SectionHead letter="D" title="Interpretasi Hasil" note="Pembahasan" />
+      <SectionHead title="Interpretasi Hasil" note="Pembahasan" />
       <div className="mt-5 grid flex-1 grid-cols-2 gap-4 sm:grid-cols-4">
         {[
           {
