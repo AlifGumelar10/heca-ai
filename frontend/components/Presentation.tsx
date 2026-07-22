@@ -8,6 +8,7 @@ import {
   type ReactNode,
 } from "react";
 import logoFTI from "./logo_FTI.png";
+import qrCode from "./qr.png";
 
 /**
  * Deck Presentasi Sidang Skripsi HeCa AI.
@@ -25,7 +26,7 @@ import logoFTI from "./logo_FTI.png";
  * ASET: slide Confusion Matrix memakai frontend/public/confusion-matrix.png
  */
 
-const TOTAL = 15;
+const TOTAL = 16;
 const FONT = "'Poppins', ui-sans-serif, system-ui, sans-serif";
 
 /* ================================ VISUAL ================================== */
@@ -1375,7 +1376,48 @@ const SLIDES: ReactNode[] = [
         ))}
         <div className="col-span-2 flex items-center justify-center gap-3 rounded-2xl border border-glass-green/25 bg-gradient-to-br from-glass-green/10 to-glass-blue/10 p-4 text-center">
           <p className="text-lg font-semibold text-white sm:text-2xl">
-            Terima kasih. Saya siap menjawab pertanyaan penguji.
+            Saya siap menjawab pertanyaan dari dewan penguji.
+          </p>
+        </div>
+      </div>
+    </div>
+  </SlideShell>,
+
+  // 16 — PENUTUP: QR code, web HeCa AI, dan terima kasih
+  <SlideShell n={16} key="penutup-qr" section="Penutup">
+    <div className="flex h-full flex-col items-center justify-center text-center">
+      <h2 className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-5xl font-black tracking-tight text-transparent sm:text-6xl">
+        Terima Kasih
+      </h2>
+      <p className="mt-3 max-w-2xl text-lg text-white/65 sm:text-2xl">
+        Coba langsung HeCa AI, asisten tanya jawab kesehatan berbasis
+        Explainable AI yang transparan.
+      </p>
+
+      <div className="mt-7 flex items-center gap-6 rounded-3xl border border-white/10 bg-white/5 p-6 sm:gap-8 sm:p-8">
+        <div className="rounded-2xl bg-white p-3">
+          <img
+            src={qrCode.src}
+            alt="QR code menuju web HeCa AI"
+            className="h-36 w-36 object-contain sm:h-44 sm:w-44"
+          />
+        </div>
+        <div className="text-left">
+          <div className="text-sm font-semibold uppercase tracking-[0.2em] text-white/55 sm:text-base">
+            Pindai QR Code
+          </div>
+          <div className="mt-2 text-2xl font-bold text-white sm:text-3xl">
+            Akses HeCa AI
+          </div>
+          <a
+            href="https://heca-ai.vercel.app"
+            className="mt-3 inline-flex items-center gap-2 rounded-full border border-glass-green/30 bg-glass-green/10 px-4 py-2 text-base font-medium text-white sm:text-lg"
+          >
+            <span className="h-2 w-2 rounded-full bg-gradient-to-br from-glass-green to-glass-blue" />
+            heca-ai.vercel.app
+          </a>
+          <p className="mt-3 max-w-xs text-base leading-snug text-white/60">
+            Arahkan kamera ponsel ke QR code untuk membuka aplikasinya.
           </p>
         </div>
       </div>
