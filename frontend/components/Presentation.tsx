@@ -258,7 +258,7 @@ const SLIDES: ReactNode[] = [
       <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm font-medium text-white/70">
         Sidang Skripsi · Program Studi Informatika
       </div>
-      <h1 className="max-w-4xl bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-3xl font-black leading-tight tracking-tight text-transparent sm:text-4xl">
+      <h1 className="max-w-4xl text-3xl font-black leading-tight tracking-tight text-white sm:text-4xl">
         Implementasi Explainable AI untuk Klasifikasi Tanya Jawab Kesehatan
         Bahasa Indonesia Menggunakan Metode KNN
       </h1>
