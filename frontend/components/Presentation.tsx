@@ -11,7 +11,7 @@ import logoFTI from "./logo_FTI.png";
 import qrCode from "./qr.png";
 
 /**
- * Deck Presentasi Sidang Skripsi HeCa AI.
+ * Deck Presentasi Sidang Skripsi.
  * Pop-up saat logo diklik (event "open-heca-deck").
  *
  * Disusun mengikuti edaran pemaparan sidang (empat bagian):
@@ -24,7 +24,7 @@ import qrCode from "./qr.png";
  * pembeda dari penelitian sebelumnya, bagaimana validasi dilakukan, dan makna
  * hasil (bukan sekadar angka).
  *
- * Total 15 slide, rasio 16:9, font Poppins, gaya selaras dengan web dan poster.
+ * Total 15 slide, rasio 16:9, font Poppins.
  * Seluruh isi bersumber dari skripsi Alif Gumelar Syah Moeslim.
  */
 
@@ -176,7 +176,7 @@ function SlideShell({
       </div>
 
       <div className="relative z-10 flex items-center justify-between text-sm text-white/40 sm:text-base">
-        <span>Sidang Skripsi HeCa AI</span>
+        <span>Sidang Skripsi</span>
         <span className="tabular-nums">
           {String(n).padStart(2, "0")} / {String(TOTAL).padStart(2, "0")}
         </span>
@@ -255,17 +255,14 @@ const SLIDES: ReactNode[] = [
   // 1 — Cover
   <SlideShell n={1} key="cover">
     <div className="flex h-full flex-col items-center justify-center text-center">
-      <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm font-medium text-white/70">
+      <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm font-medium text-white/70">
         Sidang Skripsi · Program Studi Informatika
       </div>
-      <div className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-5xl font-black tracking-tight text-transparent sm:text-6xl">
-        HeCa AI
-      </div>
-      <h1 className="mt-4 max-w-3xl text-xl font-bold leading-snug text-white sm:text-2xl">
+      <h1 className="max-w-4xl bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-3xl font-black leading-tight tracking-tight text-transparent sm:text-4xl">
         Implementasi Explainable AI untuk Klasifikasi Tanya Jawab Kesehatan
         Bahasa Indonesia Menggunakan Metode KNN
       </h1>
-      <div className="mt-6 grid w-full max-w-3xl grid-cols-2 gap-3 text-left">
+      <div className="mt-7 grid w-full max-w-3xl grid-cols-2 gap-3 text-left">
         <Panel title="Peneliti">
           Alif Gumelar Syah Moeslim
           <br />
@@ -277,7 +274,7 @@ const SLIDES: ReactNode[] = [
           Beben Sutara, S.Kom., M.T.
         </Panel>
       </div>
-      <div className="mt-5 text-base text-white/50">
+      <div className="mt-6 text-base text-white/50">
         Fakultas Teknologi Informasi · Universitas Sebelas April · 2026
       </div>
     </div>
@@ -590,7 +587,7 @@ const SLIDES: ReactNode[] = [
     </div>
   </SlideShell>,
 
-  // 15 — Penutup dan Terima Kasih (QR)
+  // 15 — Penutup dan Terima Kasih (QR dokumentasi kode skripsi)
   <SlideShell n={15} key="penutup-qr" section="Penutup">
     <div className="flex h-full flex-col items-center justify-center text-center">
       <h2 className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-4xl font-black tracking-tight text-transparent sm:text-5xl">
@@ -599,30 +596,21 @@ const SLIDES: ReactNode[] = [
       <p className="mt-3 max-w-xl text-base text-white/60 sm:text-lg">
         Saya siap menjawab pertanyaan dari dewan penguji.
       </p>
-      <div className="mt-6 flex items-center gap-6">
+      <div className="mt-7 flex items-center gap-6">
         <div className="rounded-2xl bg-white p-3">
           <img
             src={qrCode.src}
             alt="QR dokumentasi kode skripsi"
-            className="h-32 w-32 object-contain sm:h-36 sm:w-36"
+            className="h-32 w-32 object-contain sm:h-40 sm:w-40"
           />
         </div>
         <div className="max-w-xs text-left">
           <div className="text-sm font-semibold uppercase tracking-wide text-white/45">
             Dokumentasi Kode Skripsi
           </div>
-          <p className="mt-1 text-base text-white/70">
+          <p className="mt-1 text-base text-white/70 sm:text-lg">
             Pindai QR untuk membuka dokumentasi kode program penelitian.
           </p>
-          <div className="mt-4 text-sm font-semibold uppercase tracking-wide text-white/45">
-            Aplikasi HeCa AI
-          </div>
-          <a
-            href="https://heca-ai.vercel.app"
-            className="mt-1 inline-block rounded-full border border-white/15 bg-white/10 px-4 py-1.5 text-base font-medium text-white"
-          >
-            heca-ai.vercel.app
-          </a>
         </div>
       </div>
     </div>
@@ -702,7 +690,7 @@ export default function Presentation() {
         if (idx > 0) pdf.addPage([1280, 720], "landscape");
         pdf.addImage(img, "JPEG", 0, 0, 1280, 720);
       }
-      pdf.save("HeCa_AI_Presentasi_Sidang.pdf");
+      pdf.save("Presentasi_Sidang_Skripsi.pdf");
     } catch (err) {
       console.error(err);
       alert(
@@ -767,7 +755,7 @@ export default function Presentation() {
       <div className="animate-popIn relative w-full max-w-5xl">
         <div className="mb-3 flex items-center justify-between px-1">
           <div className="text-base font-medium text-white/80">
-            Presentasi Sidang &middot; HeCa AI
+            Presentasi Sidang Skripsi
           </div>
           <div className="flex items-center gap-2">
             <button
