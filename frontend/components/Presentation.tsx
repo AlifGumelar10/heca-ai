@@ -9,119 +9,43 @@ import {
 } from "react";
 import logoFTI from "./logo_FTI.png";
 import qrCode from "./qr.png";
+import slide1 from "./slide-1.webp";
+import slide2 from "./slide-2.webp";
+import slide3 from "./slide-3.webp";
+import slide4 from "./slide-4.webp";
+import slide5 from "./slide-5.webp";
+import slide6 from "./slide-6.webp";
+import slide7 from "./slide-7.webp";
+import slide8 from "./slide-8.webp";
 
 /**
- * Deck Presentasi Sidang Skripsi.
+ * Deck Presentasi Sidang Skripsi (versi 10 slide).
  * Pop-up saat logo diklik (event "open-heca-deck").
  *
- * Disusun mengikuti edaran pemaparan sidang (empat bagian):
- *   1. Masalah, tujuan, dan batasan penelitian.
- *   2. Metode, rancangan, implementasi, dan model.
- *   3. Hasil pengujian, temuan utama, dan interpretasi.
- *   4. Kontribusi, keterbatasan, dan saran pengembangan.
+ * Susunan:
+ *   Slide 01       : Cover (dibuat dari deck, gaya kaca gelap).
+ *   Slide 02 - 09  : Delapan slide isi hasil desain sendiri (gambar webp).
+ *   Slide 10       : Penutup + QR dokumentasi kode.
  *
- * Sekaligus menjawab poin yang sering gagal dijawab: mengapa metode dipilih,
- * pembeda dari penelitian sebelumnya, bagaimana validasi dilakukan, dan makna
- * hasil (bukan sekadar angka).
- *
- * Total 15 slide, rasio 16:9, font Poppins.
- * Seluruh isi bersumber dari skripsi Alif Gumelar Syah Moeslim.
+ * Rasio 16:9, font Poppins. Slide isi ditampilkan penuh (object-cover)
+ * di atas latar pop-up gelap yang di-blur.
  */
 
-const TOTAL = 15;
+const TOTAL = 10;
 const FONT = "'Poppins', ui-sans-serif, system-ui, sans-serif";
 
+const CONTENT_SLIDES = [
+  slide1,
+  slide2,
+  slide3,
+  slide4,
+  slide5,
+  slide6,
+  slide7,
+  slide8,
+];
+
 /* ================================ VISUAL ================================== */
-
-function Bullets({ items }: { items: string[] }) {
-  return (
-    <ul className="list-disc space-y-2 pl-5">
-      {items.map((t, i) => (
-        <li key={i}>{t}</li>
-      ))}
-    </ul>
-  );
-}
-
-function Flow({ steps }: { steps: string[] }) {
-  return (
-    <div className="flex flex-wrap items-center gap-x-2 gap-y-2">
-      {steps.map((s, i) => (
-        <div key={i} className="flex items-center gap-2">
-          <span className="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-sm font-medium text-white/80 sm:text-base">
-            {s}
-          </span>
-          {i < steps.length - 1 && <span className="text-glass-green">→</span>}
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function FunnelBar({
-  label,
-  value,
-  widthPct,
-  strong,
-}: {
-  label: string;
-  value: string;
-  widthPct: number;
-  strong?: boolean;
-}) {
-  return (
-    <div className="flex items-center gap-3">
-      <div
-        className={
-          "flex h-14 items-center rounded-xl px-4 " +
-          (strong
-            ? "bg-gradient-to-r from-glass-green to-glass-blue"
-            : "bg-white/10")
-        }
-        style={{ width: `${widthPct}%` }}
-      >
-        <span
-          className={
-            "text-2xl font-black tabular-nums " +
-            (strong ? "text-[#04121a]" : "text-white")
-          }
-        >
-          {value}
-        </span>
-      </div>
-      <span className="text-base text-white/60">{label}</span>
-    </div>
-  );
-}
-
-function RankBar({
-  label,
-  value,
-  pct,
-}: {
-  label: string;
-  value: string;
-  pct: number;
-}) {
-  return (
-    <div className="flex items-center gap-3">
-      <span className="w-40 shrink-0 truncate text-base text-white/75 sm:text-lg">
-        {label}
-      </span>
-      <div className="h-6 flex-1 overflow-hidden rounded-md bg-white/10">
-        <div
-          className="h-full rounded-md bg-gradient-to-r from-glass-green to-glass-blue"
-          style={{ width: `${pct}%` }}
-        />
-      </div>
-      <span className="w-14 shrink-0 text-right text-base font-bold tabular-nums text-white sm:text-lg">
-        {value}
-      </span>
-    </div>
-  );
-}
-
-/* ================================ SHELL =================================== */
 
 const SECTION_TONE: Record<string, string> = {
   Pendahuluan: "border-sky-400/40 bg-sky-400/10 text-sky-200",
@@ -185,35 +109,15 @@ function SlideShell({
   );
 }
 
-function SectionHead({ title, note }: { title: string; note?: string }) {
-  return (
-    <div className="flex items-baseline gap-3">
-      <h2 className="text-3xl font-black tracking-tight text-white sm:text-4xl">
-        {title}
-      </h2>
-      {note && <span className="text-lg text-white/45">{note}</span>}
-    </div>
-  );
-}
-
 function Panel({
   title,
   children,
-  accent,
 }: {
   title?: ReactNode;
   children: ReactNode;
-  accent?: boolean;
 }) {
   return (
-    <div
-      className={
-        "flex h-full flex-col rounded-2xl border p-5 " +
-        (accent
-          ? "border-glass-green/30 bg-gradient-to-br from-glass-green/15 to-glass-blue/15"
-          : "border-white/10 bg-white/5")
-      }
-    >
+    <div className="flex h-full flex-col rounded-2xl border border-white/10 bg-white/5 p-5">
       {title && (
         <div className="text-xl font-semibold text-white sm:text-2xl">
           {title}
@@ -226,25 +130,15 @@ function Panel({
   );
 }
 
-function StatCard({
-  value,
-  label,
-  grad = "from-glass-green to-glass-blue",
-}: {
-  value: string;
-  label: string;
-  grad?: string;
-}) {
+function ImageSlide({ src, n }: { src: string; n: number }) {
   return (
-    <div className="flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-white/5 p-4 text-center">
-      <div
-        className={`bg-gradient-to-r ${grad} bg-clip-text text-2xl font-extrabold tracking-tight text-transparent tabular-nums sm:text-3xl`}
-      >
-        {value}
-      </div>
-      <div className="mt-1.5 text-sm font-medium uppercase tracking-wide text-white/55 sm:text-base">
-        {label}
-      </div>
+    <div className="relative h-full w-full overflow-hidden bg-[#0a1020]">
+      <img
+        src={src}
+        alt={`Slide ${n}`}
+        className="h-full w-full object-cover"
+        draggable={false}
+      />
     </div>
   );
 }
@@ -252,7 +146,6 @@ function StatCard({
 /* =============================== SLIDES =================================== */
 
 const SLIDES: ReactNode[] = [
-  // 1 — Cover
   <SlideShell n={1} key="cover">
     <div className="flex h-full flex-col items-center justify-center text-center">
       <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm font-medium text-white/70">
@@ -280,315 +173,11 @@ const SLIDES: ReactNode[] = [
     </div>
   </SlideShell>,
 
-  // 2 — Latar Belakang dan Masalah (Bagian 1)
-  <SlideShell n={2} key="latar" section="Pendahuluan">
-    <SectionHead title="Latar Belakang dan Masalah" note="Bagian 1" />
-    <div className="mt-5 grid grid-cols-2 gap-4">
-      <Panel title="Kebutuhan Nyata">
-        Masyarakat makin bergantung pada informasi kesehatan digital. Volume
-        tanya jawab medis sangat besar dan sulit dipilah secara manual.
-      </Panel>
-      <Panel title="Masalah Kotak Hitam" accent>
-        Model berakurasi tinggi umumnya berupa kotak hitam. Pengguna tidak tahu
-        seberapa yakin dan mengapa sebuah prediksi muncul, sehingga sulit
-        dipercaya untuk domain kesehatan.
-      </Panel>
-    </div>
-    <div className="mt-4 rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-center text-base text-white/75 sm:text-lg">
-      Inti masalah: dibutuhkan klasifikasi yang tidak hanya akurat, tetapi juga
-      transparan dan terukur keyakinannya.
-    </div>
-  </SlideShell>,
+  ...CONTENT_SLIDES.map((img, idx) => (
+    <ImageSlide key={`isi-${idx + 1}`} src={img.src} n={idx + 2} />
+  )),
 
-  // 3 — Tujuan dan Batasan (Bagian 1)
-  <SlideShell n={3} key="tujuan" section="Pendahuluan">
-    <SectionHead title="Tujuan dan Batasan" note="Bagian 1" />
-    <div className="mt-5 grid grid-cols-2 gap-4">
-      <Panel title="Tujuan Penelitian" accent>
-        <Bullets
-          items={[
-            "Membangun klasifikasi tanya jawab kesehatan bahasa Indonesia dengan LMPNN.",
-            "Mengintegrasikan Conformal Prediction agar tiap prediksi disertai ukuran keyakinan.",
-            "Mengevaluasi performa sekaligus kualitas penjelasan model.",
-          ]}
-        />
-      </Panel>
-      <Panel title="Batasan Penelitian">
-        <Bullets
-          items={[
-            "Dataset Indonesia QnA Health dari Alodokter.",
-            "Representasi fitur TF IDF, bukan model bahasa besar.",
-            "Explainability difokuskan pada Conformal Prediction: p value, credibility, dan confidence.",
-          ]}
-        />
-      </Panel>
-    </div>
-  </SlideShell>,
-
-  // 4 — Rancangan Penelitian dan Dataset (Bagian 2)
-  <SlideShell n={4} key="metode-alur" section="Metode">
-    <SectionHead title="Rancangan Penelitian dan Dataset" note="Bagian 2" />
-    <div className="mt-5 grid grid-cols-5 gap-4">
-      <div className="col-span-2">
-        <Panel title="Indonesia QnA Health">
-          Tanya jawab Alodokter. 288.105 baris data mentah disaring menjadi
-          81.064 sampel pada 107 kelas medis, minimum 300 sampel per kelas.
-        </Panel>
-      </div>
-      <div className="col-span-3 flex flex-col justify-center gap-3">
-        <FunnelBar label="Data mentah" value="288.105" widthPct={100} />
-        <FunnelBar
-          label="Sampel bersih · 107 kelas"
-          value="81.064"
-          widthPct={42}
-          strong
-        />
-      </div>
-    </div>
-    <div className="mt-6">
-      <div className="mb-2 text-sm font-semibold uppercase tracking-wide text-white/45">
-        Alur penelitian
-      </div>
-      <Flow
-        steps={[
-          "Preprocessing",
-          "TF IDF",
-          "Pembagian data",
-          "LMPNN",
-          "Grid search k",
-          "Evaluasi",
-          "Explainability",
-        ]}
-      />
-    </div>
-  </SlideShell>,
-
-  // 5 — Preprocessing dan Representasi Fitur (Bagian 2)
-  <SlideShell n={5} key="metode-fitur" section="Metode">
-    <SectionHead title="Preprocessing dan Representasi Fitur" note="Bagian 2" />
-    <div className="mt-5 grid grid-cols-2 gap-4">
-      <Panel title="Preprocessing Lima Tahap">
-        Case folding, cleaning, tokenization, stopword removal, dan stemming.
-        Rata rata token per dokumen turun dari 56,6 menjadi 25,8 (reduksi
-        54,4%).
-      </Panel>
-      <Panel title="Ekstraksi TF IDF" accent>
-        5.000 dimensi fitur dengan n gram (1,2), membentuk matriks sparse
-        berukuran 81.064 kali 5.000. Kedekatan antar dokumen diukur dengan
-        cosine similarity.
-      </Panel>
-    </div>
-    <div className="mt-4 grid grid-cols-3 gap-3">
-      <StatCard value="5" label="Tahap preprocessing" />
-      <StatCard value="54,4%" label="Reduksi token" />
-      <StatCard value="5.000" label="Dimensi fitur" />
-    </div>
-  </SlideShell>,
-
-  // 6 — Model LMPNN + Mengapa metode dipilih (Bagian 2)
-  <SlideShell n={6} key="metode-model" section="Metode">
-    <SectionHead title="Model LMPNN" note="Mengapa metode ini dipilih" />
-    <div className="mt-5 grid grid-cols-2 gap-4">
-      <Panel title="Local Mean Pseudo Nearest Neighbor" accent>
-        Pengembangan K Nearest Neighbors yang memakai local mean vector dari
-        tetangga terdekat tiap kelas, sehingga lebih tahan terhadap noise dan
-        kelas yang tidak seimbang.
-      </Panel>
-      <Panel title="Alasan Pemilihan">
-        <Bullets
-          items={[
-            "Berbasis jarak sehingga keputusannya mudah ditelusuri, tidak seperti kotak hitam.",
-            "Cocok untuk data teks sparse berdimensi tinggi hasil TF IDF.",
-            "Menyediakan skor kesesuaian yang menjadi dasar Conformal Prediction.",
-          ]}
-        />
-      </Panel>
-    </div>
-  </SlideShell>,
-
-  // 7 — Conformal Prediction + Pembeda penelitian (Bagian 2)
-  <SlideShell n={7} key="metode-xai" section="Metode">
-    <SectionHead
-      title="Explainable AI: Conformal Prediction"
-      note="Pembeda dari penelitian sebelumnya"
-    />
-    <div className="mt-5 grid grid-cols-2 gap-4">
-      <Panel title="Yang Ditambahkan" accent>
-        Tiap prediksi menghasilkan p value, credibility, dan confidence, serta
-        prediction set dengan jaminan cakupan (coverage) secara statistik.
-      </Panel>
-      <Panel title="Pembeda Penelitian">
-        <Bullets
-          items={[
-            "Riset klasifikasi teks kesehatan Indonesia umumnya berhenti pada akurasi tunggal tanpa transparansi.",
-            "Penelitian ini menyatukan LMPNN dan Conformal Prediction sebagai baseline XAI teks bahasa Indonesia.",
-            "Model dapat menyatakan kapan yakin dan kapan ragu, sehingga kasus ambigu bisa direview manual.",
-          ]}
-        />
-      </Panel>
-    </div>
-  </SlideShell>,
-
-  // 8 — Rancangan Validasi + Bagaimana pengujian dilakukan (Bagian 2)
-  <SlideShell n={8} key="metode-validasi" section="Metode">
-    <SectionHead
-      title="Rancangan Validasi dan Pengujian"
-      note="Bagaimana pengujian dilakukan"
-    />
-    <div className="mt-5 grid grid-cols-3 gap-4">
-      <Panel title="Pembagian Data">
-        Training 64%, validasi 16%, dan testing 20%. Data testing berisi 16.213
-        sampel yang tidak pernah dilihat model.
-      </Panel>
-      <Panel title="Pemilihan k" accent>
-        Grid search k = 1 sampai 51 dengan 5 Fold Cross Validation. Nilai
-        optimal k = 9 dengan mean F1 macro 45,74%.
-      </Panel>
-      <Panel title="Metrik Evaluasi">
-        Accuracy, precision, recall, dan F1 score. F1 macro menjadi metrik utama
-        karena adil untuk 107 kelas yang timpang.
-      </Panel>
-    </div>
-    <div className="mt-4 rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-center text-base text-white/75 sm:text-lg">
-      Validitas penjelasan diuji terpisah: prediction set dikalibrasi lalu
-      cakupannya dibandingkan dengan target teoritis.
-    </div>
-  </SlideShell>,
-
-  // 9 — Performa Model (Bagian 3)
-  <SlideShell n={9} key="hasil-performa" section="Hasil">
-    <SectionHead title="Performa Model" note="16.213 data uji" />
-    <div className="mt-5 grid grid-cols-5 gap-3">
-      <StatCard value="44,75%" label="Accuracy" />
-      <StatCard value="45,48%" label="F1 Macro" />
-      <StatCard value="45,68%" label="Precision Macro" />
-      <StatCard value="48,63%" label="Recall Macro" />
-      <StatCard value="44,82%" label="F1 Weighted" />
-    </div>
-    <div className="mt-4 grid grid-cols-2 gap-4">
-      <Panel title="Interpretasi">
-        Untuk 107 kelas, performa ini 48,1 kali lebih baik daripada baseline
-        acak (0,93%). Wajar mengingat banyaknya kelas dan tumpang tindih topik
-        medis.
-      </Panel>
-      <Panel title="Makna" accent>
-        Fokusnya bukan sekadar akurasi tinggi, melainkan model yang stabil
-        (selisih cross validation dan testing hanya 0,26%) dan dapat
-        dipertanggungjawabkan.
-      </Panel>
-    </div>
-  </SlideShell>,
-
-  // 10 — Optimasi k dan Pola Kesalahan (Bagian 3)
-  <SlideShell n={10} key="hasil-k" section="Hasil">
-    <SectionHead title="Optimasi k dan Pola Kesalahan" note="Temuan utama" />
-    <div className="mt-5 grid grid-cols-2 gap-4">
-      <Panel title="Grid Search k = 1 sampai 51">
-        F1 macro cross validation tertinggi pada k = 9 (45,74%). Nilai k terlalu
-        kecil sensitif terhadap noise, sedangkan terlalu besar mengaburkan kelas
-        minoritas.
-      </Panel>
-      <Panel title="Pola Kesalahan" accent>
-        Kesalahan terbesar terjadi antar topik yang memang beririsan. Kelas
-        menstruasi kontras menyerap kesalahan dari kehamilan (0,19) dan
-        menstruasi. Model tertukar pada kelas yang mirip secara medis, bukan
-        salah acak.
-      </Panel>
-    </div>
-  </SlideShell>,
-
-  // 11 — Performa per Kelas + Makna (Bagian 3)
-  <SlideShell n={11} key="hasil-kelas" section="Hasil">
-    <SectionHead title="Performa per Kelas" note="Makna di balik angka" />
-    <div className="mt-5 grid grid-cols-2 gap-6">
-      <div>
-        <div className="mb-3 text-sm font-semibold uppercase tracking-wide text-white/45">
-          F1 score tertinggi
-        </div>
-        <div className="space-y-3">
-          <RankBar label="cacar air" value="0,85" pct={85} />
-          <RankBar label="hiv" value="0,83" pct={83} />
-          <RankBar label="gigi" value="0,77" pct={77} />
-        </div>
-      </div>
-      <Panel title="Interpretasi">
-        Kelas dengan istilah khas dan spesifik mudah dikenali. Kelas berbahasa
-        umum dan tumpang tindih jauh lebih sulit. Artinya performa sangat
-        dipengaruhi kejelasan kosakata, bukan semata kelemahan model.
-      </Panel>
-    </div>
-  </SlideShell>,
-
-  // 12 — Kualitas Penjelasan (Bagian 3, menjawab makna hasil)
-  <SlideShell n={12} key="hasil-xai" section="Hasil">
-    <SectionHead title="Kualitas Penjelasan" note="Coverage dan kalibrasi" />
-    <div className="mt-5 grid grid-cols-4 gap-3">
-      <StatCard value="89,61%" label="Coverage (ε = 0,10)" />
-      <StatCard value="0,6093" label="Credibility rata rata" />
-      <StatCard value="0,5523" label="Confidence rata rata" />
-      <StatCard value="0,2210" label="ECE" />
-    </div>
-    <div className="mt-4 grid grid-cols-2 gap-4">
-      <Panel title="Cakupan Terjamin" accent>
-        Coverage 89,61% hanya berselisih 0,39% dari target teoritis 90%. Jaminan
-        statistik Conformal Prediction terbukti berlaku pada data nyata.
-      </Panel>
-      <Panel title="Keyakinan yang Bermakna">
-        Prediksi benar memiliki credibility rata rata 0,6750, lebih tinggi
-        daripada prediksi salah (0,5561). Skor keyakinan mencerminkan keandalan,
-        sehingga kasus ragu dapat ditandai.
-      </Panel>
-    </div>
-  </SlideShell>,
-
-  // 13 — Kontribusi dan Keterbatasan (Bagian 4)
-  <SlideShell n={13} key="kontribusi" section="Pembahasan">
-    <SectionHead title="Kontribusi dan Keterbatasan" note="Bagian 4" />
-    <div className="mt-5 grid grid-cols-2 gap-4">
-      <Panel title="Kontribusi" accent>
-        <Bullets
-          items={[
-            "Baseline XAI berbasis LMPNN dan Conformal Prediction untuk teks kesehatan bahasa Indonesia.",
-            "Dataset besar (288.105 baris) yang dapat menjadi acuan atau benchmark.",
-            "Prediksi yang menyatakan tingkat keyakinannya, menekan risiko asumsi menyesatkan.",
-          ]}
-        />
-      </Panel>
-      <Panel title="Keterbatasan">
-        <Bullets
-          items={[
-            "Representasi TF IDF belum menangkap konteks selengkap model bahasa besar.",
-            "Kalibrasi masih dapat diperbaiki (ECE 0,2210, MCE 0,4528).",
-            "Kelas berbahasa umum dan tumpang tindih masih sulit dipisahkan.",
-          ]}
-        />
-      </Panel>
-    </div>
-  </SlideShell>,
-
-  // 14 — Kesimpulan dan Saran (Bagian 4)
-  <SlideShell n={14} key="kesimpulan" section="Penutup">
-    <SectionHead title="Kesimpulan dan Saran" note="Bagian 4" />
-    <div className="mt-5 grid grid-cols-2 gap-4">
-      <Panel title="Kesimpulan">
-        Integrasi LMPNN dan Conformal Prediction berhasil membangun klasifikasi
-        tanya jawab kesehatan yang akurat secara relatif sekaligus transparan,
-        dengan cakupan prediksi terjamin dan skor keyakinan yang bermakna.
-      </Panel>
-      <Panel title="Saran Pengembangan" accent>
-        <Bullets
-          items={[
-            "Mencoba representasi berbasis model bahasa seperti IndoBERT untuk konteks lebih kaya.",
-            "Menyeimbangkan data pada kelas minoritas.",
-            "Menambah teknik kalibrasi untuk menurunkan ECE.",
-          ]}
-        />
-      </Panel>
-    </div>
-  </SlideShell>,
-
-  // 15 — Penutup dan Terima Kasih (QR dokumentasi kode skripsi)
-  <SlideShell n={15} key="penutup-qr" section="Penutup">
+  <SlideShell n={10} key="penutup-qr" section="Penutup">
     <div className="flex h-full flex-col items-center justify-center text-center">
       <h2 className="bg-gradient-to-r from-glass-green to-glass-blue bg-clip-text text-4xl font-black tracking-tight text-transparent sm:text-5xl">
         Terima Kasih
@@ -617,7 +206,7 @@ const SLIDES: ReactNode[] = [
   </SlideShell>,
 ];
 
-/* ============================= PRESENTATION =============================== */
+/* ================================ DECK ==================================== */
 
 export default function Presentation() {
   const [open, setOpen] = useState(false);
